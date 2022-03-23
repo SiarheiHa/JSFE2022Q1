@@ -1,0 +1,29 @@
+.about-wrapper {
+  margin-top: 80px;
+  margin-bottom: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.about-image {
+  padding-right: 115px;
+}
+.about__pets__img {
+    display: block;
+}
+
+.about-content {
+  max-width: 430px;
+  max-height: 380px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
+.about__text {
+  margin: 25px 0 0 0;
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 160%;
+}

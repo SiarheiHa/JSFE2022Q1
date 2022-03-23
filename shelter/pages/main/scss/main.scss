@@ -1,13 +1,25 @@
+@import "abstract/constants";
+//base
 @import "base/normalize";
 @import "base/base";
-@import "abstract/constants";
+@import "base/button";
+@import "base/slider__button";
+@import "base/title";
+@import "base/pet";
+@import "base/help-item";
+@import "base/footer-content-item";
+
+
 
 //layouts
 @import "layouts/wrapper";
 @import "layouts/header";
+@import "layouts/footer";
 
 
 //componets
 @import "components/hero";
+@import "components/about";
 @import "components/pets";
+@import "components/help";
 @import "components/donation";

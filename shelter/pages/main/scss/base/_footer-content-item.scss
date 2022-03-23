@@ -1,0 +1,40 @@
+.footer-content-item {
+  margin-top: 16px;
+  margin-bottom: 60px;
+  max-width: 302px;
+  min-height: 234px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 20px;
+  line-height: 115%;
+  letter-spacing: 0.06em;
+  color: $color-primary;
+}
+.contact-item__icon {
+  height: 32px;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  &_email {
+    background-image: url("/assets/icons/icon-email.svg");
+    width: 40px;
+  }
+  &_phone {
+    background-image: url("/assets/icons/icon-phone.svg");
+    width: 40px;
+  }
+  &_pin1 {
+    background-image: url("/assets/icons/pin.svg");
+    width: 42px;
+  }
+  &_pin2 {
+    background-image: url("/assets/icons/pin.svg");
+    width: 22px;
+  }
+}
