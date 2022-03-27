@@ -3,6 +3,11 @@
   flex-direction: column;
   align-items: center;
   background-color: $color-light-s;
+  border-radius: 9px;
+  &:hover {
+    background-color: $color-light-xl;
+    box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
+  }
 }
 
 .pet__img {

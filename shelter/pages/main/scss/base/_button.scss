@@ -5,6 +5,9 @@
   line-height: 130%;
   color: $color-dark-3xl;
   /* identical to box height, or 22px */
+  transition: all 0.3s;
+  cursor: pointer;
+
 
   letter-spacing: 0.06em;
   &_hero {
@@ -12,14 +15,22 @@
     height: 52px;
   }
   &_secondary {
+    background-color: $color-light-xl;
     border: 2px solid $color-primary;
     width: 187px;
     height: 52px;
     color: $color-dark-3xl;
     margin-bottom: 30px;
+    &:hover {
+      background-color: $color-primary-light;
+      border-color: $color-primary-light;
+    }
   }
   &_colored {
     background-color: $color-primary;
+    &:hover {
+      background-color: $color-primary-light;
+    }
   }
   &_rest {
     width: 261px;

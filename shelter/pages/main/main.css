@@ -337,6 +337,10 @@ template {
   display: none;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 ul {
   list-style-type: none;
   padding-inline-start: 0;
@@ -347,12 +351,9 @@ a {
   color: inherit;
 }
 
-* {
-  box-sizing: border-box;
-}
-
 html {
   font-size: 10px;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -390,6 +391,8 @@ h3 {
   line-height: 130%;
   color: #292929;
   /* identical to box height, or 22px */
+  transition: all 0.3s;
+  cursor: pointer;
   letter-spacing: 0.06em;
 }
 .button_hero {
@@ -397,14 +400,22 @@ h3 {
   height: 52px;
 }
 .button_secondary {
+  background-color: #ffffff;
   border: 2px solid #f1cdb3;
   width: 187px;
   height: 52px;
   color: #292929;
   margin-bottom: 30px;
 }
+.button_secondary:hover {
+  background-color: #fddcc4;
+  border-color: #fddcc4;
+}
 .button_colored {
   background-color: #f1cdb3;
+}
+.button_colored:hover {
+  background-color: #fddcc4;
 }
 .button_rest {
   width: 261px;
@@ -417,6 +428,7 @@ h3 {
   border-radius: 100px;
   border: 2px solid #f1cdb3;
   font-size: 25px;
+  cursor: pointer;
   background-repeat: no-repeat;
   background-position: 50%;
 }
@@ -425,6 +437,9 @@ h3 {
 }
 .slider__button_right {
   background-image: url("/assets/icons/arrow_right.svg");
+}
+.slider__button:hover {
+  background-color: #fddcc4;
 }
 
 .title_main {
@@ -459,6 +474,11 @@ h3 {
   flex-direction: column;
   align-items: center;
   background-color: #fafafa;
+  border-radius: 9px;
+}
+.pet:hover {
+  background-color: #ffffff;
+  box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
 }
 
 .pet__img {
@@ -554,11 +574,7 @@ h3 {
   background-image: url("/assets/icons/icon-phone.svg");
   width: 40px;
 }
-.contact-item__icon_pin1 {
-  background-image: url("/assets/icons/pin.svg");
-  width: 42px;
-}
-.contact-item__icon_pin2 {
+.contact-item__icon_pin {
   background-image: url("/assets/icons/pin.svg");
   width: 22px;
 }
@@ -616,6 +632,9 @@ h3 {
   line-height: 160%;
   padding-bottom: 4px;
   color: #fafafa;
+}
+.nav-link:hover {
+  background-color: #fddcc4;
 }
 .nav-link_active {
   border-bottom: #f1cdb3 solid 3px;
@@ -689,7 +708,7 @@ h3 {
 
 .about-content {
   max-width: 430px;
-  max-height: 380px;
+  margin-top: 5px;
   margin-left: 5px;
   margin-bottom: 5px;
 }
@@ -792,6 +811,9 @@ h3 {
   padding: 10px 15px;
   margin: 20px 0;
   display: flex;
+}
+.bank-card:hover {
+  background-color: #fddcc4;
 }
 
 .bank-card__icon {

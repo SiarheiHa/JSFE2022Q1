@@ -6,19 +6,19 @@
   display: flex;
   justify-content: center;
   padding-top: 80px;
-  padding-bottom: 100px;  
-//   padding-left: 10px;
+  padding-bottom: 100px;
+  //   padding-left: 10px;
 }
 
 .donation-dog {
-    margin-top: 11px;;
-  }
+  margin-top: 11px;
+}
 
 .donation-dog__img {
   display: block;
 }
 .donation-content {
-    padding-left: 30px;
+  padding-left: 30px;
 }
 .donation-content__bank-data {
   font-size: 15px;
@@ -40,10 +40,12 @@
   border-radius: 9px;
   padding: 10px 15px;
   margin: 20px 0;
-
   display: flex;
+  &:hover {
+    background-color: $color-primary-light;
+  }
 }
-.bank-card__icon{
+.bank-card__icon {
   width: 30px;
   height: 23px;
   margin-right: 15px;
