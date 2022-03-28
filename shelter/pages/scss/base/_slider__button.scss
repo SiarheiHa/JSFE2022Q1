@@ -8,10 +8,10 @@
     background-repeat: no-repeat;
     background-position: 50%;
     &_left {
-        background-image: url("/assets/icons/arrow_left.svg");
+        background-image: url("../../assets/icons/arrow_left.svg");
     }
     &_right {
-        background-image: url("/assets/icons/arrow_right.svg");
+        background-image: url("../../assets/icons/arrow_right.svg");
     }
     &:hover {
         background-color: $color-primary-light;

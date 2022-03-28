@@ -433,10 +433,10 @@ h3 {
   background-position: 50%;
 }
 .slider__button_left {
-  background-image: url("/assets/icons/arrow_left.svg");
+  background-image: url("../../assets/icons/arrow_left.svg");
 }
 .slider__button_right {
-  background-image: url("/assets/icons/arrow_right.svg");
+  background-image: url("../../assets/icons/arrow_right.svg");
 }
 .slider__button:hover {
   background-color: #fddcc4;
@@ -497,39 +497,36 @@ h3 {
   display: flex;
   flex-direction: column;
   justify-content: end;
-}
-
-.help-item {
   min-width: 60px;
   background-repeat: no-repeat;
   background-position: 50% 0;
 }
 .help-item:nth-child(1) {
-  background-image: url("/assets/icons/icon-pet-food.svg");
+  background-image: url("../../assets/icons/icon-pet-food.svg");
 }
 .help-item:nth-child(2) {
-  background-image: url("/assets/icons/icon-transportation.svg");
+  background-image: url("../../assets/icons/icon-transportation.svg");
 }
 .help-item:nth-child(3) {
-  background-image: url("/assets/icons/icon-toys.svg");
+  background-image: url("../../assets/icons/icon-toys.svg");
 }
 .help-item:nth-child(4) {
-  background-image: url("/assets/icons/icon-bowls-and-cups.svg");
+  background-image: url("../../assets/icons/icon-bowls-and-cups.svg");
 }
 .help-item:nth-child(5) {
-  background-image: url("/assets/icons/icon-shampoos.svg");
+  background-image: url("../../assets/icons/icon-shampoos.svg");
 }
 .help-item:nth-child(6) {
-  background-image: url("/assets/icons/icon-vitamins.svg");
+  background-image: url("../../assets/icons/icon-vitamins.svg");
 }
 .help-item:nth-child(7) {
-  background-image: url("/assets/icons/icon-medicines.svg");
+  background-image: url("../../assets/icons/icon-medicines.svg");
 }
 .help-item:nth-child(8) {
-  background-image: url("/assets/icons/icon-collars-leashes.svg");
+  background-image: url("../../assets/icons/icon-collars-leashes.svg");
 }
 .help-item:nth-child(9) {
-  background-image: url("/assets/icons/icon-sleeping-area.svg");
+  background-image: url("../../assets/icons/icon-sleeping-area.svg");
 }
 
 .help_text {
@@ -567,15 +564,15 @@ h3 {
   background-position: 50%;
 }
 .contact-item__icon_email {
-  background-image: url("/assets/icons/icon-email.svg");
+  background-image: url("../../assets/icons/icon-email.svg");
   width: 40px;
 }
 .contact-item__icon_phone {
-  background-image: url("/assets/icons/icon-phone.svg");
+  background-image: url("../../assets/icons/icon-phone.svg");
   width: 40px;
 }
 .contact-item__icon_pin {
-  background-image: url("/assets/icons/pin.svg");
+  background-image: url("../../assets/icons/pin.svg");
   width: 22px;
 }
 
