@@ -631,13 +631,14 @@ h3 {
   font-size: 15px;
   line-height: 160%;
   padding-bottom: 4px;
-  color: #fafafa;
-}
-.nav-link:hover {
-  background-color: #fddcc4;
+  color: #cdcdcd;
 }
 .nav-link_active {
+  color: #fafafa;
   border-bottom: #f1cdb3 solid 3px;
+}
+.nav-link:hover {
+  color: #ffffff;
 }
 
 .footer {
@@ -730,7 +731,7 @@ h3 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 80px;
+  padding-top: 79px;
   padding-bottom: 100px;
 }
 
@@ -742,12 +743,19 @@ h3 {
   padding-top: 60px;
   padding-bottom: 60px;
 }
+.slider .slider__button_right {
+  margin-left: 53px;
+}
+.slider .slider__button_left {
+  margin-right: 53px;
+}
 
 .slider-items {
   display: flex;
   flex-grow: 1;
-  justify-content: space-around;
-  padding: 0 5px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: 30px;
 }
 
 .help-wrapper {
@@ -835,4 +843,4 @@ h3 {
   color: #b2b2b2;
 }
 
-/*# sourceMappingURL=main.css.map */
+/*# sourceMappingURL=style.css.map */

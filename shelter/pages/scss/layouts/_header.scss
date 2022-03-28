@@ -2,7 +2,7 @@
   position: absolute;
   right: 0;
   left: 0;
-  padding: 60px 0;
+  padding: 60px 0;  
 }
 
 .header-wrapper {
@@ -43,11 +43,12 @@
   font-size: 15px;
   line-height: 160%;
   padding-bottom: 4px;
-  color: $color-light-s;
-  &:hover {
-    background-color: $color-primary-light;
-  }
+  color: $color-dark-s;
   &_active {
+    color: $color-light-s;
     border-bottom: $color-primary solid 3px;
+  }
+  &:hover {
+    color: $color-light-xl;
   }
 }
