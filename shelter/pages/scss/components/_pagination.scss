@@ -1,6 +1,6 @@
 .pagination {
-    display: flex;
-    gap: 20px;
+  display: flex;
+  gap: 20px;
 }
 
 .button_paginator {
@@ -19,17 +19,18 @@
   font-size: 20px;
   line-height: 115%;
   /* identical to box height, or 23px */
-
   letter-spacing: 0.06em;
-
+  &:hover {
+    background-color: $color-primary-light;
+  }
   &_inactive {
     color: $color-dark-s;
     border-color: $color-dark-s;
+    &:hover {
+      background-color: transparent;
+    }
   }
   &_active {
     background-color: $color-primary;
-  }
-  &:hover {
-    background-color: $color-primary-light;
   }
 }

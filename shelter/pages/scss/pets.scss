@@ -5,11 +5,9 @@
 @import "base/button";
 @import "base/slider__button";
 @import "base/title";
-@import "base/pet";
+@import "base/pet-pets";
 @import "base/help-item";
 @import "base/footer-content-item";
-
-
 
 //layouts
 @import "layouts/wrapper";
@@ -18,9 +16,5 @@
 
 
 //componets
-// @import "components/hero";
-// @import "components/about";
 @import "components/pets";
 @import "components/pagination";
-// @import "components/help";
-// @import "components/donation";
