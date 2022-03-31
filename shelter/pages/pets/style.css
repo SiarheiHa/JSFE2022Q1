@@ -385,6 +385,7 @@ h3 {
 }
 
 .button {
+  padding: 15px 45px;
   border-radius: 100px;
   border: none;
   font-size: 17px;
@@ -395,17 +396,11 @@ h3 {
   cursor: pointer;
   letter-spacing: 0.06em;
 }
-.button_hero {
-  width: 207px;
-  height: 52px;
-}
 .button_secondary {
   background-color: #ffffff;
   border: 2px solid #f1cdb3;
-  width: 187px;
-  height: 52px;
+  padding: 13px 43px;
   color: #292929;
-  margin-bottom: 30px;
 }
 .button_secondary:hover {
   background-color: #fddcc4;
@@ -417,14 +412,10 @@ h3 {
 .button_colored:hover {
   background-color: #fddcc4;
 }
-.button_rest {
-  width: 261px;
-  height: 52px;
-}
 
 .slider__button {
-  width: 52px;
-  height: 52px;
+  min-width: 52px;
+  min-height: 52px;
   border-radius: 100px;
   border: 2px solid #f1cdb3;
   font-size: 25px;
@@ -475,6 +466,7 @@ h3 {
   align-items: center;
   background-color: #fafafa;
   border-radius: 9px;
+  padding-bottom: 30px;
 }
 .pet:hover {
   background-color: #ffffff;
@@ -649,6 +641,7 @@ h3 {
 .footer-wrapper {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   padding-top: 40px;
 }
 

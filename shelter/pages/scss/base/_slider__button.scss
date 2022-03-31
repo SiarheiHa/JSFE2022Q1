@@ -1,6 +1,6 @@
 .slider__button {
-    width: 52px;
-    height: 52px;
+    min-width: 52px;
+    min-height: 52px;
     border-radius: 100px;
     border: 2px solid $color-primary;
     font-size: 25px;

@@ -5,13 +5,12 @@
 .donation-wrapper {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-wrap: wrap-reverse;
+  row-gap: 42px;
   padding-top: 80px;
   padding-bottom: 100px;
   //   padding-left: 10px;
-}
-
-.donation-dog {
-  margin-top: 11px;
 }
 
 .donation-dog__img {

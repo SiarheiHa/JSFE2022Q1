@@ -1,35 +1,42 @@
 @font-face {
   font-family: "Georgia";
-  src: url("/assets/fonts/georgia.ttf");
+  src: url("/assets/fonts/georgia/georgia-regular.ttf");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Georgia";
-  src: url("/assets/fonts/georgia_bold.ttf");
-  font-weight: bold;
+  src: url("/assets/fonts/georgia/georgia-bold.ttf");
+  font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Georgia";
-  src: url("/assets/fonts/georgia_italic.ttf");
+  src: url("/assets/fonts/georgia/georgia-italic.ttf");
   font-weight: 400;
   font-style: italic;
 }
 
 @font-face {
     font-family: "Arial";
-    src: url("/assets/fonts/arial_bold.ttf");
-    font-weight: bold;
+    src: url("/assets/fonts/arial/arial-bold.ttf");
+    font-weight: 600;
     font-style: normal;
   }
 
   @font-face {
     font-family: "Arial";
-    src: url("/assets/fonts/arial_italic.ttf");
+    src: url("/assets/fonts/arial/arial-italic.ttf");
     font-weight: 400;
     font-style: italic;
+  }
+  
+  @font-face {
+    font-family: "Arial";
+    src: url("/assets/fonts/arial/arial-regular.ttf");
+    font-weight: 400;
+    font-style: normal;
   }
   

@@ -1,4 +1,5 @@
 .button {
+  padding: 15px 45px;
   border-radius: 100px;
   border: none;
   font-size: 17px;
@@ -7,20 +8,13 @@
   /* identical to box height, or 22px */
   transition: all 0.3s;
   cursor: pointer;
-
-
   letter-spacing: 0.06em;
-  &_hero {
-    width: 207px;
-    height: 52px;
-  }
+
   &_secondary {
     background-color: $color-light-xl;
     border: 2px solid $color-primary;
-    width: 187px;
-    height: 52px;
+    padding: 13px 43px;
     color: $color-dark-3xl;
-    margin-bottom: 30px;
     &:hover {
       background-color: $color-primary-light;
       border-color: $color-primary-light;
@@ -31,9 +25,5 @@
     &:hover {
       background-color: $color-primary-light;
     }
-  }
-  &_rest {
-    width: 261px;
-    height: 52px;
   }
 }

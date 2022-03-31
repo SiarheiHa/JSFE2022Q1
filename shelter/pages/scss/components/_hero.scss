@@ -7,8 +7,9 @@
 
 .hero-wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .description {
@@ -33,6 +34,11 @@
   color: $color-dark-s;
 }
 
+.start-puppy {
+  margin-left: auto;
+}
+
 .start__puppy__img {
   display: block;
+  width: 100%;
 }
