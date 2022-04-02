@@ -1,0 +1,42 @@
+.pagination {
+  display: flex;
+  gap: 20px;
+}
+
+.button_paginator {
+  width: 52px;
+  height: 52px;
+  border-radius: 100px;
+  border: 2px solid $color-primary;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: 50%;
+
+  font-family: "Georgia";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 115%;
+  /* identical to box height, or 23px */  
+  letter-spacing: 0.06em;
+  color: $color-dark-l;
+  &:hover {
+    background-color: $color-primary-light;
+  }
+  &_inactive {
+    color: $color-dark-s;
+    border-color: $color-dark-s;
+    background-color: transparent;
+    cursor: auto;
+    &:hover {
+      background-color: transparent;
+    }
+  }
+  &_active {
+    background-color: $color-primary;
+    cursor: auto;
+    &:hover {
+      background-color: $color-primary;
+  }
+}
+}

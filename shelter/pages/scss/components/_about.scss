@@ -1,0 +1,29 @@
+.about-wrapper {
+  padding-top: 80px;
+  padding-bottom: 100px;
+  row-gap: 79px;
+  column-gap: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap-reverse;
+
+}
+
+.about__pets__img {
+    display: block;
+}
+
+.about-content {
+  max-width: 430px;
+}
+
+.about__text {
+  margin: 25px 0 0 0;
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 160%;
+  color: $color-dark-xl;
+}

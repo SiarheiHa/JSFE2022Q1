@@ -1,0 +1,48 @@
+.help-item {
+  height: 113px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  min-width: 60px;
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  // @include media-tablet {
+  //   min-width: 170px;
+  // }
+  &:nth-child(1) {
+    background-image: url("../../assets/icons/icon-pet-food.svg");
+  }
+  &:nth-child(2) {
+    background-image: url("../../assets/icons/icon-transportation.svg");
+  }
+  &:nth-child(3) {
+    background-image: url("../../assets/icons/icon-toys.svg");
+  }
+  &:nth-child(4) {
+    background-image: url("../../assets/icons/icon-bowls-and-cups.svg");
+  }
+  &:nth-child(5) {
+    background-image: url("../../assets/icons/icon-shampoos.svg");
+  }
+  &:nth-child(6) {
+    background-image: url("../../assets/icons/icon-vitamins.svg");
+  }
+  &:nth-child(7) {
+    background-image: url("../../assets/icons/icon-medicines.svg");
+  }
+  &:nth-child(8) {
+    background-image: url("../../assets/icons/icon-collars-leashes.svg");
+  }
+  &:nth-child(9) {
+    background-image: url("../../assets/icons/icon-sleeping-area.svg");
+  }
+}
+
+.help_text {
+  margin: 0;
+  font-size: 20px;
+  line-height: 115%;
+  text-align: center;
+  letter-spacing: 0.06em;
+  color: $color-dark-l;
+}

@@ -1,0 +1,13 @@
+{
+  "name": "shelter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "style1": "sass --watch pages/scss/main.scss pages/main/style.css",
+    "style2": "sass --watch pages/scss/pets.scss pages/pets/style.css"
+  },
+  "author": "Siarhei Hancharyk",
+  "license": "ISC"
+}

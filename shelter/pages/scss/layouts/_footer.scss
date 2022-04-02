@@ -1,0 +1,22 @@
+.footer {
+    background: url("/assets/images/png/noise_transparent@2x.png"),
+    radial-gradient(100% 215.42% at 0% 0%, #5b483a 0%, #262425 100%);
+}
+
+.footer-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 40px;
+    padding-top: 40px;
+
+}
+
+// .footer-content-wrapper {
+//     display: flex;
+//     justify-content: space-between;    
+// }
+
+.footer-puppy__img {
+    display: block;
+}

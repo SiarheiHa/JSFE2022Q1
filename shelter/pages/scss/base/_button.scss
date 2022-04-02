@@ -1,0 +1,29 @@
+.button {
+  padding: 15px 45px;
+  border-radius: 100px;
+  border: none;
+  font-size: 17px;
+  line-height: 130%;
+  color: $color-dark-3xl;
+  /* identical to box height, or 22px */
+  transition: all 0.3s;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+
+  &_secondary {
+    background-color: $color-light-xl;
+    border: 2px solid $color-primary;
+    padding: 13px 43px;
+    color: $color-dark-3xl;
+    // &:hover {
+    //   background-color: $color-primary-light;
+    //   border-color: $color-primary-light;
+    // }
+  }
+  &_colored {
+    background-color: $color-primary;
+    &:hover {
+      background-color: $color-primary-light;
+    }
+  }
+}
