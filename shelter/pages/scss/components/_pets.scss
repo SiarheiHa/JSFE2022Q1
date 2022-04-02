@@ -19,9 +19,15 @@
     padding-bottom: 60px;
     .slider__button_right {
         margin-left: 53px;
+        // @include media-tablet {
+        //     margin-left: 12px;            
+        // }
     }
     .slider__button_left {
         margin-right: 53px;
+        // @include media-tablet {
+        //     margin-right: 12px;            
+        // }
     }
 
 }

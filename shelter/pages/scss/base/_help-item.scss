@@ -6,6 +6,9 @@
   min-width: 60px;
   background-repeat: no-repeat;
   background-position: 50% 0;
+  // @include media-tablet {
+  //   min-width: 170px;
+  // }
   &:nth-child(1) {
     background-image: url("../../assets/icons/icon-pet-food.svg");
   }

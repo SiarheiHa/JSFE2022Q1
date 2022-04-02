@@ -15,10 +15,10 @@
     border: 2px solid $color-primary;
     padding: 13px 43px;
     color: $color-dark-3xl;
-    &:hover {
-      background-color: $color-primary-light;
-      border-color: $color-primary-light;
-    }
+    // &:hover {
+    //   background-color: $color-primary-light;
+    //   border-color: $color-primary-light;
+    // }
   }
   &_colored {
     background-color: $color-primary;

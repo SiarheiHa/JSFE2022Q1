@@ -8,7 +8,6 @@
   height: 52px;
   border-radius: 100px;
   border: 2px solid $color-primary;
-  font-size: 25px;
   cursor: pointer;
   background-repeat: no-repeat;
   background-position: 50%;
@@ -18,19 +17,26 @@
   font-weight: 400;
   font-size: 20px;
   line-height: 115%;
-  /* identical to box height, or 23px */
+  /* identical to box height, or 23px */  
   letter-spacing: 0.06em;
+  color: $color-dark-l;
   &:hover {
     background-color: $color-primary-light;
   }
   &_inactive {
     color: $color-dark-s;
     border-color: $color-dark-s;
+    background-color: transparent;
+    cursor: auto;
     &:hover {
       background-color: transparent;
     }
   }
   &_active {
     background-color: $color-primary;
+    cursor: auto;
+    &:hover {
+      background-color: $color-primary;
   }
+}
 }
