@@ -1,62 +1,62 @@
 @font-face {
   font-family: "Georgia";
-  src: url("/assets/fonts/georgia/Georgia.woff2") format("woff2"), url("/assets/fonts/georgia/Georgia.woff2") format("woff");
+  src: url("../../assets/fonts/georgia/Georgia.woff2") format("woff2"), url("../../assets/fonts/georgia/Georgia.woff2") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Georgia";
-  src: url("/assets/fonts/georgia/Georgia-Italic.woff2") format("woff2"), url("/assets/fonts/georgia/Georgia-Italic.woff") format("woff");
+  src: url("../../assets/fonts/georgia/Georgia-Italic.woff2") format("woff2"), url("../../assets/fonts/georgia/Georgia-Italic.woff") format("woff");
   font-weight: normal;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Georgia";
-  src: url("/assets/fonts/georgia/Georgia-BoldItalic.woff2") format("woff2"), url("/assets/fonts/georgia/Georgia-BoldItalic.woff") format("woff");
+  src: url("../../assets/fonts/georgia/Georgia-BoldItalic.woff2") format("woff2"), url("../../assets/fonts/georgia/Georgia-BoldItalic.woff") format("woff");
   font-weight: bold;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Georgia";
-  src: url("/assets/fonts/georgia/Georgia-Bold.woff2") format("woff2"), url("/assets/fonts/georgia/Georgia-Bold.woff") format("woff");
+  src: url("../../assets/fonts/georgia/Georgia-Bold.woff2") format("woff2"), url("../../assets/fonts/georgia/Georgia-Bold.woff") format("woff");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Arial";
-  src: url("/assets/fonts/arial/Arial-Black.woff2") format("woff2"), url("/assets/fonts/arial/Arial-Black.woff") format("woff");
+  src: url("../../assets/fonts/arial/Arial-Black.woff2") format("woff2"), url("../../assets/fonts/arial/Arial-Black.woff") format("woff");
   font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Arial";
-  src: url("/assets/fonts/arial/Arial-ItalicMT.woff2") format("woff2"), url("/assets/fonts/arial/Arial-ItalicMT.woff") format("woff");
+  src: url("../../assets/fonts/arial/Arial-ItalicMT.woff2") format("woff2"), url("../../assets/fonts/arial/Arial-ItalicMT.woff") format("woff");
   font-weight: normal;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Arial";
-  src: url("/assets/fonts/arial/Arial-BoldMT.woff2") format("woff2"), url("/assets/fonts/arial/Arial-BoldMT.woff") format("woff");
+  src: url("../../assets/fonts/arial/Arial-BoldMT.woff2") format("woff2"), url("../../assets/fonts/arial/Arial-BoldMT.woff") format("woff");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Arial";
-  src: url("/assets/fonts/arial/Arial-BoldItalicMT.woff2") format("woff2"), url("/assets/fonts/arial/Arial-BoldItalicMT.woff") format("woff");
+  src: url("../../assets/fonts/arial/Arial-BoldItalicMT.woff2") format("woff2"), url("../../assets/fonts/arial/Arial-BoldItalicMT.woff") format("woff");
   font-weight: bold;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Arial";
-  src: url("/assets/fonts/arial/ArialMT.woff2") format("woff2"), url("/assets/fonts/arial/ArialMT.woff") format("woff");
+  src: url("../../assets/fonts/arial/ArialMT.woff2") format("woff2"), url("../../assets/fonts/arial/ArialMT.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -705,7 +705,7 @@ h3 {
 }
 
 .footer {
-  background: url("/assets/images/png/noise_transparent@2x.png"), radial-gradient(100% 215.42% at 0% 0%, #5b483a 0%, #262425 100%);
+  background: url("../../assets/images/png/noise_transparent@2x.png"), radial-gradient(100% 215.42% at 0% 0%, #5b483a 0%, #262425 100%);
 }
 
 .footer-wrapper {
@@ -722,7 +722,7 @@ h3 {
 
 .hero {
   padding-top: 18rem;
-  background: url("/assets/images/png/noise_transparent@2x.png"), radial-gradient(100% 215.42% at 0% 0%, #5b483a 0%, #262425 100%);
+  background: url("../../assets/images/png/noise_transparent@2x.png"), radial-gradient(100% 215.42% at 0% 0%, #5b483a 0%, #262425 100%);
 }
 
 .hero-wrapper {
