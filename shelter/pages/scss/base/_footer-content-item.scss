@@ -15,7 +15,14 @@
   line-height: 115%;
   letter-spacing: 0.06em;
   color: $color-primary;
+  &:hover .contact-item__text{
+    color: $color-light-xl;
+  }
+  &:hover .contact-item__icon{
+    filter: brightness(0) saturate(100%) invert(100%) sepia(4%) saturate(7498%) hue-rotate(201deg) brightness(108%) contrast(100%);
+  }
 }
+
 .contact-item__icon {
   height: 32px;
   background-repeat: no-repeat;
