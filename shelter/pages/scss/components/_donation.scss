@@ -22,9 +22,9 @@
     display: block;
     width: min-content;
   }
-  // @include media-tablet {
-  //   padding-left: 0;;
-  // }
+  @include media-tablet {
+    padding-left: 0;;
+  }
 }
 
 

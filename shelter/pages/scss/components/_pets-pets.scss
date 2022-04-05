@@ -8,7 +8,9 @@
     align-items: center;
     padding-top: 79px;
     padding-bottom: 10rem;
-    
+    @include media-tablet {
+        padding-bottom: 7.6rem;
+    }
 }
 
 .slider {
@@ -30,6 +32,10 @@
             margin-right: 12px;            
         }
     }
+    @include media-tablet {
+        padding-top: 3rem;
+        padding-bottom: 4rem;
+        }
       }
 
 
@@ -39,4 +45,8 @@
     justify-content: space-between;
     flex-wrap: wrap;
     row-gap: 30px;
+    @include media-tablet {
+        justify-content: space-evenly;
+        padding: 0 25px;    
+    }
 }

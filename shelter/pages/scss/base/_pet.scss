@@ -19,11 +19,11 @@
 
     }
   }
-  // @include media-tablet {
-  //   &:nth-child(3) {
-  //     display: none;
-  //   }
-  // }
+  @include media-tablet {
+    &:nth-child(3) {
+      display: none;
+    }
+  }
 }
 
 .pet__img {

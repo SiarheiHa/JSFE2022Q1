@@ -1,9 +1,8 @@
 .wrapper {
-  // max-width: $content-width;
-  width: $content-width;
+  max-width: $content-width;
   margin: 0 auto;
   padding: 0 4rem;
-  // @include media-tablet {
-  //   padding: 0 3rem;
-  // }
+  @include media-tablet {
+    padding: 0 3rem;
+  }
 }

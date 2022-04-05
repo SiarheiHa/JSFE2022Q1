@@ -422,7 +422,6 @@ html {
 body {
   font-size: 1.6rem;
   font-family: Georgia, "Times New Roman", Times, serif;
-  min-width: 1280px;
 }
 
 h1 {
@@ -542,6 +541,11 @@ h3 {
   background-color: #fddcc4;
   border-color: #fddcc4;
 }
+@media (max-width: 1279px) {
+  .pet:nth-child(n+7) {
+    display: none;
+  }
+}
 
 .pet__img {
   display: block;
@@ -562,6 +566,11 @@ h3 {
   min-width: 60px;
   background-repeat: no-repeat;
   background-position: 50% 0;
+}
+@media (max-width: 1279px) {
+  .help-item {
+    min-width: 170px;
+  }
 }
 .help-item:nth-child(1) {
   background-image: url("../../assets/icons/icon-pet-food.svg");
@@ -644,9 +653,14 @@ h3 {
 }
 
 .wrapper {
-  width: 1280px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 0 4rem;
+}
+@media (max-width: 1279px) {
+  .wrapper {
+    padding: 0 3rem;
+  }
 }
 
 .header {
@@ -685,7 +699,7 @@ h3 {
 
 .navigation {
   display: flex;
-  gap: 35px;
+  gap: 36px;
 }
 
 .nav-link {
@@ -713,8 +727,17 @@ h3 {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  row-gap: 40px;
-  padding-top: 40px;
+  row-gap: 6.5rem;
+  padding-top: 4rem;
+}
+@media (max-width: 1279px) {
+  .footer-wrapper {
+    padding: 3rem 3.5rem 0 3.5rem;
+    justify-content: space-around;
+  }
+  .footer-wrapper .footer-content-item {
+    margin-top: 0;
+  }
 }
 
 .footer-puppy__img {
@@ -730,7 +753,12 @@ h3 {
   flex-direction: column;
   align-items: center;
   padding-top: 79px;
-  padding-bottom: 100px;
+  padding-bottom: 10rem;
+}
+@media (max-width: 1279px) {
+  .pets-wrapper {
+    padding-bottom: 7.6rem;
+  }
 }
 
 .slider {
@@ -744,8 +772,24 @@ h3 {
 .slider .slider__button_right {
   margin-left: 53px;
 }
+@media (max-width: 1279px) {
+  .slider .slider__button_right {
+    margin-left: 12px;
+  }
+}
 .slider .slider__button_left {
   margin-right: 53px;
+}
+@media (max-width: 1279px) {
+  .slider .slider__button_left {
+    margin-right: 12px;
+  }
+}
+@media (max-width: 1279px) {
+  .slider {
+    padding-top: 3rem;
+    padding-bottom: 4rem;
+  }
 }
 
 .slider-items {
@@ -754,6 +798,12 @@ h3 {
   justify-content: space-between;
   flex-wrap: wrap;
   row-gap: 30px;
+}
+@media (max-width: 1279px) {
+  .slider-items {
+    justify-content: space-evenly;
+    padding: 0 25px;
+  }
 }
 
 .pagination {

@@ -7,9 +7,15 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    row-gap: 40px;
-    padding-top: 40px;
-
+    row-gap: 6.5rem;
+    padding-top: 4rem;
+    @include media-tablet {
+        padding: 3rem 3.5rem 0 3.5rem;
+        justify-content: space-around;
+        .footer-content-item {
+            margin-top: 0;
+        }
+      }
 }
 
 .footer-puppy__img {

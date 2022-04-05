@@ -3,9 +3,9 @@
   right: 0;
   left: 0;
   top: 6rem;
-  // @include media-tablet {
-  //   top: 3rem;
-  // }
+  @include media-tablet {
+    top: 3rem;
+  }
 }
 
 .header-wrapper {

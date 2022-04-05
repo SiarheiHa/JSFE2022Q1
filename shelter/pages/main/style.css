@@ -422,7 +422,6 @@ html {
 body {
   font-size: 1.6rem;
   font-family: Georgia, "Times New Roman", Times, serif;
-  min-width: 1280px;
 }
 
 h1 {
@@ -542,6 +541,11 @@ h3 {
   background-color: #fddcc4;
   border-color: #fddcc4;
 }
+@media (max-width: 1279px) {
+  .pet:nth-child(3) {
+    display: none;
+  }
+}
 
 .pet__img {
   display: block;
@@ -562,6 +566,11 @@ h3 {
   min-width: 60px;
   background-repeat: no-repeat;
   background-position: 50% 0;
+}
+@media (max-width: 1279px) {
+  .help-item {
+    min-width: 170px;
+  }
 }
 .help-item:nth-child(1) {
   background-image: url("../../assets/icons/icon-pet-food.svg");
@@ -644,9 +653,14 @@ h3 {
 }
 
 .wrapper {
-  width: 1280px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 0 4rem;
+}
+@media (max-width: 1279px) {
+  .wrapper {
+    padding: 0 3rem;
+  }
 }
 
 .header {
@@ -654,6 +668,11 @@ h3 {
   right: 0;
   left: 0;
   top: 6rem;
+}
+@media (max-width: 1279px) {
+  .header {
+    top: 3rem;
+  }
 }
 
 .header-wrapper {
@@ -713,8 +732,17 @@ h3 {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  row-gap: 40px;
-  padding-top: 40px;
+  row-gap: 6.5rem;
+  padding-top: 4rem;
+}
+@media (max-width: 1279px) {
+  .footer-wrapper {
+    padding: 3rem 3.5rem 0 3.5rem;
+    justify-content: space-around;
+  }
+  .footer-wrapper .footer-content-item {
+    margin-top: 0;
+  }
 }
 
 .footer-puppy__img {
@@ -724,6 +752,11 @@ h3 {
 .hero {
   padding-top: 18rem;
   background: url("../../assets/images/png/noise_transparent@2x.png"), radial-gradient(100% 215.42% at 0% 0%, #5b483a 0%, #262425 100%);
+}
+@media (max-width: 1279px) {
+  .hero {
+    padding-top: 10.5rem;
+  }
 }
 
 .hero-wrapper {
@@ -735,6 +768,14 @@ h3 {
 
 .description {
   margin-bottom: 12.5rem;
+}
+@media (max-width: 1279px) {
+  .description {
+    margin-bottom: 10rem;
+  }
+  .description > form {
+    text-align: center;
+  }
 }
 
 .heading {
@@ -756,6 +797,11 @@ h3 {
 
 .start-puppy {
   margin-left: auto;
+}
+@media (max-width: 1279px) {
+  .start-puppy {
+    width: 80.3%;
+  }
 }
 
 .start__puppy__img {
@@ -801,7 +847,7 @@ h3 {
   flex-direction: column;
   align-items: center;
   padding-top: 79px;
-  padding-bottom: 100px;
+  padding-bottom: 10rem;
 }
 
 .slider {
@@ -815,8 +861,18 @@ h3 {
 .slider .slider__button_right {
   margin-left: 53px;
 }
+@media (max-width: 1279px) {
+  .slider .slider__button_right {
+    margin-left: 12px;
+  }
+}
 .slider .slider__button_left {
   margin-right: 53px;
+}
+@media (max-width: 1279px) {
+  .slider .slider__button_left {
+    margin-right: 12px;
+  }
 }
 
 .slider-items {
@@ -843,6 +899,11 @@ h3 {
   row-gap: 55px;
   justify-content: center;
 }
+@media (max-width: 1279px) {
+  .help-items {
+    column-gap: 60px;
+  }
+}
 
 .donation {
   background-color: #f6f6f6;
@@ -868,6 +929,11 @@ h3 {
 .donation-content a {
   display: block;
   width: min-content;
+}
+@media (max-width: 1279px) {
+  .donation-content {
+    padding-left: 0;
+  }
 }
 
 .donation-content__bank-data {

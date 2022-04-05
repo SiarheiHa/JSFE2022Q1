@@ -3,9 +3,9 @@
   background: url("../../assets/images/png/noise_transparent@2x.png"),
     radial-gradient(100% 215.42% at 0% 0%, #5b483a 0%, #262425 100%);
   //  /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */, #211F20;
-  // @include media-tablet {
-  //   padding-top: 10.5rem;
-  // }
+  @include media-tablet {
+    padding-top: 10.5rem;
+  }
 }
 
 .hero-wrapper {
@@ -17,12 +17,12 @@
 
 .description {
   margin-bottom: 12.5rem;
-  // @include media-tablet {
-  //   margin-bottom: 10rem;
-  //   > form {
-  //     text-align: center
-  //   };
-  // }
+  @include media-tablet {
+    margin-bottom: 10rem;
+    > form {
+      text-align: center
+    };
+  }
 }
 
 .heading {
@@ -45,9 +45,9 @@
 
 .start-puppy {
   margin-left: auto;
-  // @include media-tablet {
-  //   width: 80.3%;
-  // }
+  @include media-tablet {
+    width: 80.3%;
+  }
 }
 
 .start__puppy__img {
