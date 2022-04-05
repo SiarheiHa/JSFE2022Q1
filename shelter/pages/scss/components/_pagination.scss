@@ -20,13 +20,13 @@
   /* identical to box height, or 23px */  
   letter-spacing: 0.06em;
   color: $color-dark-l;
+  background-color: transparent;
   &:hover {
     background-color: $color-primary-light;
   }
   &_inactive {
     color: $color-dark-s;
     border-color: $color-dark-s;
-    background-color: transparent;
     cursor: auto;
     &:hover {
       background-color: transparent;

@@ -18,6 +18,10 @@
 }
 .donation-content {
   padding-left: 30px;
+  a {
+    display: block;
+    width: min-content;
+  }
   // @include media-tablet {
   //   padding-left: 0;;
   // }
