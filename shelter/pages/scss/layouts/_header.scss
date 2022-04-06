@@ -11,6 +11,10 @@
 .header-wrapper {
   display: flex;
   justify-content: space-between;
+  @include media-mobile {
+    align-items: center;
+    padding-right: 5.3rem;
+  }
 }
 
 .logo {
@@ -32,6 +36,13 @@
   letter-spacing: 0.1em;
   margin-top: 10px;
   color: $color-light-xl;
+}
+
+.header-navigation {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .navigation {

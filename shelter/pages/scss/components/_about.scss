@@ -7,15 +7,30 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap-reverse;
+  @include media-mobile {
+    padding-top: 4.2rem;
+    padding-bottom: 4.2rem;
+    row-gap: 4.2rem;
 
+  }
 }
+.about-image {
+  @include media-mobile {
+    width: 86.2%;
+  }
+}
+
 
 .about__pets__img {
     display: block;
+    width: 100%;
 }
 
 .about-content {
   max-width: 430px;
+  @include media-mobile {
+    padding: 0 1.5rem;
+  }
 }
 
 .about__text {
@@ -26,4 +41,13 @@
   font-size: 15px;
   line-height: 160%;
   color: $color-dark-xl;
+  @include media-mobile {
+    text-align: justify;
+    &:nth-child(3) {
+      margin-top: 2.2rem;
+    }
+    &:nth-child(2) {
+      margin-top: 2.4rem;
+    }
+  }
 }

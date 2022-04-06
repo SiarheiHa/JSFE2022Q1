@@ -16,8 +16,17 @@
             margin-top: 0;
         }
       }
+    @include media-mobile {
+        row-gap: 4rem;
+        padding: 3rem 0 0 0;        
+    }
+}
+
+.footer-puppy {
+    width: 81.6%;
 }
 
 .footer-puppy__img {
     display: block;
+    width: 100%;
 }

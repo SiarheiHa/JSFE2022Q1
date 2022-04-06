@@ -23,12 +23,25 @@
       text-align: center
     };
   }
+  @include media-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10.5rem;
+  }
 }
 
 .heading {
   max-width: 310px;
   margin-top: 45px;
   color: $color-light-xl;
+  @include media-mobile {
+    text-align: center;
+    max-width: 25.5rem;
+    letter-spacing: 0.06em;
+    margin-bottom: 0;
+  }
 }
 
 .hero__text {
@@ -41,12 +54,18 @@
   font-size: 15px;
   line-height: 160%;
   color: $color-dark-s;
+  @include media-mobile {
+  text-align: center;
+  }
 }
 
 .start-puppy {
   margin-left: auto;
   @include media-tablet {
     width: 80.3%;
+  }
+  @include media-mobile {
+    width: 86.59%;
   }
 }
 

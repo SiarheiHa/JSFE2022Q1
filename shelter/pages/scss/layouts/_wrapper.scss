@@ -5,4 +5,7 @@
   @include media-tablet {
     padding: 0 3rem;
   }
+  @include media-mobile {
+    padding: 0 1rem;
+  }
 }
