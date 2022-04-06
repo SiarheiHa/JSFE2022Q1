@@ -17,7 +17,9 @@
 }
 
 .donation-dog {
-  width: 81%;
+  @include media-mobile {
+    width: 81%;
+  } 
 }
 
 .donation-dog__img {

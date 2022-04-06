@@ -23,7 +23,10 @@
 }
 
 .footer-puppy {
-    width: 81.6%;
+    @include media-mobile {
+        width: 81.6%;
+      } 
+
 }
 
 .footer-puppy__img {

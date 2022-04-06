@@ -39,10 +39,12 @@
 }
 
 .header-navigation {
-  display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
+  @include media-mobile {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
+  }
 }
 
 .navigation {

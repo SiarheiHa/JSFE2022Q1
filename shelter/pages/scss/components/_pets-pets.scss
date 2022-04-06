@@ -11,6 +11,10 @@
     @include media-tablet {
         padding-bottom: 7.6rem;
     }
+    @include media-mobile {
+        padding-top: 4.2rem;
+        padding-bottom: 4.2rem;        
+      }
 }
 
 .slider {
@@ -36,7 +40,12 @@
         padding-top: 3rem;
         padding-bottom: 4rem;
         }
-      }
+    @include media-mobile {
+        padding-top: 4.2rem;
+        padding-bottom: 4.2rem;        
+        }
+}
+      
 
 
 .slider-items {
@@ -48,5 +57,8 @@
     @include media-tablet {
         justify-content: space-evenly;
         padding: 0 25px;    
+    }
+    @include media-mobile {
+        padding: 0;    
     }
 }

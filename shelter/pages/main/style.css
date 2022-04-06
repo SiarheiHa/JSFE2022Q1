@@ -458,9 +458,15 @@ h3 {
 }
 
 .burger {
+  display: none;
   position: relative;
   width: 30px;
   height: 22px;
+}
+@media (max-width: 767px) {
+  .burger {
+    display: block;
+  }
 }
 
 .burger__line {
@@ -794,11 +800,13 @@ h3 {
   color: #ffffff;
 }
 
-.header-navigation {
-  display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
+@media (max-width: 767px) {
+  .header-navigation {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
+  }
 }
 
 .navigation {
@@ -850,8 +858,10 @@ h3 {
   }
 }
 
-.footer-puppy {
-  width: 81.6%;
+@media (max-width: 767px) {
+  .footer-puppy {
+    width: 81.6%;
+  }
 }
 
 .footer-puppy__img {
@@ -1136,8 +1146,10 @@ h3 {
   }
 }
 
-.donation-dog {
-  width: 81%;
+@media (max-width: 767px) {
+  .donation-dog {
+    width: 81%;
+  }
 }
 
 .donation-dog__img {
