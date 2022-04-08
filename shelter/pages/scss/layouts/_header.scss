@@ -48,6 +48,7 @@
 .header-navigation {
   transition: all 0.5s;
   @include media-mobile {
+    visibility: hidden;
     z-index: 2;
     position: absolute;
     top: 0;
@@ -57,6 +58,7 @@
     height: 100vh;
     &_open {
       right: 0;
+      visibility: visible;
     }   
   }
 }

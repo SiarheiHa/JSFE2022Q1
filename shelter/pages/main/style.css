@@ -848,6 +848,7 @@ h3 {
 }
 @media (max-width: 767px) {
   .header-navigation {
+    visibility: hidden;
     z-index: 2;
     position: absolute;
     top: 0;
@@ -858,6 +859,7 @@ h3 {
   }
   .header-navigation_open {
     right: 0;
+    visibility: visible;
   }
 }
 

@@ -28,4 +28,13 @@ function closeMenu(event) {
 
 function toggleShadow() {
   shadow.classList.toggle("shadow_active")
+  scrollDesable()
+}
+
+function scrollDesable() {
+  if(shadow.classList.contains("shadow_active")) {
+    document.body.style.overflow = 'hidden'
+  } else {
+    document.body.style.overflow = 'visible'
+  }
 }
