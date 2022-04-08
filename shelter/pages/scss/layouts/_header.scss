@@ -48,18 +48,16 @@
 .header-navigation {
   transition: all 0.5s;
   @include media-mobile {
-    //Третья неделя // Удалить display none и раскомментировать
-    display: none;
-    // z-index: 2;
-    // position: absolute;
-    // top: 0;
-    // right: -100%;
-    // background-color: $color-dark-3xl;
-    // min-width: 320px;
-    // height: 100vh;
-    // &_open {
-    //   right: 0;
-    // }   
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    right: -100%;
+    background-color: $color-dark-3xl;
+    min-width: 320px;
+    height: 100vh;
+    &_open {
+      right: 0;
+    }   
   }
 }
 

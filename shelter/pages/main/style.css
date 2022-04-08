@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "Georgia";
   src: url("../../assets/fonts/georgia/Georgia.woff2") format("woff2"), url("../../assets/fonts/georgia/Georgia.woff2") format("woff");
@@ -471,6 +472,9 @@ h3 {
     display: block;
   }
 }
+.burger_open {
+  transform: rotate(90deg) translate(0px, 2px);
+}
 
 .burger__line {
   position: absolute;
@@ -495,6 +499,31 @@ h3 {
   content: "";
   top: 10px;
   left: 0;
+}
+
+.shadow {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(41, 41, 41, 0.6);
+  /* цвет фона */
+  z-index: 1;
+  opacity: 0;
+  /* по умолчанию модальное окно прозрачно */
+  visibility: hidden;
+  -webkit-transition: opacity 200ms ease-in;
+  -moz-transition: opacity 200ms ease-in;
+  transition: opacity 200ms ease-in;
+  /* анимация перехода */
+  margin: 0;
+  padding: 0;
+  transition: all 0.5s;
+}
+.shadow_active {
+  visibility: visible;
+  opacity: 1;
 }
 
 .button {
@@ -819,7 +848,16 @@ h3 {
 }
 @media (max-width: 767px) {
   .header-navigation {
-    display: none;
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    right: -100%;
+    background-color: #292929;
+    min-width: 320px;
+    height: 100vh;
+  }
+  .header-navigation_open {
+    right: 0;
   }
 }
 
