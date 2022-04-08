@@ -3,9 +3,14 @@
     position: relative;
     width: 30px;
     height: 22px;
+    transition: all 0.5s;
+    z-index: 3;
     @include media-mobile {
         display: block;
     }
+    // &_open {
+    //     transform: rotate(90deg) translate(0px, 2px);
+    // }
 }
 
 .burger__line {

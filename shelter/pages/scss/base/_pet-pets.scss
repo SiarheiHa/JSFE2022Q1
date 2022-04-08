@@ -24,7 +24,7 @@
       display: none;
     }
   }
-  @include media-tablet {
+  @include media-mobile {
     &:nth-child(n+4) {
       display: none;
     }
