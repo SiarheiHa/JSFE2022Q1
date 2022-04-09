@@ -55,6 +55,7 @@
     flex-wrap: wrap;
     row-gap: 30px;
     @include media-mobile {
+        width: 100%;
         justify-content: center;
         order: -1;
         padding-bottom: 2rem;

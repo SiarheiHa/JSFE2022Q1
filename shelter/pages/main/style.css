@@ -1118,6 +1118,7 @@ h3 {
 }
 @media (max-width: 767px) {
   .slider-items {
+    width: 100%;
     justify-content: center;
     order: -1;
     padding-bottom: 2rem;
