@@ -850,7 +850,7 @@ h3 {
   .header-navigation {
     visibility: hidden;
     z-index: 2;
-    position: absolute;
+    position: fixed;
     top: 0;
     right: -100%;
     background-color: #292929;
@@ -1158,6 +1158,7 @@ h3 {
 }
 @media (max-width: 767px) {
   .slider-items {
+    width: 100%;
     justify-content: center;
     order: -1;
     padding-bottom: 2rem;

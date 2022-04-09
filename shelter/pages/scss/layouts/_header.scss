@@ -48,9 +48,10 @@
 .header-navigation {
   transition: all 0.5s;
   @include media-mobile {
+    // display: none;
     visibility: hidden;
     z-index: 2;
-    position: absolute;
+    position: fixed;
     top: 0;
     right: -100%;
     background-color: $color-dark-3xl;
