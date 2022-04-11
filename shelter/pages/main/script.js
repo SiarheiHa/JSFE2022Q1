@@ -1,17 +1,18 @@
-window.onload = function() {  
-navigation.addEventListener("click", closeMenu);
-burger.addEventListener("click", toggleBurger);
-}
+window.onload = function () {
+  navigation.addEventListener("click", closeMenu);
+  burger.addEventListener("click", toggleBurger);
+  shadow.addEventListener("click", closeMenu);
+};
 
 const menu = document.querySelector(".header-navigation");
 const burger = document.querySelector(".burger");
 const navigation = document.querySelector(".header-navigation");
-const shadow = document.querySelector(".shadow")
+const shadow = document.querySelector(".shadow");
 
 function toggleBurger() {
   burger.classList.toggle("burger_open");
   toggleMenu();
-  toggleShadow()
+  toggleShadow();
 }
 
 function toggleMenu() {
@@ -19,22 +20,27 @@ function toggleMenu() {
 }
 
 function closeMenu(event) {
-  if (event.target.classList.contains("nav-link")) {
+  if (
+    event.target.classList.contains("nav-link") ||
+    event.target.classList.contains("shadow")
+  ) {
     menu.classList.remove("header-navigation_open");
-    burger.classList.remove("burger_open")
-    toggleShadow()
+    burger.classList.remove("burger_open");
+    toggleShadow();
   }
 }
 
 function toggleShadow() {
-  shadow.classList.toggle("shadow_active")
-  scrollDesable()
+  if (window.innerWidth < 768) {
+    shadow.classList.toggle("shadow_active");
+    scrollDesable();
+  }
 }
 
 function scrollDesable() {
-  if(shadow.classList.contains("shadow_active")) {
-    document.body.style.overflow = 'hidden'
+  if (shadow.classList.contains("shadow_active")) {
+    document.body.style.overflow = "hidden";
   } else {
-    document.body.style.overflow = 'visible'
+    document.body.style.overflow = "visible";
   }
 }
