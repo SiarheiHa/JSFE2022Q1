@@ -51,6 +51,10 @@
 .slider-items-wrapper {
     flex-grow: 1;
     overflow: hidden;
+    @include media-mobile { 
+        order: -1;
+    }
+    
 }
 
 .slider-items {

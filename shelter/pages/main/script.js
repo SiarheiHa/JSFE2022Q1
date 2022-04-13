@@ -127,8 +127,137 @@ class PetCard {
                 <p class="pet__name">${this.name}</p>
                 <button class="button button_secondary">Learn more</button>
                 `;
-    card.innerHTML = template
-    return card
+    card.innerHTML = template;
+    return card;
+  }
+}
+
+class Modal {
+  constructor(classes) {
+    this.classes = classes;
+    this.modal = "";
+    this.modalContent = "";
+    this.modalCloseBtn = "";
+    this.overlay = "";
+  }
+
+  buildModal(content) {
+    //Overlay
+    this.overlay = this.createDomNode(this.overlay, "div", "modal-wrapper");
+    //Modal
+    this.modal = this.createDomNode(this.modal, "div", "modal", this.classes);
+    //Modal content
+    this.modalContent = this.createDomNode(
+      this.modalContent,
+      "div",
+      "modal-content"
+    );
+    //Close button
+    this.modalCloseBtn = this.createDomNode(
+      this.modalCloseBtn,
+      "div",
+      "modal__btn"
+    );
+    this.modalCloseBtn.innerHTML = "&#215;";
+
+    this.setContent(content);
+
+    this.appendModalElements();
+
+    // console.log(this.overlay)
+
+    
+    // Bind Events
+    this.bindEvents();
+
+    ///open Modal
+    this.openModal();
+  }
+
+  createDomNode(node, element, ...classes) {
+    node = document.createElement(element);
+    node.classList.add(...classes);
+    return node;
+  }
+
+  setContent(content) {
+    this.modalContent.append(content);
+  }
+
+  appendModalElements() {
+    this.modal.append(this.modalCloseBtn);
+    this.modal.append(this.modalContent);
+    this.overlay.append(this.modal);
+  }
+
+  // Bind Events
+  bindEvents() {
+    this.modalCloseBtn.addEventListener("click", this.closeModal);
+    this.overlay.addEventListener("click", this.closeModal);
+  }
+
+  //Open
+  openModal() {
+    document.body.append(this.overlay);
+  }
+
+  closeModal(e) {
+    let classes = e.target.classList;
+    if (classes.contains("modal-wrapper") || classes.contains("modal__btn")) {
+      document.querySelector(".modal-wrapper").remove();
+    }
+  }
+}
+
+class PetModal extends Modal {
+  constructor(classes, {name, img, type, breed, description, age, inoculations, diseases, parasites}) {
+    super(classes)
+    this.name = name
+    this.img = img
+    this.type = type
+    this.breed = breed
+    this.description = description
+    this.age = age
+    this.inoculations = inoculations
+    this.diseases = diseases
+    this.parasites = parasites
+  }
+  generateContent() {
+    let template = "";
+    let card = document.createElement("div");
+    card.className = "pet-modal-content";
+    
+    template += `
+    <div class="modal-image">
+        <img class = "modal__img" src=${this.img}>
+    </div>
+    <div class="modal__content">
+        <h3 class="title title_modal">${this.name}</h3>
+        <h4 class="modal__subtitLe">${this.type} - ${this.breed}</h4>
+        <p class="modal__text">${this.description}</p>
+        <ul class="modal__list">
+            <li class="modal__list__item">
+                <span class="bold__text">Age: </span>${this.age}
+            </li>
+            <li class="modal__list__item">
+                <span class="bold__text">Inoculations: </span>${this.inoculations}
+            </li>
+            <li class="modal__list__item">
+                <span class="bold__text">Diseases: </span>${this.diseases}
+            </li>
+            <li class="modal__list__item">
+                <span class="bold__text">Parasites: </span>${this.parasites}
+            </li>
+        </ul>
+    </div>
+`
+    card.innerHTML = template;
+    console.log(card)
+    return card;
+  }
+  renderModal() {
+    let content = this.generateContent()
+    super.buildModal(content)
   }
 }
 
@@ -138,6 +267,9 @@ window.onload = function () {
   shadow.addEventListener("click", closeMenu);
   sliderClickHandler();
   renderPetCardsToDom();
+
+  ///Generate Base Modal from Modal Class
+  addLogoClickHandler();
 };
 
 /// Burger und menu *******************************************************
@@ -215,9 +347,10 @@ const scrollSlider = (button) => {
 ///Pet render
 const renderPetCardsToDom = () => {
   const cardContainer = getCardContainer();
-  generatePetCards(data).forEach(card => {
-    cardContainer.append(card.generateCard())
-  })
+  generatePetCards(data).forEach((card) => {
+    cardContainer.append(card.generateCard());
+  });
+  addPetsCardsClickHandler()
 };
 
 const getCardContainer = () => {
@@ -227,9 +360,44 @@ const getCardContainer = () => {
 };
 
 const generatePetCards = (data) => {
-  let cards = []
-  data.forEach(card => {
-    cards.push(new PetCard(card))
+  let cards = [];
+  data.forEach((card) => {
+    cards.push(new PetCard(card));
+  });
+  return cards;
+};
+
+///
+const addLogoClickHandler = () => {
+  document.querySelector(".logo").addEventListener("click", () => {
+    generateLogoModal();
+  });
+};
+
+const generateLogoModal = () => {
+  renderModalWindow("Test content");
+};
+
+const renderModalWindow = (content) => {
+  let modal = new Modal("logo-modal");
+  modal.buildModal(content);
+};
+
+const addPetsCardsClickHandler = () => {
+  document.querySelector('.slider-items').addEventListener('click', (e) => {
+    if(e.target.closest('.pet')) {
+      let clickedPetName = e.target.closest('.pet').getAttribute('data-name')
+      let clickedPetData = getClickedData(clickedPetName)     
+      renderPetModalWindow(clickedPetData)
+    }
   })
-  return cards
 }
+
+const getClickedData = (clickedPetName) => {
+  return data.find(pet => pet.name === clickedPetName)
+}
+
+const renderPetModalWindow = (clickedPetData) => {
+  let modal = new PetModal("pet-modal", clickedPetData);
+  modal.renderModal();
+};

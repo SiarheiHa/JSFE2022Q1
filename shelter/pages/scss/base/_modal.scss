@@ -12,13 +12,14 @@
 }
 .modal {
     position: relative;
+}
+.pet-modal-content {
     border-radius: 9px;
     background-color: $color-light-s;
     display: flex;
     max-width: 900px;
     min-height: 341px;
-    position: relative;
-
+    
     font-style: normal;
     font-weight: 400;
     line-height: 110%;
