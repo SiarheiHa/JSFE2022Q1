@@ -1315,12 +1315,17 @@ h3 {
   }
 }
 
+.slider-items-wrapper {
+  flex-grow: 1;
+  overflow: hidden;
+}
+
 .slider-items {
   display: flex;
-  flex-grow: 1;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  row-gap: 30px;
+  column-gap: 90px;
+  position: relative;
+  left: 0;
+  transition: 1s;
 }
 @media (max-width: 767px) {
   .slider-items {

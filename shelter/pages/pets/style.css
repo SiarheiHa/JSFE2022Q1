@@ -471,6 +471,9 @@ h3 {
     display: block;
   }
 }
+.burger_open {
+  transform: rotate(90deg) translate(0px, 2px);
+}
 
 .burger__line {
   position: absolute;
