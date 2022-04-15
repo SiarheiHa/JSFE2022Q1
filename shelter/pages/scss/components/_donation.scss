@@ -10,11 +10,21 @@
   row-gap: 60px;
   padding-top: 80px;
   padding-bottom: 100px;
-  
+  @include media-mobile {
+    padding: 4.1rem 0 4.2rem;
+    row-gap: 4.2rem;
+  }  
+}
+
+.donation-dog {
+  @include media-mobile {
+    width: 81%;
+  } 
 }
 
 .donation-dog__img {
   display: block;
+  width: 100%;
 }
 .donation-content {
   padding-left: 30px;
@@ -22,9 +32,14 @@
     display: block;
     width: min-content;
   }
-  // @include media-tablet {
-  //   padding-left: 0;;
-  // }
+  @include media-tablet {
+    padding-left: 0;
+  }
+  @include media-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }  
 }
 
 
@@ -35,6 +50,11 @@
   color: $color-dark-l;
   margin: 18px 0;
   display: block;
+  @include media-mobile {
+    margin: 2rem 0;
+    line-height: 160%;
+    letter-spacing: normal;
+  }  
 }
 
 .bank-card {
@@ -52,6 +72,13 @@
   &:hover {
     background-color: $color-primary-light;
   }
+  @include media-mobile {
+    align-items: center;
+    font-size: 15px;
+    line-height: 110%;
+    width: 281px;
+    margin: 0;
+  }
 }
 .bank-card__icon {
   width: 30px;
@@ -63,11 +90,16 @@
 .legal-information {
   margin-bottom: 0;
   width: 380px;
-  height: 72px;
+  // height: 72px;
   font-family: "Arial";
   font-style: italic;
   font-weight: 400;
   font-size: 12px;
   line-height: 18px;
   color: $color-dark-m;
+  @include media-mobile {
+    max-width: 28rem;
+    margin-top: 2rem;
+    text-align: justify;
+  }
 }

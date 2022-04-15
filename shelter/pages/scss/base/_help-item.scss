@@ -6,9 +6,9 @@
   min-width: 60px;
   background-repeat: no-repeat;
   background-position: 50% 0;
-  // @include media-tablet {
-  //   min-width: 170px;
-  // }
+  @include media-tablet {
+    min-width: 170px;
+  }
   &:nth-child(1) {
     background-image: url("../../assets/icons/icon-pet-food.svg");
   }
@@ -36,6 +36,11 @@
   &:nth-child(9) {
     background-image: url("../../assets/icons/icon-sleeping-area.svg");
   }
+  @include media-mobile {
+    height: 87px;
+    min-width: 130px;
+    background-size: 37%;
+  }
 }
 
 .help_text {
@@ -45,4 +50,8 @@
   text-align: center;
   letter-spacing: 0.06em;
   color: $color-dark-l;
+  @include media-mobile {
+    font-size: 15px;
+    line-height: 110%;
+  }
 }
