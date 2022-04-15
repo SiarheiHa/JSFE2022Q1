@@ -8,9 +8,12 @@
     align-items: center;
     padding-top: 79px;
     padding-bottom: 10rem;
+    @include media-tablet {
+        padding-bottom: 7.6rem;
+    }
     @include media-mobile {
         padding-top: 4.2rem;
-        padding-bottom: 4.2rem;        
+        padding-bottom: 4.1rem;        
       }
 }
 
@@ -26,26 +29,23 @@
         @include media-tablet {
             margin-left: 12px;            
         }
-        @include media-mobile {
-            margin-left: 4rem;
-        }
     }
     .slider__button_left {
         margin-right: 53px;
         @include media-tablet {
             margin-right: 12px;            
         }
-        @include media-mobile {
-            margin-right: 4rem;
+    }
+    @include media-tablet {
+        padding-top: 3rem;
+        padding-bottom: 4rem;
         }
-    }
     @include media-mobile {
-        flex-wrap: wrap;
-        justify-content: center;
         padding-top: 4.2rem;
-        padding-bottom: 4.2rem;
-    }
-      }
+        padding-bottom: 4.2rem;        
+        }
+}
+      
 
 
 .slider-items {
@@ -54,10 +54,11 @@
     justify-content: space-between;
     flex-wrap: wrap;
     row-gap: 30px;
+    @include media-tablet {
+        justify-content: space-evenly;
+        padding: 0 25px;    
+    }
     @include media-mobile {
-        width: 100%;
-        justify-content: center;
-        order: -1;
-        padding-bottom: 2rem;
+        padding: 0;    
     }
 }

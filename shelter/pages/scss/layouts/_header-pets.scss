@@ -8,6 +8,20 @@
 .header-wrapper {
   display: flex;
   justify-content: space-between;
+
+  @include media-mobile {
+    align-items: center;
+    padding-right: 5.3rem;
+  }
+  .burger__line {
+    background-color: #000000;
+    &::after {
+      background-color: #000000;
+    }
+    &::before {
+      background-color: #000000;
+    }
+  }
 }
 
 .logo {
@@ -31,9 +45,18 @@
   color: $color-dark-3xl;
 }
 
+.header-navigation {
+  @include media-mobile {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
+  }
+}
+
 .navigation {
   display: flex;
-  gap: 35px;
+  gap: 36px;
 }
 
 .nav-link {

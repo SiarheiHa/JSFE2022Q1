@@ -1,6 +1,9 @@
 .pagination {
   display: flex;
   gap: 20px;
+  @include media-mobile {
+    gap: 1rem;
+  }
 }
 
 .button_paginator {

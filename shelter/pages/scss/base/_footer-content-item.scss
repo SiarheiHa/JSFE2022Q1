@@ -5,6 +5,16 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  @include media-mobile{
+    height: 207px;
+    align-items: center;
+    &:nth-child(2) {
+      height: 22.2rem;
+      .contact-item {
+        width: 100%;
+      }
+    }
+  }
 }
 
 .contact-item {

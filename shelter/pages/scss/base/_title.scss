@@ -13,19 +13,22 @@
     }
     &_help {
         max-width: 310px;
-        // max-height: 90px;
         text-align: center;
         margin: 0; 
     }
     &_donation {
         max-width: 300px;
-        // max-height: 90px;
         margin: 0; 
+        @include media-mobile {
+            max-width: 21rem;
+          }  
     }
     &_footer {
         color: $color-light-xl;
         max-width: 280px;
-        // max-height: 90px;
         margin: 0; 
+    }
+    @include media-mobile {
+        text-align: center;
     }
 }

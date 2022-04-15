@@ -3,5 +3,5 @@
 }
 
 @mixin media-mobile{
-    @media (max-width: $tablet-whidth) {@content;} 
+    @media (max-width: 767px) {@content;} 
 }

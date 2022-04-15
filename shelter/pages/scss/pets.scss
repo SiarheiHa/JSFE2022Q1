@@ -1,12 +1,14 @@
+@import "abstract/mixins";
 @import "base/fonts";
 @import "abstract/constants";
 //base
 @import "base/normalize";
 @import "base/base";
+@import "base/burger";
 @import "base/button";
 @import "base/slider__button";
 @import "base/title";
-@import "base/pet";
+@import "base/pet-pets";
 @import "base/help-item";
 @import "base/footer-content-item";
 
@@ -17,5 +19,5 @@
 
 
 //componets
-@import "components/pets";
+@import "components/pets-pets";
 @import "components/pagination";
