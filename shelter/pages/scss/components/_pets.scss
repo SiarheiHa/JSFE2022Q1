@@ -59,9 +59,10 @@
 
 .slider-items {
     display: flex;
-    column-gap: 90px;
-    position: relative;
-    left: 0;
+    flex-grow: 1;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 30px;
     transition: 1s;
     @include media-mobile {
         width: 100%;

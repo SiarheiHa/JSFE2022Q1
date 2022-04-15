@@ -104,14 +104,14 @@ margin: 0;
 }
 .modal__text {    
 font-size: 15px;
-line-height: 110%;
+line-height: 115%;
 /* or 17px */
 letter-spacing: 0.06em;
 margin: 4rem 0;
 @include media-tablet {
     margin: 2rem 0 1.8rem 0;
     font-size: 1.3rem;
-    // line-height: 105%;
+    line-height: 110%;
 }
 @include media-mobile {
     text-align: justify;

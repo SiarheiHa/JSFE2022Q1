@@ -896,7 +896,7 @@ h3 {
 
 .modal__text {
   font-size: 15px;
-  line-height: 110%;
+  line-height: 115%;
   /* or 17px */
   letter-spacing: 0.06em;
   margin: 4rem 0;
@@ -905,6 +905,7 @@ h3 {
   .modal__text {
     margin: 2rem 0 1.8rem 0;
     font-size: 1.3rem;
+    line-height: 110%;
   }
 }
 @media (max-width: 767px) {
@@ -1329,9 +1330,10 @@ h3 {
 
 .slider-items {
   display: flex;
-  column-gap: 90px;
-  position: relative;
-  left: 0;
+  flex-grow: 1;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: 30px;
   transition: 1s;
 }
 @media (max-width: 767px) {
