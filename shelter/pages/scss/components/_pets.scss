@@ -63,7 +63,6 @@
     position: relative;
     left: 0;
     transition: 1s;
-
     @include media-mobile {
         width: 100%;
         justify-content: center;
