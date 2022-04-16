@@ -204,9 +204,10 @@ class Modal {
   closeModal(e) {
     let classes = e.target.classList;
     if (classes.contains("modal-wrapper") || classes.contains("modal__btn")) {
-      // console.log(e.target)
-      // console.log( e.currentTarget)
-      document.querySelector(".modal-wrapper").remove();
+      // проверка на лишнее срабатывание
+      if(document.querySelector(".modal-wrapper")) {
+      document.querySelector(".modal-wrapper").remove()
+      };
     
     }
   }
@@ -392,9 +393,9 @@ const addPetsCardsClickHandler = () => {
     if(e.target.closest('.pet')) {
       let clickedPetName = e.target.closest('.pet').getAttribute('data-name')
       let clickedPetData = getClickedData(clickedPetName)
-      console.log('clickedPetName')     
+      // console.log('clickedPetName')     
       renderPetModalWindow(clickedPetData)
-      console.log(clickedPetName)
+      // console.log(clickedPetName)
     }
   })
 }
