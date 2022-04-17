@@ -583,6 +583,12 @@ h3 {
 .title_about {
   max-width: 370px;
   margin: 0;
+  /*перенести в парт3*/
+}
+@media (max-width: 767px) {
+  .title_about {
+    max-width: 29rem;
+  }
 }
 .title_help {
   max-width: 310px;
@@ -663,7 +669,8 @@ h3 {
 }
 @media (max-width: 1279px) {
   .help-item {
-    min-width: 170px;
+    /*перенести в парт3*/
+    flex-basis: 24%;
   }
 }
 .help-item:nth-child(1) {
@@ -723,6 +730,12 @@ h3 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  /*перенести в парт3*/
+}
+@media (max-width: 1279px) {
+  .footer-content-item {
+    min-width: 38%;
+  }
 }
 @media (max-width: 767px) {
   .footer-content-item {
@@ -978,8 +991,7 @@ h3 {
   .header-wrapper {
     align-items: center;
     padding-right: 5.3rem;
-    justify-content: end;
-    gap: 43px;
+    /*перенести в парт3*/
   }
 }
 
@@ -1102,6 +1114,8 @@ h3 {
 @media (max-width: 767px) {
   .footer-puppy {
     width: 81.6%;
+    /*перенести в парт3*/
+    max-width: 30rem;
   }
 }
 
@@ -1125,6 +1139,12 @@ h3 {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  /*перенести в парт3*/
+}
+@media (max-width: 1279px) {
+  .hero-wrapper {
+    flex-direction: column;
+  }
 }
 
 .description {
@@ -1185,11 +1205,15 @@ h3 {
 @media (max-width: 1279px) {
   .start-puppy {
     width: 80.3%;
+    /*перенести в парт3*/
+    max-width: 69rem;
   }
 }
 @media (max-width: 767px) {
   .start-puppy {
     width: 86.59%;
+    /*перенести в парт3*/
+    max-width: 50rem;
   }
 }
 
@@ -1207,6 +1231,12 @@ h3 {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap-reverse;
+  /*перенести в парт3*/
+}
+@media (max-width: 1279px) {
+  .about-wrapper {
+    flex-direction: column-reverse;
+  }
 }
 @media (max-width: 767px) {
   .about-wrapper {
@@ -1219,6 +1249,8 @@ h3 {
 @media (max-width: 767px) {
   .about-image {
     width: 86.2%;
+    /*перенести в парт3*/
+    max-width: 30rem;
   }
 }
 
@@ -1233,6 +1265,10 @@ h3 {
 @media (max-width: 767px) {
   .about-content {
     padding: 0 1.5rem;
+    /*перенести в парт3*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 
@@ -1282,6 +1318,7 @@ h3 {
   justify-content: space-between;
   padding-top: 60px;
   padding-bottom: 60px;
+  /*перенести в парт3*/
 }
 .slider .slider__button_right {
   margin-left: 53px;
@@ -1307,6 +1344,11 @@ h3 {
 @media (max-width: 767px) {
   .slider .slider__button_left {
     margin-right: 4rem;
+  }
+}
+@media (max-width: 1279px) {
+  .slider {
+    justify-content: center;
   }
 }
 @media (max-width: 767px) {
@@ -1376,7 +1418,9 @@ h3 {
     padding-top: 4.2rem;
     padding-bottom: 0;
     gap: 3rem;
-    justify-content: start;
+    /*перенести в парт3*/
+    justify-content: space-between;
+    max-width: 43rem;
   }
 }
 
@@ -1392,6 +1436,12 @@ h3 {
   row-gap: 60px;
   padding-top: 80px;
   padding-bottom: 100px;
+  /*перенести в парт3*/
+}
+@media (max-width: 1279px) {
+  .donation-wrapper {
+    flex-direction: column-reverse;
+  }
 }
 @media (max-width: 767px) {
   .donation-wrapper {
@@ -1403,6 +1453,8 @@ h3 {
 @media (max-width: 767px) {
   .donation-dog {
     width: 81%;
+    /*перенести в парт3*/
+    max-width: 50rem;
   }
 }
 
