@@ -5,6 +5,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  /*перенести в парт3*/
+  @include media-tablet {
+    min-width: 38%
+  }
   @include media-mobile{
     height: 207px;
     align-items: center;

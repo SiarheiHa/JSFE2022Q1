@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "Georgia";
   src: url("../../assets/fonts/georgia/Georgia.woff2") format("woff2"), url("../../assets/fonts/georgia/Georgia.woff2") format("woff");
@@ -554,6 +555,12 @@ h3 {
 .title_about {
   max-width: 370px;
   margin: 0;
+  /*перенести в парт3*/
+}
+@media (max-width: 767px) {
+  .title_about {
+    max-width: 29rem;
+  }
 }
 .title_help {
   max-width: 310px;
@@ -634,7 +641,8 @@ h3 {
 }
 @media (max-width: 1279px) {
   .help-item {
-    min-width: 170px;
+    /*перенести в парт3*/
+    flex-basis: 24%;
   }
 }
 .help-item:nth-child(1) {
@@ -694,6 +702,12 @@ h3 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  /*перенести в парт3*/
+}
+@media (max-width: 1279px) {
+  .footer-content-item {
+    min-width: 38%;
+  }
 }
 @media (max-width: 767px) {
   .footer-content-item {
@@ -870,6 +884,8 @@ h3 {
 @media (max-width: 767px) {
   .footer-puppy {
     width: 81.6%;
+    /*перенести в парт3*/
+    max-width: 30rem;
   }
 }
 
@@ -892,6 +908,8 @@ h3 {
 @media (max-width: 1279px) {
   .pets-wrapper {
     padding-bottom: 7.6rem;
+    /*перенести в парт3*/
+    max-width: 90rem;
   }
 }
 @media (max-width: 767px) {
@@ -935,6 +953,8 @@ h3 {
   .slider {
     padding-top: 4.2rem;
     padding-bottom: 4.2rem;
+    /*перенести в парт3*/
+    max-width: 35rem;
   }
 }
 
@@ -954,6 +974,8 @@ h3 {
 @media (max-width: 767px) {
   .slider-items {
     padding: 0;
+    /*перенести в парт3*/
+    max-width: 35rem;
   }
 }
 

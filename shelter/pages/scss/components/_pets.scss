@@ -39,6 +39,10 @@
             margin-right: 4rem;
         }
     }
+    /*перенести в парт3*/
+    @include media-tablet {
+        justify-content: center;
+    }
     @include media-mobile {
         flex-wrap: wrap;
         justify-content: center;
@@ -54,10 +58,17 @@
     justify-content: space-between;
     flex-wrap: wrap;
     row-gap: 30px;
+    /*перенести в парт3*/
+    @include media-tablet {
+        justify-content: center;
+        flex-grow: initial;
+        column-gap: 4rem;
+    }
     @include media-mobile {
         width: 100%;
         justify-content: center;
         order: -1;
         padding-bottom: 2rem;
+        
     }
 }

@@ -9,7 +9,11 @@
     }
     &_about {        
         max-width: 370px;
-        margin: 0;  
+        margin: 0;
+        /*перенести в парт3*/
+        @include media-mobile {
+            max-width: 29rem
+        }  
     }
     &_help {
         max-width: 310px;
