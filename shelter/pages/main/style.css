@@ -799,6 +799,9 @@ h3 {
 .modal {
   position: relative;
 }
+.modal:hover .modal__btn {
+  background-color: transparent;
+}
 
 .pet-modal-content {
   border-radius: 9px;
@@ -841,9 +844,10 @@ h3 {
   /* identical to box height, or 23px */
   letter-spacing: 0.06em;
   color: #292929;
+  background-color: #fddcc4;
 }
 .modal__btn:hover {
-  background-color: #fddcc4;
+  background-color: #fddcc4 !important;
 }
 @media (max-width: 767px) {
   .modal__btn {
@@ -1367,6 +1371,7 @@ h3 {
 @media (max-width: 767px) {
   .slider-items-wrapper {
     order: -1;
+    width: 100%;
   }
 }
 
@@ -1535,7 +1540,7 @@ h3 {
 .bank-card__icon {
   width: 30px;
   height: 23px;
-  margin-right: 15px;
+  margin-right: 14px;
   background-image: url("../../assets/icons/credit-card.svg");
 }
 

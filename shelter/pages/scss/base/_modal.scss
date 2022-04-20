@@ -12,6 +12,9 @@
 }
 .modal {
     position: relative;
+    &:hover .modal__btn{
+        background-color: transparent;
+      }
 }
 .pet-modal-content {
     border-radius: 9px;
@@ -51,9 +54,11 @@
     /* identical to box height, or 23px */  
     letter-spacing: 0.06em;
     color: $color-dark-3xl;
+    background-color: $color-primary-light;
     &:hover {
-      background-color: $color-primary-light;
-    }
+        background-color: $color-primary-light !important;
+      }
+
     @include media-mobile {
         left: calc(100% - 22px);
     }

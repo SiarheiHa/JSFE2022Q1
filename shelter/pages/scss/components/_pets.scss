@@ -57,6 +57,7 @@
     overflow: hidden;
     @include media-mobile { 
         order: -1;
+        width: 100%;
     }
     
 }
