@@ -199,6 +199,7 @@ const data = [
     //Open
     openModal() {
       document.body.append(this.overlay);
+      scrollDesable()
     }
   
     closeModal(e) {
@@ -207,6 +208,7 @@ const data = [
         // проверка на лишнее срабатывание
         if(document.querySelector(".modal-wrapper")) {
         document.querySelector(".modal-wrapper").remove()
+        scrollDesable()
         };
       
       }
@@ -317,7 +319,7 @@ const data = [
   }
   
   function scrollDesable() {
-    if (shadow.classList.contains("shadow_active")) {
+    if (shadow.classList.contains("shadow_active") || document.querySelector('.modal-wrapper')) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "visible";

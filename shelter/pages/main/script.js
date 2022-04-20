@@ -199,6 +199,7 @@ class Modal {
   //Open
   openModal() {
     document.body.append(this.overlay);
+    scrollDesable()
   }
 
   closeModal(e) {
@@ -207,6 +208,7 @@ class Modal {
       // проверка на лишнее срабатывание
       if(document.querySelector(".modal-wrapper")) {
       document.querySelector(".modal-wrapper").remove()
+      scrollDesable()
       };
     
     }
@@ -311,7 +313,7 @@ function toggleShadow() {
 }
 
 function scrollDesable() {
-  if (shadow.classList.contains("shadow_active")) {
+  if (shadow.classList.contains("shadow_active") || document.querySelector('.modal-wrapper')) {
     document.body.style.overflow = "hidden";
   } else {
     document.body.style.overflow = "visible";
