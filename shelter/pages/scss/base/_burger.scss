@@ -8,9 +8,9 @@
     @include media-mobile {
         display: block;
     }
-    // &_open {
-    //     transform: rotate(90deg) translate(0px, 2px);
-    // }
+    &_open {
+        transform: rotate(90deg) translate(0px, 2px);
+    }
 }
 
 .burger__line {

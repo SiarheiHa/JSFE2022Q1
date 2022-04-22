@@ -1,22 +1,22 @@
-// .shadow {
-//     position: fixed;
-//     top: 0;
-//     right: 0;
-//     bottom: 0;
-//     left: 0;
-//     background: rgba(41, 41, 41, 0.6); /* цвет фона */
-//     z-index: 1;
-//     opacity: 0; /* по умолчанию модальное окно прозрачно */
-//     visibility: hidden;
-//     -webkit-transition: opacity 200ms ease-in; 
-//     -moz-transition: opacity 200ms ease-in;
-//     transition: opacity 200ms ease-in; /* анимация перехода */
-//     // pointer-events: none; /* элемент невидим для событий мыши */
-//     margin: 0;
-//     padding: 0;
-//     transition: all 0.5s;
-//     &_active {
-//         visibility: visible;
-//         opacity: 1;
-//     }
-// }
+.shadow {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(41, 41, 41, 0.6); /* цвет фона */
+    z-index: 1;
+    opacity: 0; /* по умолчанию модальное окно прозрачно */
+    visibility: hidden;
+    -webkit-transition: opacity 200ms ease-in; 
+    -moz-transition: opacity 200ms ease-in;
+    transition: opacity 200ms ease-in; /* анимация перехода */
+    // pointer-events: none; /* элемент невидим для событий мыши */
+    margin: 0;
+    padding: 0;
+    transition: all 0.5s;
+    &_active {
+        visibility: visible;
+        opacity: 1;
+    }
+}

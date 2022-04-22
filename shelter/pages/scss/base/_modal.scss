@@ -1,0 +1,144 @@
+.modal-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    background: rgba(41, 41, 41, 0.6);
+}
+.modal {
+    position: relative;
+    &:hover .modal__btn{
+        background-color: transparent;
+      }
+}
+.pet-modal-content {
+    border-radius: 9px;
+    background-color: $color-light-s;
+    display: flex;
+    max-width: 900px;
+    min-height: 341px;
+    
+    font-style: normal;
+    font-weight: 400;
+    line-height: 110%;
+    /* or 14px */
+    letter-spacing: 0.06em;
+    color: #000000;
+
+    @include media-tablet {
+        max-width: 630px;
+    }
+    @include media-mobile {
+        max-width: 240px;
+    }
+}
+.modal__btn {
+    position: absolute;
+    left: calc(100% - 9px);
+    bottom: 100%;
+    min-width: 52px;
+    min-height: 52px;
+    border-radius: 100px;
+    border: 2px solid $color-primary;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: 50%;      
+    font-size: 34px;
+    line-height: 125%;
+    text-align: center;
+    /* identical to box height, or 23px */  
+    letter-spacing: 0.06em;
+    color: $color-dark-3xl;
+    background-color: $color-primary-light;
+    &:hover {
+        background-color: $color-primary-light !important;
+      }
+
+    @include media-mobile {
+        left: calc(100% - 22px);
+    }
+  }
+.modal-image {
+    min-width: 55.55556%;
+    @include media-mobile {
+        display: none;
+    }
+}
+.modal__img {
+    display: block;
+    width: 100%;
+    border-radius: 9px;
+
+}
+.modal__content {
+    padding-left: 3rem;
+    padding-right: 2rem;
+    padding-top: 1.5rem;
+    @include media-tablet {
+        padding-left: 1.1rem;
+        padding-right: 0.8rem;
+        padding-top: 1rem;
+    }
+}
+
+.title_modal {
+    margin-bottom: 1rem;
+    @include media-tablet {
+        margin-top: 0;
+    }
+    @include media-tablet {
+        font-size: 3.5rem;
+    }
+
+}
+.modal__subtitLe {
+font-weight: 400;
+font-size: 20px;
+line-height: 115%;
+/* identical to box height, or 23px */
+letter-spacing: 0.06em;
+margin: 0;
+@include media-mobile {
+    text-align: center;
+}
+}
+.modal__text {    
+font-size: 15px;
+line-height: 115%;
+/* or 17px */
+letter-spacing: 0.06em;
+margin: 4rem 0;
+@include media-tablet {
+    margin: 2rem 0 1.8rem 0;
+    font-size: 1.3rem;
+    line-height: 110%;
+}
+@include media-mobile {
+    text-align: justify;
+    margin: 2rem 0 2.4rem 0;
+}
+}
+.modal__list {
+    margin: 0;
+}
+.modal__list__item {
+    margin-bottom: 1.1rem;
+    letter-spacing: 0.06em;
+    font-size: 15px;
+    line-height: 110%;
+    &::before {
+        content: "\2022";
+        color: $color-primary;
+    }
+    @include media-tablet {
+        margin-bottom: 0.6rem;
+    }
+}
+.bold__text {
+    font-weight: bold;
+}
