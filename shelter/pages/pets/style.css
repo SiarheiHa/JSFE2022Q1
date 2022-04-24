@@ -993,8 +993,6 @@ h3 {
   .header-wrapper {
     align-items: center;
     padding-right: 5.3rem;
-    justify-content: end;
-    gap: 43px;
   }
 }
 .header-wrapper .burger__line {
@@ -1016,6 +1014,10 @@ h3 {
   .logo {
     z-index: 3;
   }
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 .logo__title {
@@ -1054,6 +1056,28 @@ h3 {
     visibility: visible;
     overflow: scroll;
   }
+}
+.header-navigation .logo {
+  display: none;
+  position: absolute;
+  left: 8px;
+  top: 30px;
+}
+@media (max-width: 767px) {
+  .header-navigation .logo {
+    display: block;
+  }
+}
+.header-navigation .logo .logo__title {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 110%;
+  letter-spacing: 0.06em;
+}
+.header-navigation .logo .logo__subtitle {
+  margin-top: 10px;
+  display: block;
 }
 
 .navigation {

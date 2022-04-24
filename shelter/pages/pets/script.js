@@ -284,16 +284,18 @@ const data = [
     // addLogoClickHandler();
   };
   
-  /// Burger und menu *******************************************************
+  /// Burger and menu *******************************************************
   const menu = document.querySelector(".header-navigation");
   const burger = document.querySelector(".burger");
   const navigation = document.querySelector(".header-navigation");
   const shadow = document.querySelector(".shadow");
+  const logo = document.querySelector(".logo");
   
   function toggleBurger() {
     burger.classList.toggle("burger_open");
     toggleMenu();
     toggleShadow();
+    hideLogo();
   }
   
   function toggleMenu() {
@@ -308,6 +310,7 @@ const data = [
       menu.classList.remove("header-navigation_open");
       burger.classList.remove("burger_open");
       toggleShadow();
+      hideLogo()
     }
   }
   
@@ -319,13 +322,20 @@ const data = [
   }
   
   function scrollDesable() {
-    if (shadow.classList.contains("shadow_active") || document.querySelector('.modal-wrapper')) {
+    if (
+      shadow.classList.contains("shadow_active") ||
+      document.querySelector(".modal-wrapper")
+    ) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "visible";
     }
   }
   
+  function hideLogo() {
+    logo.classList.toggle("hidden");
+  }  
+
   /// Slider
   // const sliderClickHandler = () => {
   //   const slider = document.querySelector(".slider");
