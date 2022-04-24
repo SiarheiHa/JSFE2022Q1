@@ -29,6 +29,7 @@
     /* or 14px */
     letter-spacing: 0.06em;
     color: #000000;
+    overflow: scroll;
 
     @include media-tablet {
         max-width: 630px;

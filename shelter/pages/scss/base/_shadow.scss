@@ -12,7 +12,7 @@
     -moz-transition: opacity 200ms ease-in;
     transition: opacity 200ms ease-in; /* анимация перехода */
     // pointer-events: none; /* элемент невидим для событий мыши */
-    margin: 0;
+    margin: 0; 
     padding: 0;
     transition: all 0.5s;
     &_active {

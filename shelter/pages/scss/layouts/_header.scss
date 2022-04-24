@@ -16,8 +16,8 @@
     align-items: center;
     padding-right: 5.3rem;
     /*перенести в парт3*/
-    // justify-content: end;
-    // gap: 43px;
+    justify-content: end;
+    gap: 43px;
   }
 }
 
@@ -61,6 +61,7 @@
     &_open {
       right: 0;
       visibility: visible;
+      overflow: scroll;
     }   
   }
 }
