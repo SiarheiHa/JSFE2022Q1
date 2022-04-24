@@ -353,7 +353,7 @@ function scrollDesable() {
 ///Pet render
 const renderPetCardsToDom = () => {
   const cardContainer = getCardContainer();
-  const randomData = getRandomDataArray()
+  const randomData = getRandomDataArray() 
   generatePetCards(randomData).forEach((card) => {
     cardContainer.append(card.generateCard());
   });

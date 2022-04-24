@@ -815,6 +815,7 @@ h3 {
   /* or 14px */
   letter-spacing: 0.06em;
   color: #000000;
+  overflow: scroll;
 }
 @media (max-width: 1279px) {
   .pet-modal-content {
@@ -996,6 +997,8 @@ h3 {
     align-items: center;
     padding-right: 5.3rem;
     /*перенести в парт3*/
+    justify-content: end;
+    gap: 43px;
   }
 }
 
@@ -1044,6 +1047,7 @@ h3 {
   .header-navigation_open {
     right: 0;
     visibility: visible;
+    overflow: scroll;
   }
 }
 
