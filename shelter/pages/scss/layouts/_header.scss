@@ -31,6 +31,10 @@
   }
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 .logo__title {
   margin: 0;
   color: $color-primary;
@@ -61,7 +65,28 @@
     &_open {
       right: 0;
       visibility: visible;
-    }   
+      overflow: scroll;
+    }
+  }
+  .logo {
+    display: none;
+    position: absolute;
+    left: 8px;
+    top: 30px;
+    @include media-mobile {
+      display: block;
+    }
+    .logo__title {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 32px;
+      line-height: 110%;
+      letter-spacing: 0.06em;
+    }
+    .logo__subtitle {
+      margin-top: 10px;
+      display: block;
+    }
   }
 }
 
@@ -76,7 +101,7 @@
   }
 }
 .nav__item {
-  @include media-mobile{
+  @include media-mobile {
     margin-bottom: 4.1rem;
   }
 }
@@ -98,5 +123,5 @@
   }
   @include media-mobile {
     font-size: 32px;
-   }
+  }
 }

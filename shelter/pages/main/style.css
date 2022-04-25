@@ -501,6 +501,32 @@ h3 {
   left: 0;
 }
 
+@keyframes move-left {
+  from {
+    left: -100%;
+  }
+  to {
+    left: 0%;
+  }
+}
+@keyframes move-right {
+  from {
+    left: -100%;
+  }
+  to {
+    left: -200%;
+  }
+}
+.transition-right {
+  animation-name: move-right;
+  animation-duration: 1.5s;
+}
+
+.transition-left {
+  animation-name: move-left;
+  animation-duration: 1.5s;
+}
+
 .shadow {
   position: fixed;
   top: 0;
@@ -815,6 +841,7 @@ h3 {
   /* or 14px */
   letter-spacing: 0.06em;
   color: #000000;
+  overflow: scroll;
 }
 @media (max-width: 1279px) {
   .pet-modal-content {
@@ -1011,6 +1038,10 @@ h3 {
   }
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 .logo__title {
   margin: 0;
   color: #f1cdb3;
@@ -1044,7 +1075,30 @@ h3 {
   .header-navigation_open {
     right: 0;
     visibility: visible;
+    overflow: scroll;
   }
+}
+.header-navigation .logo {
+  display: none;
+  position: absolute;
+  left: 8px;
+  top: 30px;
+}
+@media (max-width: 767px) {
+  .header-navigation .logo {
+    display: block;
+  }
+}
+.header-navigation .logo .logo__title {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 110%;
+  letter-spacing: 0.06em;
+}
+.header-navigation .logo .logo__subtitle {
+  margin-top: 10px;
+  display: block;
 }
 
 .navigation {
@@ -1364,23 +1418,30 @@ h3 {
   }
 }
 
-.slider-items-wrapper {
+.carousel-wrapper {
   flex-grow: 1;
   overflow: hidden;
 }
 @media (max-width: 767px) {
-  .slider-items-wrapper {
+  .carousel-wrapper {
     order: -1;
     width: 100%;
   }
 }
 
+.slider-items-wrapper {
+  height: 435.09px;
+  display: flex;
+  width: 300%;
+  position: relative;
+  left: -100%;
+}
+
 .slider-items {
   display: flex;
-  flex-grow: 1;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  row-gap: 30px;
+  justify-content: center;
+  gap: 9rem;
+  width: 100%;
   /*перенести в парт3*/
 }
 @media (max-width: 1279px) {

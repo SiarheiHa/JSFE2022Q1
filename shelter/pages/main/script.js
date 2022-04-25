@@ -166,7 +166,6 @@ class Modal {
 
     // console.log(this.overlay)
 
-    
     // Bind Events
     this.bindEvents();
 
@@ -199,40 +198,52 @@ class Modal {
   //Open
   openModal() {
     document.body.append(this.overlay);
-    scrollDesable()
+    scrollDesable();
   }
 
   closeModal(e) {
     let classes = e.target.classList;
     if (classes.contains("modal-wrapper") || classes.contains("modal__btn")) {
       // проверка на лишнее срабатывание
-      if(document.querySelector(".modal-wrapper")) {
-      document.querySelector(".modal-wrapper").remove()
-      scrollDesable()
-      };
-    
+      if (document.querySelector(".modal-wrapper")) {
+        document.querySelector(".modal-wrapper").remove();
+        scrollDesable();
+      }
     }
   }
 }
 
 class PetModal extends Modal {
-  constructor(classes, {name, img, type, breed, description, age, inoculations, diseases, parasites}) {
-    super(classes)
-    this.name = name
-    this.img = img
-    this.type = type
-    this.breed = breed
-    this.description = description
-    this.age = age
-    this.inoculations = inoculations
-    this.diseases = diseases
-    this.parasites = parasites
+  constructor(
+    classes,
+    {
+      name,
+      img,
+      type,
+      breed,
+      description,
+      age,
+      inoculations,
+      diseases,
+      parasites,
+    }
+  ) {
+    super(classes);
+    this.name = name;
+    this.img = img;
+    this.type = type;
+    this.breed = breed;
+    this.description = description;
+    this.age = age;
+    this.inoculations = inoculations;
+    this.diseases = diseases;
+    this.parasites = parasites;
   }
   generateContent() {
     let template = "";
     let card = document.createElement("div");
     card.className = "pet-modal-content";
-    
+
     template += `
     <div class="modal-image">
         <img class = "modal__img" src=${this.img}>
@@ -256,14 +267,14 @@ class PetModal extends Modal {
             </li>
         </ul>
     </div>
-`
+`;
     card.innerHTML = template;
     // console.log(card)
     return card;
   }
   renderModal() {
-    let content = this.generateContent()
-    super.buildModal(content)
+    let content = this.generateContent();
+    super.buildModal(content);
   }
 }
 
@@ -272,22 +283,25 @@ window.onload = function () {
   burger.addEventListener("click", toggleBurger);
   shadow.addEventListener("click", closeMenu);
   sliderClickHandler();
-  renderPetCardsToDom();
+  renderCenterPetCardsToDom();
+  renderNextPetCardsToDom();
 
   ///Generate Base Modal from Modal Class
   // addLogoClickHandler();
 };
 
-/// Burger und menu *******************************************************
+/// Burger and menu *******************************************************
 const menu = document.querySelector(".header-navigation");
 const burger = document.querySelector(".burger");
 const navigation = document.querySelector(".header-navigation");
 const shadow = document.querySelector(".shadow");
+const logo = document.querySelector(".logo");
 
 function toggleBurger() {
   burger.classList.toggle("burger_open");
   toggleMenu();
   toggleShadow();
+  hideLogo();
 }
 
 function toggleMenu() {
@@ -302,6 +316,7 @@ function closeMenu(event) {
     menu.classList.remove("header-navigation_open");
     burger.classList.remove("burger_open");
     toggleShadow();
+    hideLogo();
   }
 }
 
@@ -313,11 +328,18 @@ function toggleShadow() {
 }
 
 function scrollDesable() {
-  if (shadow.classList.contains("shadow_active") || document.querySelector('.modal-wrapper')) {
+  if (
+    shadow.classList.contains("shadow_active") ||
+    document.querySelector(".modal-wrapper")
+  ) {
     document.body.style.overflow = "hidden";
   } else {
     document.body.style.overflow = "visible";
   }
+}
+
+function hideLogo() {
+  logo.classList.toggle("hidden");
 }
 
 /// Slider
@@ -351,21 +373,51 @@ function scrollDesable() {
 // };
 
 ///Pet render
-const renderPetCardsToDom = () => {
-  const cardContainer = getCardContainer();
-  const randomData = getRandomDataArray()
+
+//рендер в центр
+const activeSlideBlock = document.querySelectorAll(".slider-items")[1];
+
+const renderCenterPetCardsToDom = () => {
+  const cardContainer = getCenterCardContainer();
+  const randomData = getRandomDataArray();
   generatePetCards(randomData).forEach((card) => {
     cardContainer.append(card.generateCard());
   });
-  addPetsCardsClickHandler()
+  addPetsCardsClickHandler();
 };
 
-const getCardContainer = () => {
-  const container = document.querySelector(".slider-items");
+const getCenterCardContainer = () => {
+  const container = activeSlideBlock;
   container.innerHTML = "";
   return container;
 };
 
+// рендер скрытых слайдов справа и слева
+const prevSlideBlock = document.querySelector(
+  ".slider-items-wrapper"
+).firstElementChild;
+const nextSlideBlock = document.querySelector(
+  ".slider-items-wrapper"
+).lastElementChild;
+
+const renderNextPetCardsToDom = () => {
+  const cardContainers = getCardContainers();
+  const randomData = getRandomDataArray();
+  cardContainers.forEach((cardContainer) => {
+    generatePetCards(randomData).forEach((card) => {
+      cardContainer.append(card.generateCard());
+    });
+  });
+  addPetsCardsClickHandler();
+};
+
+const getCardContainers = () => {
+  const containers = [prevSlideBlock, nextSlideBlock];
+  containers.forEach((container) => (container.innerHTML = ""));
+  return containers;
+};
+
+/// общие функции для рендера в слайдер
 const generatePetCards = (data) => {
   let cards = [];
   data.forEach((card) => {
@@ -391,83 +443,95 @@ const generatePetCards = (data) => {
 // };
 
 const addPetsCardsClickHandler = () => {
-  document.querySelector('.slider-items').addEventListener('click', (e) => {
-    if(e.target.closest('.pet')) {
-      let clickedPetName = e.target.closest('.pet').getAttribute('data-name')
-      let clickedPetData = getClickedData(clickedPetName)
-      // console.log('clickedPetName')     
-      renderPetModalWindow(clickedPetData)
+  activeSlideBlock.addEventListener("click", (e) => {
+    if (e.target.closest(".pet")) {
+      let clickedPetName = e.target.closest(".pet").getAttribute("data-name");
+      let clickedPetData = getClickedData(clickedPetName);
+      // console.log('clickedPetName')
+      renderPetModalWindow(clickedPetData);
       // console.log(clickedPetName)
     }
-  })
-}
+  });
+};
 
 const getClickedData = (clickedPetName) => {
-  return data.find(pet => pet.name === clickedPetName)
-}
+  return data.find((pet) => pet.name === clickedPetName);
+};
 
 const renderPetModalWindow = (clickedPetData) => {
   ////блокировка повторного открытия окна
-  if(document.querySelector(".modal-wrapper")) {
-    return
+  if (document.querySelector(".modal-wrapper")) {
+    return;
   }
   let modal = new PetModal("pet-modal", clickedPetData);
   modal.renderModal();
 };
 
-
 /// Random Pet Card
 
-const countElements = 3
+const countElements = 3;
 
-let previosArrayOfNumbers = [0, 1, 2]
+let previosArrayOfNumbers = [0, 1, 2];
 
 const randomInteger = () => {
   const rand = Math.random() * 8;
   return Math.floor(rand);
-}
+};
 
 const getRandomArrayOfNumbers = () => {
-  const randomArrayOfNumbers = []
+  const randomArrayOfNumbers = [];
 
   while (randomArrayOfNumbers.length < countElements) {
-  let randomNumber = randomInteger()
-  if (!randomArrayOfNumbers.includes(randomNumber)) {
-    randomArrayOfNumbers.push(randomNumber)   
-  }    
-}
-  return randomArrayOfNumbers
-}
+    let randomNumber = randomInteger();
+    if (!randomArrayOfNumbers.includes(randomNumber)) {
+      randomArrayOfNumbers.push(randomNumber);
+    }
+  }
+  return randomArrayOfNumbers;
+};
 
 const getCurrentArrayOfNumbers = () => {
-  let currentArrayOfNumbers = getRandomArrayOfNumbers()
-  while(
-  [...new Set(previosArrayOfNumbers.concat(currentArrayOfNumbers))].length !== 2 * countElements
-) {    
-  currentArrayOfNumbers = getRandomArrayOfNumbers()
-}
-  previosArrayOfNumbers = currentArrayOfNumbers  
-  return currentArrayOfNumbers  
-}
+  let currentArrayOfNumbers = getRandomArrayOfNumbers();
+  while (
+    [...new Set(previosArrayOfNumbers.concat(currentArrayOfNumbers))].length !==
+    2 * countElements
+  ) {
+    currentArrayOfNumbers = getRandomArrayOfNumbers();
+  }
+  previosArrayOfNumbers = currentArrayOfNumbers;
+  return currentArrayOfNumbers;
+};
 
 const getRandomDataArray = () => {
-  let currentArrayOfNumbers = getCurrentArrayOfNumbers()
-  const randomDataArray = []  
-  currentArrayOfNumbers.forEach(i => randomDataArray.push(data[i]))
-  return randomDataArray
-}
+  let currentArrayOfNumbers = getCurrentArrayOfNumbers();
+  const randomDataArray = [];
+  currentArrayOfNumbers.forEach((i) => randomDataArray.push(data[i]));
+  return randomDataArray;
+};
 
 /// new Random Slider
+const carousel = document.querySelector(".slider-items-wrapper");
 
 const sliderClickHandler = () => {
   const slider = document.querySelector(".slider");
   slider.addEventListener("click", (e) => {
-    // console.log('test')
     let clickedItem = e.target;
-    // console.log(clickedItem)
-    if (clickedItem.classList.contains("slider__button")) {
-      renderPetCardsToDom();
-      // console.log('test')
+    if (clickedItem.classList.contains("slider__button_right")) {
+      carousel.classList.add("transition-right");
+    } else if (clickedItem.classList.contains("slider__button_left")) {
+      carousel.classList.add("transition-left");
     }
   });
 };
+
+const changeSliderContent = () => {
+  activeSlideBlock.innerHTML = prevSlideBlock.innerHTML
+  renderNextPetCardsToDom()
+}
+
+
+carousel.addEventListener("animationend", () => {
+  carousel.classList.remove("transition-right");
+  carousel.classList.remove("transition-left");
+  changeSliderContent()
+});
