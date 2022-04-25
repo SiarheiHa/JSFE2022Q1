@@ -333,8 +333,10 @@ const data = [
   }
   
   function hideLogo() {
-    logo.classList.toggle("hidden");
-  }  
+    if (window.innerWidth < 768) {
+      logo.classList.toggle("hidden");
+    }  
+  }
 
   /// Slider
   // const sliderClickHandler = () => {
