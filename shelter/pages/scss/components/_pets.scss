@@ -50,26 +50,37 @@
         padding-top: 4.2rem;
         padding-bottom: 4.2rem;
     }
-      }
+}
 
-.slider-items-wrapper {
+.carousel-wrapper {
     flex-grow: 1;
     overflow: hidden;
     @include media-mobile { 
         order: -1;
         width: 100%;
     }
-    
+
+}
+
+.slider-items-wrapper {
+    height: 435.09px;
+    display: flex;
+    width: 300%;
+    // justify-content: center;
+
+    // / раскоментировать для карусели
+    position: relative;
+    left: -100%;
 }
 
 .slider-items {
     // opacity: 1;
     // transition: all 4s;
     display: flex;
-    flex-grow: 1;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    row-gap: 30px;
+    justify-content: center;
+    gap: 9rem;
+    width: 100%;
+
     /*перенести в парт3*/
     @include media-tablet {
         justify-content: center;
@@ -83,8 +94,5 @@
         padding-bottom: 2rem;
         
     }
-    // &_animation {
-    //     opacity: 0;
-    // }
 }
 
