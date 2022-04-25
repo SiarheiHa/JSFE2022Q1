@@ -544,7 +544,7 @@ const getCardsPerPage = () => {
 const windowInnerWidth = window.innerWidth
 if(windowInnerWidth >= 1280) {
   cardsPerPage = 8
-} else if(windowInnerWidth > 320 && windowInnerWidth < 1280) {
+} else if(windowInnerWidth > 767 && windowInnerWidth < 1280) {
   cardsPerPage = 6
 } else {
   cardsPerPage = 3
