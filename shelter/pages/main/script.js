@@ -283,7 +283,8 @@ window.onload = function () {
   burger.addEventListener("click", toggleBurger);
   shadow.addEventListener("click", closeMenu);
   sliderClickHandler();
-  renderPetCardsToDom();
+  renderCenterPetCardsToDom();
+  renderNextPetCardsToDom()
 
   ///Generate Base Modal from Modal Class
   // addLogoClickHandler();
@@ -372,8 +373,10 @@ function hideLogo() {
 // };
 
 ///Pet render
-const renderPetCardsToDom = () => {
-  const cardContainer = getCardContainer();
+
+//рендер в центр
+const renderCenterPetCardsToDom = () => {
+  const cardContainer = getCenterCardContainer();
   const randomData = getRandomDataArray();
   generatePetCards(randomData).forEach((card) => {
     cardContainer.append(card.generateCard());
@@ -381,12 +384,36 @@ const renderPetCardsToDom = () => {
   addPetsCardsClickHandler();
 };
 
-const getCardContainer = () => {
-  const container = document.querySelector(".slider-items");
+const getCenterCardContainer = () => {
+  const container = document.querySelectorAll(".slider-items")[1];
   container.innerHTML = "";
   return container;
 };
 
+// рендер скрытых слайдов справа и слева
+const prevSlideBlock = document.querySelector('.slider-items-wrapper').firstElementChild
+const nextSlideBlock = document.querySelector('.slider-items-wrapper').lastElementChild
+
+const renderNextPetCardsToDom = () => {
+  const cardContainers = getCardContainers();
+  console.log(cardContainers)
+  const randomData = getRandomDataArray();
+  cardContainers.forEach((cardContainer => {
+    generatePetCards(randomData).forEach((card) => {
+      cardContainer.append(card.generateCard());
+    });
+  }
+    ))  
+  addPetsCardsClickHandler();
+};
+
+const getCardContainers = () => {
+  const containers = [prevSlideBlock, nextSlideBlock];
+  containers.forEach(container => container.innerHTML = "")
+  return containers;
+};
+
+/// общие функции для рендера в слайдер
 const generatePetCards = (data) => {
   let cards = [];
   data.forEach((card) => {
@@ -487,7 +514,7 @@ const sliderClickHandler = () => {
     let clickedItem = e.target;
     // console.log(clickedItem)
     if (clickedItem.classList.contains("slider__button")) {
-      renderPetCardsToDom();
+      renderCenterPetCardsToDom();
       // console.log('test')
     }
   });
