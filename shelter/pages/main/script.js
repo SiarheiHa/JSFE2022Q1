@@ -284,7 +284,7 @@ window.onload = function () {
   shadow.addEventListener("click", closeMenu);
   sliderClickHandler();
   renderCenterPetCardsToDom();
-  renderNextPetCardsToDom()
+  renderNextPetCardsToDom();
 
   ///Generate Base Modal from Modal Class
   // addLogoClickHandler();
@@ -316,7 +316,7 @@ function closeMenu(event) {
     menu.classList.remove("header-navigation_open");
     burger.classList.remove("burger_open");
     toggleShadow();
-    hideLogo()
+    hideLogo();
   }
 }
 
@@ -375,6 +375,8 @@ function hideLogo() {
 ///Pet render
 
 //рендер в центр
+const activeSlideBlock = document.querySelectorAll(".slider-items")[1];
+
 const renderCenterPetCardsToDom = () => {
   const cardContainer = getCenterCardContainer();
   const randomData = getRandomDataArray();
@@ -385,31 +387,33 @@ const renderCenterPetCardsToDom = () => {
 };
 
 const getCenterCardContainer = () => {
-  const container = document.querySelectorAll(".slider-items")[1];
+  const container = activeSlideBlock;
   container.innerHTML = "";
   return container;
 };
 
 // рендер скрытых слайдов справа и слева
-const prevSlideBlock = document.querySelector('.slider-items-wrapper').firstElementChild
-const nextSlideBlock = document.querySelector('.slider-items-wrapper').lastElementChild
+const prevSlideBlock = document.querySelector(
+  ".slider-items-wrapper"
+).firstElementChild;
+const nextSlideBlock = document.querySelector(
+  ".slider-items-wrapper"
+).lastElementChild;
 
 const renderNextPetCardsToDom = () => {
   const cardContainers = getCardContainers();
-  console.log(cardContainers)
   const randomData = getRandomDataArray();
-  cardContainers.forEach((cardContainer => {
+  cardContainers.forEach((cardContainer) => {
     generatePetCards(randomData).forEach((card) => {
       cardContainer.append(card.generateCard());
     });
-  }
-    ))  
+  });
   addPetsCardsClickHandler();
 };
 
 const getCardContainers = () => {
   const containers = [prevSlideBlock, nextSlideBlock];
-  containers.forEach(container => container.innerHTML = "")
+  containers.forEach((container) => (container.innerHTML = ""));
   return containers;
 };
 
@@ -439,7 +443,7 @@ const generatePetCards = (data) => {
 // };
 
 const addPetsCardsClickHandler = () => {
-  document.querySelector(".slider-items").addEventListener("click", (e) => {
+  activeSlideBlock.addEventListener("click", (e) => {
     if (e.target.closest(".pet")) {
       let clickedPetName = e.target.closest(".pet").getAttribute("data-name");
       let clickedPetData = getClickedData(clickedPetName);
@@ -506,16 +510,28 @@ const getRandomDataArray = () => {
 };
 
 /// new Random Slider
+const carousel = document.querySelector(".slider-items-wrapper");
 
 const sliderClickHandler = () => {
   const slider = document.querySelector(".slider");
   slider.addEventListener("click", (e) => {
-    // console.log('test')
     let clickedItem = e.target;
-    // console.log(clickedItem)
-    if (clickedItem.classList.contains("slider__button")) {
-      renderCenterPetCardsToDom();
-      // console.log('test')
+    if (clickedItem.classList.contains("slider__button_right")) {
+      carousel.classList.add("transition-right");
+    } else if (clickedItem.classList.contains("slider__button_left")) {
+      carousel.classList.add("transition-left");
     }
   });
 };
+
+const changeSliderContent = () => {
+  activeSlideBlock.innerHTML = prevSlideBlock.innerHTML
+  renderNextPetCardsToDom()
+}
+
+
+carousel.addEventListener("animationend", () => {
+  carousel.classList.remove("transition-right");
+  carousel.classList.remove("transition-left");
+  changeSliderContent()
+});

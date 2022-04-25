@@ -501,6 +501,32 @@ h3 {
   left: 0;
 }
 
+@keyframes move-left {
+  from {
+    left: -100%;
+  }
+  to {
+    left: 0%;
+  }
+}
+@keyframes move-right {
+  from {
+    left: -100%;
+  }
+  to {
+    left: -200%;
+  }
+}
+.transition-right {
+  animation-name: move-right;
+  animation-duration: 3s;
+}
+
+.transition-left {
+  animation-name: move-left;
+  animation-duration: 3s;
+}
+
 .shadow {
   position: fixed;
   top: 0;
@@ -1406,6 +1432,9 @@ h3 {
 .slider-items-wrapper {
   height: 435.09px;
   display: flex;
+  width: 300%;
+  position: relative;
+  left: -100%;
 }
 
 .slider-items {
