@@ -9,6 +9,9 @@ body {
   font-size: 1.6rem;
   font-family: Georgia, "Times New Roman", Times, serif;
   position: relative;
+  // @include media-mobile {
+  //   overflow-x: hidden;
+  // }
 
   // Удалить для второй части проекта 
   // min-width: 1280px;
