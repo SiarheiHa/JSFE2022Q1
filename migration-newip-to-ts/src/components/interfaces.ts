@@ -11,4 +11,15 @@ interface NewsSourceData extends NewsSource {
     country: string;
 }
 
-export { NewsSource, NewsSourceData };
+interface NewsItem {
+    source: NewsSource;
+    author: string;
+    title: string;
+    description: string;
+    url: string;
+    urlToImage: string;
+    publishedAt: string;
+    content: string;
+}
+
+export { NewsSource, NewsSourceData, NewsItem };
