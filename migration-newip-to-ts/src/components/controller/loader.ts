@@ -1,19 +1,4 @@
-import { NewsItem, NewsSourceData } from '../interfaces';
-
-type RequesOptions = {
-    sources?: string;
-};
-type GetRespParameter = {
-    endpoint: string;
-    options?: RequesOptions;
-};
-
-type Callback = (data?: {
-    status: string;
-    sources?: NewsSourceData[];
-    totalResults?: number;
-    articles?: NewsItem[];
-}) => void;
+import { GetRespParameter, Callback, RequestOptions, ResponseData } from '../interfaces';
 
 class Loader {
     baseLink: string;
@@ -43,7 +28,7 @@ class Loader {
         return res;
     }
 
-    makeUrl(options: RequesOptions, endpoint: string): string {
+    makeUrl(options: RequestOptions, endpoint: string): string {
         const urlOptions: { [key: string]: string } = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
         Object.keys(urlOptions).forEach((key) => {
@@ -52,14 +37,11 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load(method: string, endpoint: string, callback: Callback, options: RequesOptions = {}) {
+    load(method: string, endpoint: string, callback: Callback, options: RequestOptions = {}) {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler.bind(this))
             .then((res) => res.json())
-            .then(
-                (data: { status: string; sources?: NewsSourceData[]; totalResults?: number; articles?: NewsItem[] }) =>
-                    callback(data)
-            )
+            .then((data: ResponseData) => callback(data))
             .catch((err: Error) => console.error(err));
     }
 }

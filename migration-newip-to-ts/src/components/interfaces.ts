@@ -1,9 +1,9 @@
-interface NewsSource {
+export interface NewsSource {
     id: string;
     name: string;
 }
 
-interface NewsSourceData extends NewsSource {
+export interface NewsSourceData extends NewsSource {
     description: string;
     url: string;
     category: string;
@@ -11,7 +11,7 @@ interface NewsSourceData extends NewsSource {
     country: string;
 }
 
-interface NewsItem {
+export interface NewsItem {
     source: NewsSource;
     author: string;
     title: string;
@@ -22,4 +22,19 @@ interface NewsItem {
     content: string;
 }
 
-export { NewsSource, NewsSourceData, NewsItem };
+export type RequestOptions = {
+    sources?: string;
+};
+export type GetRespParameter = {
+    endpoint: string;
+    options?: RequestOptions;
+};
+
+export type ResponseData = {
+    status: string;
+    sources?: NewsSourceData[];
+    totalResults?: number;
+    articles?: NewsItem[];
+};
+
+export type Callback = (data?: ResponseData) => void;
