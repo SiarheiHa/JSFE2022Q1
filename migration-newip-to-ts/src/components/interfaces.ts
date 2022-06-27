@@ -37,4 +37,4 @@ export type ResponseData = {
     articles?: NewsItem[];
 };
 
-export type Callback = (data?: ResponseData) => void;
+export type Callback = (data: ResponseData) => void;
