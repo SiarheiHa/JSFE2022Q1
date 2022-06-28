@@ -1,4 +1,4 @@
-import { GetRespParameter, Callback, RequestOptions, ResponseData } from '../interfaces';
+import { GetRespParameter, Callback, HTTPStatusCode, RequestOptions, ResponseData } from '../interfaces';
 
 class Loader {
     baseLink: string;
@@ -20,7 +20,7 @@ class Loader {
 
     errorHandler(res: Response) {
         if (!res.ok) {
-            if (res.status === 401 || res.status === 404)
+            if (res.status === HTTPStatusCode.UNAUTHORIZED || res.status === HTTPStatusCode.NOT_FOUND)
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
             throw Error(res.statusText);
         }

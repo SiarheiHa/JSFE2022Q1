@@ -37,4 +37,9 @@ export type ResponseData = {
     articles?: NewsItem[];
 };
 
+export enum HTTPStatusCode {
+    UNAUTHORIZED = 401,
+    NOT_FOUND = 404,
+}
+
 export type Callback = (data: ResponseData) => void;
