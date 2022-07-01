@@ -49,3 +49,7 @@ export type Callback = (data: ResponseData) => void;
 export interface ISources {
     draw(data: NewsSourceData[]): void;
 }
+
+export interface INews {
+    draw(data: NewsItem[]): void;
+}
