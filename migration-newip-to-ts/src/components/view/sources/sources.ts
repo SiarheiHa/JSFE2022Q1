@@ -1,13 +1,13 @@
 import './sources.css';
-import { NewsSourceData } from '../../interfaces';
+import { ISources, NewsSourceData } from '../../interfaces';
 
-class Sources {
-    draw(data: NewsSourceData[]) {
-        const fragment: DocumentFragment = document.createDocumentFragment();
-        const sourceItemTemp: HTMLTemplateElement = document.querySelector('#sourceItemTemp') as HTMLTemplateElement;
+class Sources implements ISources {
+    public draw(data: NewsSourceData[]): void {
+        const fragment = document.createDocumentFragment();
+        const sourceItemTemp = document.querySelector('#sourceItemTemp') as HTMLTemplateElement;
 
-        data.forEach((item) => {
-            const sourceClone: HTMLElement = <HTMLElement>sourceItemTemp.content.cloneNode(true);
+        data.forEach((item: NewsSourceData) => {
+            const sourceClone = sourceItemTemp.content.cloneNode(true) as HTMLElement;
 
             (sourceClone.querySelector('.source__item-name') as HTMLElement).textContent = item.name;
             (sourceClone.querySelector('.source__item') as HTMLElement).setAttribute('data-source-id', item.id);

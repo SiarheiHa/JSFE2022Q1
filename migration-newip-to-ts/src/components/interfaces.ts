@@ -43,3 +43,9 @@ export enum HTTPStatusCode {
 }
 
 export type Callback = (data: ResponseData) => void;
+
+// Interfaces for classes
+
+export interface ISources {
+    draw(data: NewsSourceData[]): void;
+}
