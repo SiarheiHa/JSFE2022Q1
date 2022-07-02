@@ -72,3 +72,8 @@ export interface IAppView {
     drawNews(data: ResponseData): void;
     drawSources(data: ResponseData): void;
 }
+
+export interface Controller {
+    getSources(callback: Callback): void;
+    getNews(e: Event, callback: Callback): void;
+}
