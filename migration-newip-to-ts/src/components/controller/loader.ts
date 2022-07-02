@@ -8,8 +8,8 @@ import {
 } from '../interfaces';
 
 class Loader {
-    private baseLink: string;
-    private options: { apiKey: string };
+    private readonly baseLink: string;
+    private readonly options: { apiKey: string };
 
     constructor(baseLink: string, options: { apiKey: string }) {
         this.baseLink = baseLink;

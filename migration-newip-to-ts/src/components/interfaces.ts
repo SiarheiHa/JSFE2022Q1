@@ -1,9 +1,9 @@
-export interface NewsSource {
+interface NewsSource {
     id: string;
     name: string;
 }
 
-export interface NewsSourceData extends NewsSource {
+export interface NewsSourceData extends Readonly<NewsSource> {
     description: string;
     url: string;
     category: string;
@@ -12,7 +12,7 @@ export interface NewsSourceData extends NewsSource {
 }
 
 export interface NewsItem {
-    source: NewsSource;
+    source: Readonly<NewsSource>;
     author: string;
     title: string;
     description: string;
@@ -43,9 +43,9 @@ export enum Endpoint {
 
 type ResponseData = {
     status: 'ok' | 'error';
-    sources: NewsSourceData[];
+    sources: Readonly<NewsSourceData>[];
     totalResults: number;
-    articles: NewsItem[];
+    articles: Readonly<NewsItem>[];
 };
 
 export type ResponseDataSources = Pick<ResponseData, 'status' | 'sources'>;
