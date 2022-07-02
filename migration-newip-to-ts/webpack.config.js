@@ -17,6 +17,10 @@ const baseConfig = {
                 use: 'ts-loader',
                 exclude: /node_modules/,
             },
+            {
+                test: /\.(?:ico|png|svg|jpe?g|gif)$/i,
+                type: 'asset/resource',
+            },
         ],
     },
     resolve: {
