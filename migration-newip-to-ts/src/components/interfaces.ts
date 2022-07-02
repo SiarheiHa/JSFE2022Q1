@@ -77,3 +77,7 @@ export interface Controller {
     getSources(callback: Callback): void;
     getNews(e: Event, callback: Callback): void;
 }
+
+export interface NewsApp {
+    start(): void;
+}
