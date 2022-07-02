@@ -23,12 +23,23 @@ export interface NewsItem {
 }
 
 export type RequestOptions = {
-    sources?: string;
+    sources: string;
+    searchIn: string;
+    domains: string;
+    q: string;
+    excludeDomains: string;
+    from: string;
+    to: string;
+    language: string;
+    sortBy: string;
+    pageSize: string;
+    page: string;
 };
-export type GetRespParameter = {
-    endpoint: string;
-    options?: RequestOptions;
-};
+
+export enum Endpoint {
+    SOURCES = 'sources',
+    EVERYTHING = 'everything',
+}
 
 type ResponseData = {
     status: 'ok' | 'error';

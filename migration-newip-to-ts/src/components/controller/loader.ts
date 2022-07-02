@@ -1,31 +1,31 @@
 import {
-    GetRespParameter,
     Callback,
     HTTPStatusCode,
+    Endpoint,
     RequestOptions,
     ResponseDataSources,
     ResponseDataNews,
 } from '../interfaces';
 
 class Loader {
-    baseLink: string;
-    options: { apiKey: string };
+    private baseLink: string;
+    private options: { apiKey: string };
 
     constructor(baseLink: string, options: { apiKey: string }) {
         this.baseLink = baseLink;
         this.options = options;
     }
 
-    getResp(
-        { endpoint, options = {} }: GetRespParameter,
+    protected getResp(
+        { endpoint, options = {} }: { endpoint: Endpoint; options?: Partial<RequestOptions> },
         callback: Callback = () => {
             console.error('No callback for GET response');
         }
-    ) {
+    ): void {
         this.load('GET', endpoint, callback, options);
     }
 
-    errorHandler(res: Response) {
+    private errorHandler(res: Response): Response {
         if (!res.ok) {
             if (res.status === HTTPStatusCode.UNAUTHORIZED || res.status === HTTPStatusCode.NOT_FOUND)
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
@@ -35,7 +35,7 @@ class Loader {
         return res;
     }
 
-    makeUrl(options: RequestOptions, endpoint: string): string {
+    private makeUrl(options: Partial<RequestOptions>, endpoint: Endpoint): string {
         const urlOptions: { [key: string]: string } = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
         Object.keys(urlOptions).forEach((key) => {
@@ -44,10 +44,10 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load(method: string, endpoint: string, callback: Callback, options: RequestOptions = {}) {
+    private load(method: string, endpoint: Endpoint, callback: Callback, options: Partial<RequestOptions> = {}): void {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler.bind(this))
-            .then((res) => res.json())
+            .then((res): Promise<ResponseDataSources | ResponseDataNews> => res.json())
             .then((data: ResponseDataSources | ResponseDataNews) => callback(data))
             .catch((err: Error) => console.error(err));
     }
