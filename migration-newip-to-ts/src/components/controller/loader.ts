@@ -1,4 +1,11 @@
-import { GetRespParameter, Callback, HTTPStatusCode, RequestOptions, ResponseData } from '../interfaces';
+import {
+    GetRespParameter,
+    Callback,
+    HTTPStatusCode,
+    RequestOptions,
+    ResponseDataSources,
+    ResponseDataNews,
+} from '../interfaces';
 
 class Loader {
     baseLink: string;
@@ -41,7 +48,7 @@ class Loader {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler.bind(this))
             .then((res) => res.json())
-            .then((data: ResponseData) => callback(data))
+            .then((data: ResponseDataSources | ResponseDataNews) => callback(data))
             .catch((err: Error) => console.error(err));
     }
 }

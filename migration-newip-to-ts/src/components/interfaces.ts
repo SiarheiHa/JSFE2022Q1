@@ -30,19 +30,22 @@ export type GetRespParameter = {
     options?: RequestOptions;
 };
 
-export type ResponseData = {
-    status: string;
-    sources?: NewsSourceData[];
-    totalResults?: number;
-    articles?: NewsItem[];
+type ResponseData = {
+    status: 'ok' | 'error';
+    sources: NewsSourceData[];
+    totalResults: number;
+    articles: NewsItem[];
 };
+
+export type ResponseDataSources = Pick<ResponseData, 'status' | 'sources'>;
+export type ResponseDataNews = Omit<ResponseData, 'sources'>;
 
 export enum HTTPStatusCode {
     UNAUTHORIZED = 401,
     NOT_FOUND = 404,
 }
 
-export type Callback = (data: ResponseData) => void;
+export type Callback = (data: ResponseDataSources | ResponseDataNews) => void;
 
 // Interfaces for classes
 
@@ -52,4 +55,9 @@ export interface ISources {
 
 export interface INews {
     draw(data: NewsItem[]): void;
+}
+
+export interface IAppView {
+    drawNews(data: ResponseData): void;
+    drawSources(data: ResponseData): void;
 }

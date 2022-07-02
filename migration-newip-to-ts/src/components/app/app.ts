@@ -1,4 +1,5 @@
 import AppController from '../controller/controller';
+import { ResponseDataNews, ResponseDataSources } from '../interfaces';
 import { AppView } from '../view/appView';
 
 class App {
@@ -11,9 +12,9 @@ class App {
 
     start() {
         (document.querySelector('.sources') as HTMLDivElement).addEventListener('click', (e) =>
-            this.controller.getNews(e, (data) => this.view.drawNews(data))
+            this.controller.getNews(e, (data) => this.view.drawNews(data as ResponseDataNews))
         );
-        this.controller.getSources((data) => this.view.drawSources(data));
+        this.controller.getSources((data) => this.view.drawSources(data as ResponseDataSources));
     }
 }
 
