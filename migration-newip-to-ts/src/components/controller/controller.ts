@@ -1,5 +1,6 @@
 import AppLoader from './appLoader';
 import { Controller, Callback, Endpoint } from '../interfaces';
+import { addClassActive } from '../view/addClassActive';
 
 class AppController extends AppLoader implements Controller {
     public getSources(callback: Callback) {
@@ -30,8 +31,10 @@ class AppController extends AppLoader implements Controller {
                         callback
                     );
                 }
+                addClassActive(target);
                 return;
             }
+
             target = target.parentNode as HTMLElement;
         }
     }

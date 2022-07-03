@@ -53,6 +53,11 @@
     transform: translateY(-0.25em);
 }
 
+.active {
+    border-color: #3fcc59;
+    color: #69db7e;
+}
+
 .source__item-name {
     font-weight: 400;
     white-space: nowrap;

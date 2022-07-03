@@ -1,5 +1,6 @@
 import './sources.css';
 import { Draw, NewsSourceData } from '../../interfaces';
+import { addClassActive } from '../addClassActive';
 
 class Sources implements Draw<NewsSourceData[]> {
     public draw(data: NewsSourceData[]): void {
@@ -30,12 +31,18 @@ class Sources implements Draw<NewsSourceData[]> {
         (document.querySelector('main') as HTMLElement).prepend(sourcesLetterList);
         (document.querySelector('.sources') as HTMLElement).append(fragment);
         this.addListHandler(sourcesLetterList);
+
+        if (firstLetterSet.length) {
+            this.sortSourcesByLetter(firstLetterSet[0]);
+            addClassActive(sourcesLetterList.firstChild as HTMLElement);
+        }
     }
 
     private addListHandler(list: HTMLDivElement) {
         list.addEventListener('click', (e) => {
             if (e.target instanceof HTMLElement && e.target.classList.contains('letter-list__item')) {
                 this.sortSourcesByLetter(e.target.dataset.letter as string);
+                addClassActive(e.target);
             }
         });
     }
