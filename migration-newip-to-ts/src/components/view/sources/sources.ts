@@ -7,7 +7,7 @@ class Sources implements Draw<NewsSourceData[]> {
         const fragment = document.createDocumentFragment();
         const sourceItemTemp = document.querySelector('#sourceItemTemp') as HTMLTemplateElement;
         const sourcesLetterList = document.createElement('div');
-        const firstLetterSet = [...new Set(data.map((item) => item.name[0].toUpperCase()))];
+        const firstLetterSet: Array<string> = [...new Set(data.map((item) => item.name[0].toUpperCase()))];
 
         data.forEach((item: NewsSourceData) => {
             const sourceClone = sourceItemTemp.content.cloneNode(true) as HTMLElement;
@@ -19,7 +19,7 @@ class Sources implements Draw<NewsSourceData[]> {
             fragment.append(sourceClone);
         });
 
-        firstLetterSet.forEach((letter) => {
+        firstLetterSet.forEach((letter: string) => {
             const span = document.createElement('span');
             span.innerHTML = letter;
             span.dataset.letter = letter;
@@ -38,8 +38,8 @@ class Sources implements Draw<NewsSourceData[]> {
         }
     }
 
-    private addListHandler(list: HTMLDivElement) {
-        list.addEventListener('click', (e) => {
+    private addListHandler(list: HTMLDivElement): void {
+        list.addEventListener('click', (e: Event) => {
             if (e.target instanceof HTMLElement && e.target.classList.contains('letter-list__item')) {
                 this.sortSourcesByLetter(e.target.dataset.letter as string);
                 addClassActive(e.target);
@@ -47,8 +47,8 @@ class Sources implements Draw<NewsSourceData[]> {
         });
     }
 
-    private sortSourcesByLetter(letter: string) {
-        const buttonSpans = document.querySelectorAll('.source__item-name');
+    private sortSourcesByLetter(letter: string): void {
+        const buttonSpans: NodeListOf<Element> = document.querySelectorAll('.source__item-name');
         buttonSpans.forEach((span) => {
             if (span.parentElement) {
                 span.parentElement.classList.add('hidden');
