@@ -1,8 +1,8 @@
-import { IAppView, ResponseDataSources, ResponseDataNews, NewsItem, NewsSourceData } from '../interfaces';
+import { View, ResponseDataSources, ResponseDataNews, NewsItem, NewsSourceData } from '../interfaces';
 import News from './news/news';
 import Sources from './sources/sources';
 
-export class AppView implements IAppView {
+export class AppView implements View {
     private news: News;
     private sources: Sources;
 

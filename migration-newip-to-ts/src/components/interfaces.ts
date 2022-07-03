@@ -60,15 +60,11 @@ export type Callback = (data: ResponseDataSources | ResponseDataNews) => void;
 
 // Interfaces for classes
 
-export interface ISources {
-    draw(data: NewsSourceData[]): void;
+export interface Draw<T> {
+    draw(data: T): void;
 }
 
-export interface INews {
-    draw(data: NewsItem[]): void;
-}
-
-export interface IAppView {
+export interface View {
     drawNews(data: ResponseData): void;
     drawSources(data: ResponseData): void;
 }

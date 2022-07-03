@@ -1,7 +1,7 @@
 import './news.css';
-import { INews, NewsItem } from '../../interfaces';
+import { Draw, NewsItem } from '../../interfaces';
 
-class News implements INews {
+class News implements Draw<NewsItem[]> {
     public draw(data: NewsItem[]): void {
         const news: NewsItem[] = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
 
