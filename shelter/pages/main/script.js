@@ -339,7 +339,9 @@ function scrollDesable() {
 }
 
 function hideLogo() {
-  logo.classList.toggle("hidden");
+  if (window.innerWidth < 768) {
+    logo.classList.toggle("hidden");
+  }  
 }
 
 /// Slider
