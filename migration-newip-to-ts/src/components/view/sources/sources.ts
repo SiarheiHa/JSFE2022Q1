@@ -13,6 +13,7 @@ class Sources implements ISources {
 
             (sourceClone.querySelector('.source__item-name') as HTMLElement).textContent = item.name;
             (sourceClone.querySelector('.source__item') as HTMLElement).setAttribute('data-source-id', item.id);
+            (sourceClone.querySelector('.source__item') as HTMLElement).classList.add('hidden');
 
             fragment.append(sourceClone);
         });
@@ -28,9 +29,28 @@ class Sources implements ISources {
         sourcesLetterList.classList.add('letter-list');
         (document.querySelector('main') as HTMLElement).prepend(sourcesLetterList);
         (document.querySelector('.sources') as HTMLElement).append(fragment);
+        this.addListHandler(sourcesLetterList);
     }
-    
-    public sort(event: Event) {}
+
+    private addListHandler(list: HTMLDivElement) {
+        list.addEventListener('click', (e) => {
+            if (e.target instanceof HTMLElement && e.target.classList.contains('letter')) {
+                this.sortSourcesByLetter(e.target.dataset.letter as string);
+            }
+        });
+    }
+
+    private sortSourcesByLetter(letter: string) {
+        const buttonSpans = document.querySelectorAll('.source__item-name');
+        buttonSpans.forEach((span) => {
+            if (span.parentElement) {
+                span.parentElement.classList.add('hidden');
+                if (span.innerHTML[0] === letter) {
+                    span.parentElement.classList.remove('hidden');
+                }
+            }
+        });
+    }
 }
 
 export default Sources;
