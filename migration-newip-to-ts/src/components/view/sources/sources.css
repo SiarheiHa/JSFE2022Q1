@@ -1,3 +1,23 @@
+.letter-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.letter-list__item {
+    border: 2px solid #30c5ff;
+    border-radius: 50%;
+    text-align: center;
+    font-family: monospace;
+    color: #70d6ff;
+    cursor: pointer;
+    font-size: 2rem;
+    width: 2rem;
+    transition: 0.25s;
+}
+
 .sources {
     display: flex;
     flex-wrap: wrap;
@@ -23,7 +43,8 @@
 .hidden {
     display: none;
 }
-
+.letter-list__item:hover,
+.letter-list__item:focus,
 .source__item:hover,
 .source__item:focus {
     border-color: #3fcc59;

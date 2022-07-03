@@ -22,7 +22,7 @@ class Sources implements ISources {
             const span = document.createElement('span');
             span.innerHTML = letter;
             span.dataset.letter = letter;
-            span.classList.add('letter');
+            span.classList.add('letter-list__item');
             sourcesLetterList.append(span);
         });
 
@@ -34,7 +34,7 @@ class Sources implements ISources {
 
     private addListHandler(list: HTMLDivElement) {
         list.addEventListener('click', (e) => {
-            if (e.target instanceof HTMLElement && e.target.classList.contains('letter')) {
+            if (e.target instanceof HTMLElement && e.target.classList.contains('letter-list__item')) {
                 this.sortSourcesByLetter(e.target.dataset.letter as string);
             }
         });
