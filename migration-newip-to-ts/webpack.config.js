@@ -21,6 +21,10 @@ const baseConfig = {
                 test: /\.(?:ico|png|svg|jpe?g|gif)$/i,
                 type: 'asset/resource',
             },
+            {
+                test: /\.html$/i,
+                loader: 'html-loader',
+            },
         ],
     },
     resolve: {
