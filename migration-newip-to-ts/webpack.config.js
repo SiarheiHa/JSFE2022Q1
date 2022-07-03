@@ -2,6 +2,7 @@ const path = require('path');
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const baseConfig = {
     entry: path.resolve(__dirname, './src/index'),
@@ -32,8 +33,8 @@ const baseConfig = {
     },
     output: {
         filename: 'index.js',
-        path: path.resolve(__dirname, '../dist'),
-        assetModuleFilename: 'images/[hash][ext][query]',
+        path: path.resolve(__dirname, './dist'),
+        assetModuleFilename: 'img/[hash][ext][query]',
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -41,6 +42,14 @@ const baseConfig = {
             filename: 'index.html',
         }),
         new CleanWebpackPlugin(),
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, 'src', 'assets', 'img', 'news_placeholder.jpg'),
+                    to: path.resolve(__dirname, 'dist', 'img', 'news_placeholder.jpg'),
+                },
+            ],
+        }),
     ],
 };
 
