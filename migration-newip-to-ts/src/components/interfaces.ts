@@ -79,5 +79,5 @@ export interface Controller {
 }
 
 export interface NewsApp {
-    start(): void;
+    showData(): void;
 }

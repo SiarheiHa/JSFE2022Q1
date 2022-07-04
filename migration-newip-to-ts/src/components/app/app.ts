@@ -11,7 +11,7 @@ class App implements NewsApp {
         this.view = new AppView();
     }
 
-    public start(): void {
+    public showData(): void {
         const sourceContainer = document.querySelector('.sources') as HTMLDivElement;
         sourceContainer.addEventListener('click', (e: MouseEvent) =>
             this.controller.getNews(e, (data: ResponseDataNews | ResponseDataSources) =>
