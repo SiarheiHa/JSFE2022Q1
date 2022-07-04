@@ -1,13 +1,13 @@
 import './sources.css';
-import { Draw, NewsSourceData } from '../../interfaces';
+import { ISources, NewsSourceData } from '../../interfaces';
 import { addClassActive } from '../addClassActive';
 
-class Sources implements Draw<NewsSourceData[]> {
-    public draw(data: NewsSourceData[]): void {
+class Sources implements ISources<NewsSourceData[]> {
+    public drawSources(data: NewsSourceData[]): void {
         const fragment = document.createDocumentFragment();
         const sourceItemTemp = document.querySelector('#sourceItemTemp') as HTMLTemplateElement;
         const sourcesLetterList = document.createElement('div');
-        const firstLetterSet: Array<string> = [...new Set(data.map((item) => item.name[0].toUpperCase()))];
+        const firstLetterSet: string[] = [...new Set(data.map((item: NewsSourceData) => item.name[0].toUpperCase()))];
 
         data.forEach((item: NewsSourceData) => {
             const sourceClone = sourceItemTemp.content.cloneNode(true) as HTMLElement;
@@ -40,16 +40,17 @@ class Sources implements Draw<NewsSourceData[]> {
 
     private addListHandler(list: HTMLDivElement): void {
         list.addEventListener('click', (e: Event) => {
-            if (e.target instanceof HTMLElement && e.target.classList.contains('letter-list__item')) {
-                this.sortSourcesByLetter(e.target.dataset.letter as string);
-                addClassActive(e.target);
+            const target = e.target as HTMLElement;
+            if (target?.classList.contains('letter-list__item')) {
+                this.sortSourcesByLetter(String(target.dataset.letter));
+                addClassActive(target);
             }
         });
     }
 
     private sortSourcesByLetter(letter: string): void {
         const buttonSpans: NodeListOf<Element> = document.querySelectorAll('.source__item-name');
-        buttonSpans.forEach((span) => {
+        buttonSpans.forEach((span: Element) => {
             if (span.parentElement) {
                 span.parentElement.classList.add('hidden');
                 if (span.innerHTML[0] === letter) {

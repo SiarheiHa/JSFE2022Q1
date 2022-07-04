@@ -12,13 +12,13 @@ export class AppView implements View {
     }
 
     public drawNews(data: ResponseDataNews): void {
-        const values: NewsItem[] = data?.articles ? data?.articles : [];
-        this.news.draw(values);
+        const values: NewsItem[] = data?.articles ? data.articles : [];
+        this.news.drawNews(values);
     }
 
     public drawSources(data: ResponseDataSources): void {
-        const values: NewsSourceData[] = data?.sources ? data?.sources : [];
-        this.sources.draw(values);
+        const values: NewsSourceData[] = data?.sources ? data.sources : [];
+        this.sources.drawSources(values);
     }
 }
 

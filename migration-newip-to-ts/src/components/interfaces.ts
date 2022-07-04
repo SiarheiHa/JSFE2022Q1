@@ -38,7 +38,7 @@ export type RequestOptions = {
 
 export enum Endpoint {
     SOURCES = 'sources',
-    EVERYTHING = 'everything',
+    COMMON = 'everything',
 }
 
 type ResponseData = {
@@ -60,8 +60,12 @@ export type Callback = (data: ResponseDataSources | ResponseDataNews) => void;
 
 // Interfaces for classes
 
-export interface Draw<T> {
-    draw(data: T): void;
+export interface ISources<T> {
+    drawSources(data: T): void;
+}
+
+export interface INews<T> {
+    drawNews(data: T): void;
 }
 
 export interface View {

@@ -4,12 +4,7 @@ import { addClassActive } from '../view/addClassActive';
 
 class AppController extends AppLoader implements Controller {
     public getSources(callback: Callback) {
-        super.getResp(
-            {
-                endpoint: Endpoint.SOURCES,
-            },
-            callback
-        );
+        super.getResponse({ endpoint: Endpoint.SOURCES }, callback);
     }
 
     public getNews(e: Event, callback: Callback): void {
@@ -21,9 +16,9 @@ class AppController extends AppLoader implements Controller {
                 const sourceId = target.getAttribute('data-source-id') as string;
                 if (newsContainer.getAttribute('data-source') !== sourceId) {
                     newsContainer.setAttribute('data-source', sourceId);
-                    super.getResp(
+                    super.getResponse(
                         {
-                            endpoint: Endpoint.EVERYTHING,
+                            endpoint: Endpoint.COMMON,
                             options: {
                                 sources: sourceId,
                             },

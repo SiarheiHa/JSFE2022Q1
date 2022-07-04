@@ -5,16 +5,22 @@ import { AppView } from '../view/appView';
 class App implements NewsApp {
     private controller: AppController;
     private view: AppView;
+
     constructor() {
         this.controller = new AppController();
         this.view = new AppView();
     }
 
     public start(): void {
-        (document.querySelector('.sources') as HTMLDivElement).addEventListener('click', (e) =>
-            this.controller.getNews(e, (data) => this.view.drawNews(data as ResponseDataNews))
+        const sourceContainer = document.querySelector('.sources') as HTMLDivElement;
+        sourceContainer.addEventListener('click', (e: MouseEvent) =>
+            this.controller.getNews(e, (data: ResponseDataNews | ResponseDataSources) =>
+                this.view.drawNews(data as ResponseDataNews)
+            )
         );
-        this.controller.getSources((data) => this.view.drawSources(data as ResponseDataSources));
+        this.controller.getSources((data: ResponseDataNews | ResponseDataSources) =>
+            this.view.drawSources(data as ResponseDataSources)
+        );
     }
 }
 

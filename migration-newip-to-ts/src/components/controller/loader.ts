@@ -16,7 +16,7 @@ class Loader {
         this.options = options;
     }
 
-    protected getResp(
+    protected getResponse(
         { endpoint, options = {} }: { endpoint: Endpoint; options?: Partial<RequestOptions> },
         callback: Callback = () => {
             console.error('No callback for GET response');
@@ -36,9 +36,9 @@ class Loader {
     }
 
     private makeUrl(options: Partial<RequestOptions>, endpoint: Endpoint): string {
-        const urlOptions: { [key: string]: string } = { ...this.options, ...options };
+        const urlOptions: Record<string, string> = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
-        Object.keys(urlOptions).forEach((key) => {
+        Object.keys(urlOptions).forEach((key: string) => {
             url += `${key}=${urlOptions[key]}&`;
         });
         return url.slice(0, -1);
