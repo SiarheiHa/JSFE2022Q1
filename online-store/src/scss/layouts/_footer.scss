@@ -1,35 +1,21 @@
-.footer {
-    background: radial-gradient(100% 215.42% at 0% 0%, #5b483a 0%, #262425 100%);
+footer {
+    min-height: 4rem;
+    background-color: $color-light-l;
 }
 
 .footer-wrapper {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    row-gap: 6.5rem;
-    padding-top: 4rem;
-    @include media-tablet {
-        padding: 3rem 3.5rem 0 3.5rem;
-        justify-content: space-around;
-        .footer-content-item {
-            margin-top: 0;
+    .logo {
+        transition: 0.2s;
+        &._git {
+            filter: invert(1);
+        }
+        &:hover {
+            filter: invert(32%) sepia(71%) saturate(0%) hue-rotate(297deg) brightness(88%) contrast(95%);
+            transform: scale(1.05);
         }
     }
-    @include media-mobile {
-        row-gap: 4rem;
-        padding: 3rem 0 0 0;
-    }
-}
-
-.footer-puppy {
-    @include media-mobile {
-        width: 81.6%;
-        /*перенести в парт3*/
-        max-width: 30rem;
-    }
-}
-
-.footer-puppy__img {
-    display: block;
-    width: 100%;
 }
