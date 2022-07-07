@@ -1,0 +1,17 @@
+.header__cart {
+    margin-left: 1rem;
+}
+
+.cart {
+    min-width: 10rem;
+}
+
+.cart__counter {
+    font-size: 3rem;
+    border-radius: 50%;
+    display: inline-block;
+    min-width: 3rem;
+    background-color: $color-primary;
+    text-align: center;
+    vertical-align: top;
+}

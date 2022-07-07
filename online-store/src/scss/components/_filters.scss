@@ -1,0 +1,12 @@
+.filters {
+    background-color: $color-light-l;
+}
+.filters-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+.filter {
+    flex-basis: 30%;
+    min-height: 3rem;
+    background-color: $color-primary;
+}

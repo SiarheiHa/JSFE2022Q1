@@ -11,6 +11,7 @@
 .header-wrapper {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .logo {
@@ -33,14 +34,4 @@
     letter-spacing: 0.1em;
     margin-top: 10px;
     color: $color-dark-3xl;
-}
-
-.cart__counter {
-    font-size: 3rem;
-    border-radius: 50%;
-    display: inline-block;
-    min-width: 3rem;
-    background-color: $color-primary;
-    text-align: center;
-    vertical-align: top;
 }

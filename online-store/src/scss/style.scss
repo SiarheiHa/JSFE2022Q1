@@ -4,6 +4,8 @@
 //base
 @import 'base/normalize';
 @import 'base/base';
+@import 'base/search';
+@import 'base/cart';
 @import 'base/button';
 @import 'base/product';
 
@@ -13,4 +15,5 @@
 @import 'layouts/footer';
 
 //componets
+@import 'components/filters';
 @import 'components/goods';
