@@ -1,0 +1,23 @@
+@import 'abstract/mixins';
+@import 'base/fonts';
+@import 'abstract/constants';
+//base
+@import 'base/normalize';
+@import 'base/base';
+@import 'base/burger';
+@import 'base/button';
+@import 'base/slider__button';
+@import 'base/title';
+@import 'base/pet-pets';
+@import 'base/help-item';
+@import 'base/footer-content-item';
+@import 'base/modal';
+
+//layouts
+@import 'layouts/wrapper';
+@import 'layouts/header';
+@import 'layouts/footer';
+
+//componets
+@import 'components/pets-pets';
+@import 'components/pagination';
