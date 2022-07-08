@@ -1,4 +1,5 @@
 .product {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -34,4 +35,12 @@
 
 .product__title {
     font-size: 2.5rem;
+}
+
+.faforite_icon {
+    display: block;
+    filter: invert(32%) sepia(8%) saturate(12%) hue-rotate(347deg) brightness(95%) contrast(88%);
+    &._active {
+        filter: none;
+    }
 }
