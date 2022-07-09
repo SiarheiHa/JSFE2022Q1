@@ -1,18 +1,21 @@
 .product {
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: $color-light-s;
     border-radius: 1rem;
-    padding: 1.5rem 0;
+    padding: 1.5rem 1rem;
     font-size: 2rem;
     letter-spacing: 0.06em;
     color: $color-dark-l;
-    min-width: 39rem;
+    width: 39rem;
     p {
         margin: 0;
         padding: 0.5rem 0;
+    }
+
+    .button {
+        margin-top: 1rem;
     }
     &:hover {
         cursor: pointer;
@@ -28,12 +31,20 @@
         }
     }
 }
+.product__img-wrapper {
+    max-width: 90%;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
 
 .product__img {
     display: block;
+    max-width: 100%;
 }
 
 .product__title {
+    text-align: center;
     font-size: 2.5rem;
 }
 

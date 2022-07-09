@@ -21,6 +21,7 @@ export class View {
                 ],
             });
             const title = createNode({ tag: 'p', classes: ['product__title'], inner: product.set });
+            const productImageWrapper = createNode({ tag: 'div', classes: ['product__img-wrapper'] });
             const productImage = createNode({
                 tag: 'img',
                 classes: ['product__img'],
@@ -44,7 +45,18 @@ export class View {
             });
             const button = createNode({ tag: 'button', classes: ['button'], inner: `Add to card` });
 
-            productDiv.append(favoriteIcon, title, productImage, price, availability, age, pieces, rating, button);
+            productImageWrapper.append(productImage);
+            productDiv.append(
+                favoriteIcon,
+                title,
+                productImageWrapper,
+                price,
+                availability,
+                age,
+                pieces,
+                rating,
+                button
+            );
             this.productsContainer.append(productDiv);
         });
     }
