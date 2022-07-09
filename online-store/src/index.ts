@@ -1,3 +1,5 @@
 import './scss/style.scss';
+import { ShopApp } from './components/app/app';
 
-console.log(`hello word`);
+const shop = new ShopApp();
+shop.start();

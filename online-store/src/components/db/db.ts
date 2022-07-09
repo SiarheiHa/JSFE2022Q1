@@ -1,4 +1,4 @@
-interface dataProduct {
+export interface Product {
     _id: string;
     set: string;
     item_id: number;
@@ -12,7 +12,7 @@ interface dataProduct {
     __v: number;
 }
 
-export const data: dataProduct[] = [
+export const data: Product[] = [
     {
         _id: '61df944eb226bd9df3bb4648',
         set: 'The Razor Crest',
