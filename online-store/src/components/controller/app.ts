@@ -1,17 +1,19 @@
-import { Controller } from '../controller/controller';
+import { data, Product } from '../db/db';
+import { Model } from '../model/model';
 import { View } from '../view/view';
 
 export class ShopApp {
-    controller: Controller;
+    model: Model;
     view: View;
+    data: Product[] = data;
 
     constructor() {
-        this.controller = new Controller();
+        this.model = new Model(data);
         this.view = new View();
     }
     start() {
         console.log('ShopApp - app start()');
-        const productsForView = this.controller.getGoods();
+        const productsForView = this.model.getResponse();
         this.view.drawProducts(productsForView);
     }
 }
