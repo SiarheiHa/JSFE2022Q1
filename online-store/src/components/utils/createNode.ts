@@ -1,7 +1,7 @@
 export const createNode = <K extends keyof HTMLElementTagNameMap>(obj: {
     tag: K;
     classes?: string[];
-    atributesAdnvalues?: [string, string][];
+    atributesAdnValues?: [string, string][];
     inner?: string;
 }) => {
     const node = document.createElement(obj.tag);
@@ -9,8 +9,8 @@ export const createNode = <K extends keyof HTMLElementTagNameMap>(obj: {
     if (obj.classes) {
         node.classList.add(...obj.classes);
     }
-    if (obj.atributesAdnvalues) {
-        obj.atributesAdnvalues.forEach((atributeAndValue) =>
+    if (obj.atributesAdnValues) {
+        obj.atributesAdnValues.forEach((atributeAndValue) =>
             node.setAttribute(atributeAndValue[0], atributeAndValue[1])
         );
     }

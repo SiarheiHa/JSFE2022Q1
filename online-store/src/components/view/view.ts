@@ -1,8 +1,16 @@
-import { Product } from '../db/db';
+import { Product } from '../model/model';
 import { createNode } from '../utils/createNode';
 
 export class View {
-    productsContainer = document.querySelector('.products') as HTMLDivElement;
+    toggleClassActive(target: HTMLElement) {
+        console.log('toggleClassActive');
+        target.classList.toggle(`${target.classList[0]}_active`);
+    }
+    productsContainer: HTMLElement;
+
+    constructor(container: HTMLElement) {
+        this.productsContainer = container;
+    }
 
     drawProducts(products: Product[]) {
         console.log('View - drawProducts');
@@ -10,11 +18,15 @@ export class View {
         this.productsContainer.innerHTML = '';
         console.log(this.productsContainer);
         products.forEach((product) => {
-            const productDiv = createNode({ tag: 'div', classes: ['product'] });
+            const productDiv = createNode({
+                tag: 'div',
+                classes: ['product'],
+                atributesAdnValues: [['data-product_id', `${product.item_id}`]],
+            });
             const favoriteIcon = createNode({
                 tag: 'img',
-                classes: ['faforite_icon'],
-                atributesAdnvalues: [
+                classes: ['favorite-icon'],
+                atributesAdnValues: [
                     ['src', '../src/assets/favorite-svgrepo-com.svg'],
                     ['alt', 'favorite icon'],
                     ['width', '40'],
@@ -25,7 +37,7 @@ export class View {
             const productImage = createNode({
                 tag: 'img',
                 classes: ['product__img'],
-                atributesAdnvalues: [
+                atributesAdnValues: [
                     ['src', product.images[0]],
                     ['alt', 'product image'],
                 ],

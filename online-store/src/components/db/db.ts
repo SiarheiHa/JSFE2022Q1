@@ -1,4 +1,4 @@
-export interface Product {
+export interface ProductResponseObj {
     _id: string;
     set: string;
     item_id: number;
@@ -12,7 +12,7 @@ export interface Product {
     __v: number;
 }
 
-export const data: Product[] = [
+export const data: ProductResponseObj[] = [
     {
         _id: '61df944eb226bd9df3bb4648',
         set: 'The Razor Crest',
@@ -452,7 +452,7 @@ export const data: Product[] = [
         item_id: 853470853470853500,
         reviews: 2,
         rating: '4.2',
-        availability: 'Backorders accepted, will ship by February 8, 2022',
+        availability: 'Coming Soon',
         price: 5,
         images: [
             'https://www.lego.com/cdn/cs/set/assets/blt526a9c42cdafd376/853470.jpg?fit=bounds&format=jpg&quality=80&width=455&height=315&dpr=1',
@@ -551,7 +551,7 @@ export const data: Product[] = [
         item_id: 751927519275192,
         reviews: 477,
         rating: '4.613636363636363',
-        availability: 'Coming Soon',
+        availability: 'Available now',
         price: 799,
         images: [
             'https://www.lego.com/cdn/cs/set/assets/blt95c35d4ed5665a49/75192.jpg?fit=bounds&format=jpg&quality=80&width=455&height=315&dpr=1',
@@ -566,7 +566,7 @@ export const data: Product[] = [
         item_id: 753097530975309,
         reviews: 164,
         rating: '4.019607843137255',
-        availability: 'Coming Soon',
+        availability: 'Available now',
         price: 349,
         images: [
             'https://www.lego.com/cdn/cs/set/assets/blt91c46d94ca062573/75309.jpg?fit=bounds&format=jpg&quality=80&width=455&height=315&dpr=1',
@@ -581,7 +581,7 @@ export const data: Product[] = [
         item_id: 753227532275322,
         reviews: 12,
         rating: '4.833333333333333',
-        availability: 'Coming Soon',
+        availability: 'Available now',
         price: 49,
         images: [
             'https://www.lego.com/cdn/cs/set/assets/bltdc4e5203d8c945eb/75322_Prod.png?fit=bounds&format=png&width=455&height=315&dpr=1',
@@ -603,7 +603,7 @@ export const data: Product[] = [
     },
     {
         _id: '61df944eb226bd9df3bb466c',
-        set: 'Star Wars™ The Sith™',
+        set: 'Star Wars™ The Sith™',
         item_id: 312003120031200,
         reviews: 35,
         rating: '4.492753623188406',

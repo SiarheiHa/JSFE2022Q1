@@ -48,10 +48,10 @@
     font-size: 2.5rem;
 }
 
-.faforite_icon {
+.favorite-icon {
     display: block;
     filter: invert(32%) sepia(8%) saturate(12%) hue-rotate(347deg) brightness(95%) contrast(88%);
-    &._active {
+    &_active {
         filter: none;
     }
 }
