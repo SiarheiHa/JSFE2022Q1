@@ -55,7 +55,7 @@ export class View {
                 classes: ['product__rating'],
                 inner: `rating: ${Number(product.rating).toFixed(1)}`,
             });
-            const button = createNode({ tag: 'button', classes: ['button'], inner: `Add to card` });
+            const button = createNode({ tag: 'button', classes: ['button'] });
 
             productImageWrapper.append(productImage);
             productDiv.append(
@@ -71,6 +71,18 @@ export class View {
             );
             this.productsContainer.append(productDiv);
         });
+    }
+
+    drawCartCounter(countOfProducts: number) {
+        const counter = document.querySelector('.cart__counter');
+        if (!counter) {
+            throw new Error('Counter is not defined!');
+        }
+        counter.innerHTML = String(countOfProducts);
+    }
+
+    drawModalWindfow(message: string) {
+        alert(message);
     }
 }
 

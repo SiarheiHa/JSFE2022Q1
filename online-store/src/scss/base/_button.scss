@@ -2,10 +2,19 @@
     padding: 1.5rem 4.5rem;
     border-radius: 10rem;
     border: 2px solid $color-primary;
-    font-size: 1.6 rem;
     line-height: 130%;
     color: $color-dark-3xl;
     transition: all 0.3s;
     cursor: pointer;
     letter-spacing: 0.06em;
+    min-width: 21rem;
+    &::before {
+        content: 'add to cart';
+    }
+    &_active {
+        background-color: transparent;
+        &::before {
+            content: 'item in cart';
+        }
+    }
 }
