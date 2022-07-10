@@ -155,7 +155,7 @@ export const data: ProductResponseObj[] = [
         item_id: 405584055840558,
         reviews: null,
         rating: '',
-        availability: 'Coming Soon',
+        availability: 'Available now',
         price: 14,
         images: [
             'https://www.lego.com/cdn/cs/set/assets/blt35a770b4feabf626/40558.png?fit=bounds&format=png&width=455&height=315&dpr=1',
@@ -170,7 +170,7 @@ export const data: ProductResponseObj[] = [
         item_id: 405394053940539,
         reviews: null,
         rating: '',
-        availability: 'Coming Soon',
+        availability: 'Available now',
         price: 9,
         images: [
             'https://www.lego.com/cdn/cs/set/assets/bltad9845009a4ea9af/40539.png?fit=bounds&format=png&width=455&height=315&dpr=1',
@@ -320,7 +320,7 @@ export const data: ProductResponseObj[] = [
         item_id: 854187854187854200,
         reviews: null,
         rating: '',
-        availability: 'Coming Soon',
+        availability: 'Available now',
         price: 5,
         images: [
             'https://www.lego.com/cdn/cs/set/assets/blt079573aad06242aa/854187.png?fit=bounds&format=png&width=455&height=315&dpr=1',
@@ -336,7 +336,7 @@ export const data: ProductResponseObj[] = [
         item_id: 853946853946853900,
         reviews: 5,
         rating: '4.428571428571429',
-        availability: 'Coming Soon',
+        availability: 'Available now',
         price: 5,
         images: [
             'https://www.lego.com/cdn/cs/set/assets/blt555d6ae390298356/853946.jpg?fit=bounds&format=jpg&quality=80&width=455&height=315&dpr=1',
@@ -351,7 +351,7 @@ export const data: ProductResponseObj[] = [
         item_id: 854188854188854100,
         reviews: null,
         rating: '',
-        availability: 'Coming Soon',
+        availability: 'Available now',
         price: 5,
         images: [
             'https://www.lego.com/cdn/cs/set/assets/blt7ea2d01ce577dde1/854188.png?fit=bounds&format=png&width=455&height=315&dpr=1',

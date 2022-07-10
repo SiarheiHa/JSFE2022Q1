@@ -51,6 +51,8 @@ export class Model {
             if (product.isInCart) {
                 product.isInCart = false;
                 this.cartList = this.cartList.filter((item) => item !== product);
+            } else if (product.availability !== 'Available now') {
+                return { status: 'The product is out of stock', message: 'Sorry, the product is out of stock' };
             } else {
                 product.isInCart = true;
                 this.cartList.push(product);
