@@ -5,12 +5,21 @@ export interface Product extends ProductResponseObj {
     isInCart: boolean;
 }
 
+export enum SortingType {
+    default = 'default',
+    priceAscending = 'priceAscending',
+    priceDescending = 'priceDescending',
+    piecesAscending = 'piecesAscending',
+    piecesDescending = 'piecesDescending',
+}
+
 export class Model {
     products: Product[];
     favoriteList: number[] = [];
     // What is better: to store in catrList objects or store an array of productID ?
     cartList: Product[] = [];
     MAX_AMOUNT_OF_GOODS_IN_CART = 20;
+    _sort: SortingType = SortingType.default;
 
     constructor(data: ProductResponseObj[]) {
         this.products = data.map((item) => {
@@ -23,9 +32,33 @@ export class Model {
         return this.cartList.length;
     }
 
+    set sort(type: SortingType) {
+        this._sort = type;
+    }
+
     getResponse() {
         console.log('Model - getResponse()');
+        this.sortProducts();
         return this.products;
+    }
+
+    sortProducts() {
+        switch (this._sort) {
+            case SortingType.piecesAscending:
+                this.products.sort((a, b) => a.pieces - b.pieces);
+                break;
+            case SortingType.piecesDescending:
+                this.products.sort((a, b) => b.pieces - a.pieces);
+                break;
+            case SortingType.priceAscending:
+                this.products.sort((a, b) => a.price - b.price);
+                break;
+            case SortingType.priceDescending:
+                this.products.sort((a, b) => b.price - a.price);
+                break;
+            default:
+                break;
+        }
     }
 
     // isFavorite(productID: number) {

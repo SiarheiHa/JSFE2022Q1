@@ -1,5 +1,5 @@
 import { data, ProductResponseObj } from '../db/db';
-import { Model } from '../model/model';
+import { Model, SortingType } from '../model/model';
 import { View } from '../view/view';
 
 export class ShopApp {
@@ -14,10 +14,45 @@ export class ShopApp {
     }
     start() {
         console.log('ShopApp - app start()');
+        this.getProducts();
+        this.addProductsHandler();
+        this.addFiltersHandler();
+    }
+
+    getProducts() {
         const productsForView = this.model.getResponse();
         this.view.drawProducts(productsForView);
+    }
 
-        this.addProductsHandler();
+    addFiltersHandler() {
+        const filters = document.querySelector('.filters');
+        if (!(filters instanceof HTMLElement)) {
+            throw new Error('Select not found');
+        }
+        filters.addEventListener('change', (e: Event) => {
+            const target = e.target;
+            if (!(target instanceof HTMLElement)) {
+                throw new Error('Target is not defined');
+            }
+            if (target.classList.contains('select') && target instanceof HTMLSelectElement) {
+                this.model.sort = target.value as SortingType;
+                this.getProducts();
+            }
+        });
+
+        // const select = document.querySelector('.select');
+        // if (!(select instanceof HTMLSelectElement)) {
+        //     throw new Error('Select not found');
+        // }
+        // select.addEventListener('change', () => {
+        //     this.model.sort = select.value as SortingType;
+        //     this.getProducts();
+        // });
+
+        // document.querySelector('.filters')?.addEventListener('change', (e) => {
+        //     console.log('1111111111111111111111111111111111111111');
+        //     console.log(e.target);
+        // });
     }
 
     addProductsHandler() {
