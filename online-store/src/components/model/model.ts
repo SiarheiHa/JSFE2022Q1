@@ -1,5 +1,7 @@
 import { ProductResponseObj } from '../db/db';
 
+const HIGH_RATING_VALUE = 4.3;
+
 export interface Product extends ProductResponseObj {
     isFavorite: boolean;
     isInCart: boolean;
@@ -13,6 +15,13 @@ export enum SortingType {
     piecesDescending = 'piecesDescending',
 }
 
+enum FiltersType {
+    availableNow = 'Available now',
+    comingSoon = 'Coming Soon',
+    highRated = 'High Rated',
+    favorite = 'Favorite',
+}
+
 export class Model {
     products: Product[];
     favoriteList: number[] = [];
@@ -20,6 +29,7 @@ export class Model {
     cartList: Product[] = [];
     MAX_AMOUNT_OF_GOODS_IN_CART = 20;
     _sort: SortingType = SortingType.default;
+    filters: string[] = [];
 
     constructor(data: ProductResponseObj[]) {
         this.products = data.map((item) => {
@@ -38,27 +48,57 @@ export class Model {
 
     getResponse() {
         console.log('Model - getResponse()');
-        this.sortProducts();
-        return this.products;
+        const sortArr = this.sortProducts([...this.products]);
+        const filteredArr = this.filterProducts(sortArr);
+
+        return filteredArr;
     }
 
-    sortProducts() {
+    sortProducts(productsArr: Product[]) {
+        const sortedProducts = [...productsArr];
         switch (this._sort) {
             case SortingType.piecesAscending:
-                this.products.sort((a, b) => a.pieces - b.pieces);
+                sortedProducts.sort((a, b) => a.pieces - b.pieces);
                 break;
             case SortingType.piecesDescending:
-                this.products.sort((a, b) => b.pieces - a.pieces);
+                sortedProducts.sort((a, b) => b.pieces - a.pieces);
                 break;
             case SortingType.priceAscending:
-                this.products.sort((a, b) => a.price - b.price);
+                sortedProducts.sort((a, b) => a.price - b.price);
                 break;
             case SortingType.priceDescending:
-                this.products.sort((a, b) => b.price - a.price);
+                sortedProducts.sort((a, b) => b.price - a.price);
                 break;
             default:
                 break;
         }
+        return sortedProducts;
+    }
+
+    filterProducts(productsArr: Product[]) {
+        console.log(this.filters);
+        let filteredArr = [...productsArr];
+
+        if (this.filters.includes(FiltersType.availableNow)) {
+            filteredArr = filteredArr.filter((product: Product) => product.availability === FiltersType.availableNow);
+        }
+        if (this.filters.includes(FiltersType.comingSoon)) {
+            filteredArr = filteredArr.filter((product: Product) => product.availability === FiltersType.comingSoon);
+        }
+        if (this.filters.includes(FiltersType.favorite)) {
+            filteredArr = filteredArr.filter((product: Product) => product.isFavorite);
+        }
+        if (this.filters.includes(FiltersType.highRated)) {
+            filteredArr = filteredArr.filter((product: Product) => Number(product.rating) > HIGH_RATING_VALUE);
+        }
+        return filteredArr;
+    }
+
+    setFiltersValue(value: string, isChecked: boolean) {
+        isChecked
+            ? this.filters.push(value)
+            : (this.filters = this.filters.filter((filterType) => filterType !== value));
+        console.log(this.filters);
     }
 
     // isFavorite(productID: number) {

@@ -34,25 +34,16 @@ export class ShopApp {
             if (!(target instanceof HTMLElement)) {
                 throw new Error('Target is not defined');
             }
-            if (target.classList.contains('select') && target instanceof HTMLSelectElement) {
+
+            if (target instanceof HTMLSelectElement) {
                 this.model.sort = target.value as SortingType;
-                this.getProducts();
             }
+
+            if (target instanceof HTMLInputElement) {
+                this.model.setFiltersValue(target.value, target.checked);
+            }
+            this.getProducts();
         });
-
-        // const select = document.querySelector('.select');
-        // if (!(select instanceof HTMLSelectElement)) {
-        //     throw new Error('Select not found');
-        // }
-        // select.addEventListener('change', () => {
-        //     this.model.sort = select.value as SortingType;
-        //     this.getProducts();
-        // });
-
-        // document.querySelector('.filters')?.addEventListener('change', (e) => {
-        //     console.log('1111111111111111111111111111111111111111');
-        //     console.log(e.target);
-        // });
     }
 
     addProductsHandler() {

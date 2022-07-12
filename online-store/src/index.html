@@ -29,12 +29,32 @@
       <div class="filters-wrapper wrapper">
         <div class="filter">
           <select class="select">
-            <option value="default" selected>Sort</option>
+            <option value="default" selected>default sort</option>
             <option value="priceAscending">lowest price first</option>
             <option value="priceDescending">highest price first</option>
             <option value="piecesAscending">pieces: low to hight</option>
             <option value="piecesDescending">pieces: hight to low</option>
           </select>
+        </div>
+        <div class="filter">
+          <div class="checkboxes">
+            <label class="checkbox">
+              <input class="checkbox__input" type="checkbox" value="Available now">
+              <span class="checkbox__span">Available Now</span>
+            </label>
+            <label class="checkbox">
+              <input class="checkbox__input" type="checkbox" value="Coming Soon">
+              <span class="checkbox__span">Coming Soon</span>
+            </label>
+            <label class="checkbox">
+              <input class="checkbox__input" type="checkbox" value="High Rated">
+              <span class="checkbox__span">High rated</span>
+            </label>
+            <label class="checkbox">
+              <input class="checkbox__input" type="checkbox" value="Favorite">
+              <span class="checkbox__span">Favorite</span>
+            </label>
+          </div>
         </div>
       </div>
     </section>
@@ -45,8 +65,7 @@
           <div class="product"><img class="favorite-icon" src="../src/assets/favorite-svgrepo-com.svg"
               alt="favorite icon" width="40">
             <p class="product__title">The Razor Crest</p>
-            <div class="product__img-wrapper"><img class="product__img"
-                src="https://www.lego.com/cdn/cs/set/assets/blt7a4292faec34e557/75292.png?fit=bounds&amp;format=png&amp;width=455&amp;height=315&amp;dpr=1"
+            <div class="product__img-wrapper"><img class="product__img" src="/src/assets/images/png/pets-jennifer.png"
                 alt="product image"></div>
             <p class="product__price">$129</p>
             <p class="product__availability">Available now</p>
