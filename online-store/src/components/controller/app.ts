@@ -15,6 +15,7 @@ export class ShopApp {
     start() {
         console.log('ShopApp - app start()');
         this.getProducts();
+        this.view.checkChekboxes(this.model.getSort(), this.model.getFilters());
         this.addProductsHandler();
         this.addFiltersHandler();
     }
@@ -36,7 +37,7 @@ export class ShopApp {
             }
 
             if (target instanceof HTMLSelectElement) {
-                this.model.sort = target.value as SortingType;
+                this.model.setSort(target.value as SortingType);
             }
 
             if (target instanceof HTMLInputElement) {

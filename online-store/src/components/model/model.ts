@@ -28,8 +28,7 @@ export class Model {
     // What is better: to store in catrList objects or store an array of productID ?
     cartList: Product[] = [];
     MAX_AMOUNT_OF_GOODS_IN_CART = 20;
-    _sort: SortingType = SortingType.default;
-    filters: string[] = [];
+    // filters: string[] = [];
 
     constructor(data: ProductResponseObj[]) {
         this.products = data.map((item) => {
@@ -38,12 +37,31 @@ export class Model {
         });
     }
 
-    get cartCounter() {
-        return this.cartList.length;
+    setSort(type: SortingType) {
+        localStorage.setItem('sort', type);
     }
 
-    set sort(type: SortingType) {
-        this._sort = type;
+    getSort(): SortingType {
+        return (localStorage.getItem('sort') as SortingType) || SortingType.default;
+    }
+
+    getFilters() {
+        return (JSON.parse(localStorage.getItem('filters') as string) as string[]) || [];
+    }
+
+    addFilter(filterType: string) {
+        const filters = this.getFilters();
+        filters.push(filterType);
+        localStorage.setItem('filters', JSON.stringify(filters));
+    }
+
+    deleteFilter(value: string) {
+        const filters = this.getFilters().filter((filterType) => filterType !== value);
+        localStorage.setItem('filters', JSON.stringify(filters));
+    }
+
+    get cartCounter() {
+        return this.cartList.length;
     }
 
     getResponse() {
@@ -56,7 +74,7 @@ export class Model {
 
     sortProducts(productsArr: Product[]) {
         const sortedProducts = [...productsArr];
-        switch (this._sort) {
+        switch (this.getSort()) {
             case SortingType.piecesAscending:
                 sortedProducts.sort((a, b) => a.pieces - b.pieces);
                 break;
@@ -76,29 +94,26 @@ export class Model {
     }
 
     filterProducts(productsArr: Product[]) {
-        console.log(this.filters);
+        const filters = this.getFilters();
         let filteredArr = [...productsArr];
 
-        if (this.filters.includes(FiltersType.availableNow)) {
+        if (filters.includes(FiltersType.availableNow)) {
             filteredArr = filteredArr.filter((product: Product) => product.availability === FiltersType.availableNow);
         }
-        if (this.filters.includes(FiltersType.comingSoon)) {
+        if (filters.includes(FiltersType.comingSoon)) {
             filteredArr = filteredArr.filter((product: Product) => product.availability === FiltersType.comingSoon);
         }
-        if (this.filters.includes(FiltersType.favorite)) {
+        if (filters.includes(FiltersType.favorite)) {
             filteredArr = filteredArr.filter((product: Product) => product.isFavorite);
         }
-        if (this.filters.includes(FiltersType.highRated)) {
+        if (filters.includes(FiltersType.highRated)) {
             filteredArr = filteredArr.filter((product: Product) => Number(product.rating) > HIGH_RATING_VALUE);
         }
         return filteredArr;
     }
 
     setFiltersValue(value: string, isChecked: boolean) {
-        isChecked
-            ? this.filters.push(value)
-            : (this.filters = this.filters.filter((filterType) => filterType !== value));
-        console.log(this.filters);
+        isChecked ? this.addFilter(value) : this.deleteFilter(value);
     }
 
     // isFavorite(productID: number) {

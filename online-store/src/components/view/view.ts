@@ -1,4 +1,4 @@
-import { Product } from '../model/model';
+import { Product, SortingType } from '../model/model';
 import { createNode } from '../utils/createNode';
 
 export class View {
@@ -79,6 +79,21 @@ export class View {
             throw new Error('Counter is not defined!');
         }
         counter.innerHTML = String(countOfProducts);
+    }
+
+    checkChekboxes(sort: SortingType, filters: string[]) {
+        const option = document.getElementById(sort);
+        if (option instanceof HTMLOptionElement) {
+            option.selected = true;
+        }
+
+        const checkboxes = document.querySelectorAll('input');
+        console.log(checkboxes);
+        filters.forEach((filter) => {
+            checkboxes.forEach((checkbox) => {
+                if (checkbox.value === filter) checkbox.checked = true;
+            });
+        });
     }
 
     drawModalWindfow(message: string) {
