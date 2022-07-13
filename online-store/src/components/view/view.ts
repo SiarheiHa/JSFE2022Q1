@@ -15,6 +15,11 @@ export class View {
 
     drawProducts(products: Product[]) {
         this.productsContainer.innerHTML = '';
+        if (products.length === 0) {
+            const notFoundMessage = createNode({ tag: 'p', inner: 'Извините, совпадений не обнаружено' });
+            this.productsContainer.append(notFoundMessage);
+            return;
+        }
         products.forEach((product) => {
             const productDiv = createNode({
                 tag: 'div',

@@ -26,6 +26,7 @@ enum ExclusionFiltersType {
 
 export class Model {
     products: Product[];
+    _searchValue = '';
 
     constructor(data: ProductResponseObj[]) {
         this.products = data.map((item) => {
@@ -72,6 +73,15 @@ export class Model {
         }
     }
 
+    set searchValue(value: string) {
+        this._searchValue = value.toLowerCase();
+    }
+
+    filterBySearch(productsArr: Product[]) {
+        if (this._searchValue === '') return productsArr;
+        return [...productsArr].filter((product: Product) => product.set.toLowerCase().includes(this._searchValue));
+    }
+
     getFavorites() {
         return (JSON.parse(localStorage.getItem('favorites') as string) as string[]) || [];
     }
@@ -93,10 +103,11 @@ export class Model {
 
     getResponse() {
         // console.log('Model - getResponse()');
-        const sortArr = this.sortProducts([...this.products]);
-        const filteredArr = this.filterProducts(sortArr);
+        const sortedArr = this.sortProducts([...this.products]);
+        const filteredArr = this.filterProducts(sortedArr);
+        const arrBySearch = this.filterBySearch(filteredArr);
 
-        return filteredArr;
+        return arrBySearch;
     }
 
     sortProducts(productsArr: Product[]) {

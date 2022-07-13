@@ -22,6 +22,7 @@ export class ShopApp {
         ]);
         this.addProductsHandler();
         this.addFiltersHandler();
+        this.addSearchHandler();
     }
 
     getProducts() {
@@ -54,6 +55,21 @@ export class ShopApp {
 
         filters.addEventListener('reset', () => {
             this.model.resetFilters();
+            this.getProducts();
+        });
+    }
+
+    addSearchHandler() {
+        const searchInput = document.querySelector('.search');
+        if (!(searchInput instanceof HTMLInputElement)) {
+            throw new Error('searchInput is not found');
+        }
+
+        searchInput.focus();
+
+        searchInput.addEventListener('input', () => {
+            console.log(searchInput.value);
+            this.model.searchValue = searchInput.value;
             this.getProducts();
         });
     }
