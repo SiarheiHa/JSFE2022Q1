@@ -55,7 +55,7 @@ export class View {
                 inner: `rating: ${Number(product.rating).toFixed(1)}`,
             });
             const button = createNode({ tag: 'button', classes: ['button'] });
-            if (product.isFavorite) this.toggleClassActive(button);
+            if (product.isInCart) this.toggleClassActive(button);
 
             productImageWrapper.append(productImage);
             productDiv.append(

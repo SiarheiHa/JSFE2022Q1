@@ -1,6 +1,7 @@
 import { ProductResponseObj } from '../db/db';
 
 const HIGH_RATING_VALUE = 4.3;
+const MAX_AMOUNT_OF_GOODS_IN_CART = 20;
 
 export interface Product extends ProductResponseObj {
     isFavorite: boolean;
@@ -24,15 +25,14 @@ enum FiltersType {
 
 export class Model {
     products: Product[];
-    favoriteList: number[] = [];
-    // What is better: to store in catrList objects or store an array of productID ?
-    cartList: Product[] = [];
-    MAX_AMOUNT_OF_GOODS_IN_CART = 20;
-    // filters: string[] = [];
 
     constructor(data: ProductResponseObj[]) {
         this.products = data.map((item) => {
             const product = { ...item, ...{ isFavorite: false, isInCart: false } };
+            product.isFavorite = this.isIdInFavoriteList(product.item_id);
+            product.isInCart = this.isIdInCartList(product.item_id);
+            console.log(product.isInCart);
+
             return product;
         });
     }
@@ -46,7 +46,11 @@ export class Model {
     }
 
     getFilters() {
-        return (JSON.parse(localStorage.getItem('filters') as string) as string[]) || [];
+        const filtersStr = localStorage.getItem('filters');
+        if (!filtersStr) {
+            return [];
+        }
+        return JSON.parse(filtersStr) as string[];
     }
 
     addFilter(filterType: string) {
@@ -60,8 +64,23 @@ export class Model {
         localStorage.setItem('filters', JSON.stringify(filters));
     }
 
-    get cartCounter() {
-        return this.cartList.length;
+    getFavorites() {
+        return (JSON.parse(localStorage.getItem('favorites') as string) as string[]) || [];
+    }
+
+    addFavorite(productID: number) {
+        const favorites = this.getFavorites();
+        favorites.push(String(productID));
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+    }
+
+    deleteFavorite(productID: number) {
+        const favorites = this.getFavorites().filter((product) => product !== String(productID));
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+    }
+
+    isIdInFavoriteList(productID: number) {
+        return this.getFavorites().includes(String(productID));
     }
 
     getResponse() {
@@ -116,37 +135,62 @@ export class Model {
         isChecked ? this.addFilter(value) : this.deleteFilter(value);
     }
 
-    // isFavorite(productID: number) {
-    //     return this.favoriteList.includes(productID);
-    // }
-
     getProductByID(productID: number) {
         return this.products.find((product) => product.item_id === productID);
     }
 
     toggleFavoriteStatus(productID: number) {
         const product = this.getProductByID(productID);
-        if (product) product.isFavorite = !product.isFavorite;
+        if (product) {
+            if (product.isFavorite) {
+                this.deleteFavorite(productID);
+            } else {
+                this.addFavorite(productID);
+            }
+            product.isFavorite = !product.isFavorite;
+        }
     }
 
     toggleCartStatus(productID: number) {
         const product = this.getProductByID(productID);
         if (product) {
-            if (!product.isInCart && this.cartCounter >= this.MAX_AMOUNT_OF_GOODS_IN_CART) {
+            if (!product.isInCart && this.cartCounter >= MAX_AMOUNT_OF_GOODS_IN_CART) {
                 return { status: `Can't add more items`, message: 'Извините, все слоты заполнены' };
             }
 
             if (product.isInCart) {
                 product.isInCart = false;
-                this.cartList = this.cartList.filter((item) => item !== product);
+                this.deleteFromCart(productID);
             } else if (product.availability !== 'Available now') {
                 return { status: 'The product is out of stock', message: 'Sorry, the product is out of stock' };
             } else {
                 product.isInCart = true;
-                this.cartList.push(product);
+                this.addToCart(productID);
             }
         }
-        console.log(this.cartList);
         return { status: 'ok', message: 'Item added' };
+    }
+
+    getCart() {
+        return (JSON.parse(localStorage.getItem('cart') as string) as string[]) || [];
+    }
+
+    addToCart(productID: number) {
+        const cart = this.getCart();
+        cart.push(String(productID));
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    deleteFromCart(productID: number) {
+        const cart = this.getCart().filter((product) => product !== String(productID));
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    isIdInCartList(productID: number) {
+        return this.getCart().includes(String(productID));
+    }
+
+    get cartCounter() {
+        return this.getCart().length;
     }
 }

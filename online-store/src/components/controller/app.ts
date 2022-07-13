@@ -14,6 +14,7 @@ export class ShopApp {
     }
     start() {
         console.log('ShopApp - app start()');
+        this.view.drawCartCounter(this.model.cartCounter);
         this.getProducts();
         this.view.checkChekboxes(this.model.getSort(), this.model.getFilters());
         this.addProductsHandler();
