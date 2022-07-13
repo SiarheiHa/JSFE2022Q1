@@ -64,6 +64,14 @@ export class Model {
         localStorage.setItem(filterType, JSON.stringify(filters));
     }
 
+    resetFilters() {
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (!key) return;
+            if (key.includes('filters')) localStorage.removeItem(key);
+        }
+    }
+
     getFavorites() {
         return (JSON.parse(localStorage.getItem('favorites') as string) as string[]) || [];
     }

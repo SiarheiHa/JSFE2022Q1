@@ -35,6 +35,7 @@ export class ShopApp {
             throw new Error('Select not found');
         }
         filters.addEventListener('change', (e: Event) => {
+            console.log(e);
             const target = e.target;
             if (!(target instanceof HTMLElement)) {
                 throw new Error('Target is not defined');
@@ -45,9 +46,14 @@ export class ShopApp {
             }
 
             if (target instanceof HTMLInputElement) {
-                const filterType = target.parentElement?.parentElement?.id;
+                const filterType = target.parentElement?.parentElement?.dataset.filter_type;
                 if (filterType) this.model.setFiltersValue(filterType, target.value, target.checked);
             }
+            this.getProducts();
+        });
+
+        filters.addEventListener('reset', () => {
+            this.model.resetFilters();
             this.getProducts();
         });
     }
