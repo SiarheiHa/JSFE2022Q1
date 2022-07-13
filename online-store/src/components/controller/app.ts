@@ -16,7 +16,10 @@ export class ShopApp {
         console.log('ShopApp - app start()');
         this.view.drawCartCounter(this.model.cartCounter);
         this.getProducts();
-        this.view.checkChekboxes(this.model.getSort(), this.model.getFilters());
+        this.view.checkChekboxes(this.model.getSort(), [
+            ...this.model.getFilters('exclusion-filters'),
+            ...this.model.getFilters('complementary-filters'),
+        ]);
         this.addProductsHandler();
         this.addFiltersHandler();
     }
@@ -42,7 +45,8 @@ export class ShopApp {
             }
 
             if (target instanceof HTMLInputElement) {
-                this.model.setFiltersValue(target.value, target.checked);
+                const filterType = target.parentElement?.parentElement?.id;
+                if (filterType) this.model.setFiltersValue(filterType, target.value, target.checked);
             }
             this.getProducts();
         });

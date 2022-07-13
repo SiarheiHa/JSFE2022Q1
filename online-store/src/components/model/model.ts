@@ -2,6 +2,7 @@ import { ProductResponseObj } from '../db/db';
 
 const HIGH_RATING_VALUE = 4.3;
 const MAX_AMOUNT_OF_GOODS_IN_CART = 20;
+// const FILTER_TYPES = ['exclusion-filters', 'complementary-filters'];
 
 export interface Product extends ProductResponseObj {
     isFavorite: boolean;
@@ -16,7 +17,7 @@ export enum SortingType {
     piecesDescending = 'piecesDescending',
 }
 
-enum FiltersType {
+enum ExclusionFiltersType {
     availableNow = 'Available now',
     comingSoon = 'Coming Soon',
     highRated = 'High Rated',
@@ -31,7 +32,6 @@ export class Model {
             const product = { ...item, ...{ isFavorite: false, isInCart: false } };
             product.isFavorite = this.isIdInFavoriteList(product.item_id);
             product.isInCart = this.isIdInCartList(product.item_id);
-            console.log(product.isInCart);
 
             return product;
         });
@@ -45,23 +45,23 @@ export class Model {
         return (localStorage.getItem('sort') as SortingType) || SortingType.default;
     }
 
-    getFilters() {
-        const filtersStr = localStorage.getItem('filters');
+    getFilters(filterType: string) {
+        const filtersStr = localStorage.getItem(filterType);
         if (!filtersStr) {
             return [];
         }
         return JSON.parse(filtersStr) as string[];
     }
 
-    addFilter(filterType: string) {
-        const filters = this.getFilters();
-        filters.push(filterType);
-        localStorage.setItem('filters', JSON.stringify(filters));
+    addFilter(filterType: string, value: string) {
+        const filters = this.getFilters(filterType);
+        filters.push(value);
+        localStorage.setItem(filterType, JSON.stringify(filters));
     }
 
-    deleteFilter(value: string) {
-        const filters = this.getFilters().filter((filterType) => filterType !== value);
-        localStorage.setItem('filters', JSON.stringify(filters));
+    deleteFilter(filterType: string, value: string) {
+        const filters = this.getFilters(filterType).filter((filterValue) => filterValue !== value);
+        localStorage.setItem(filterType, JSON.stringify(filters));
     }
 
     getFavorites() {
@@ -84,7 +84,7 @@ export class Model {
     }
 
     getResponse() {
-        console.log('Model - getResponse()');
+        // console.log('Model - getResponse()');
         const sortArr = this.sortProducts([...this.products]);
         const filteredArr = this.filterProducts(sortArr);
 
@@ -113,26 +113,48 @@ export class Model {
     }
 
     filterProducts(productsArr: Product[]) {
-        const filters = this.getFilters();
+        const exclusionFilters = this.getFilters('exclusion-filters');
+        const complementaryFilters = this.getFilters('complementary-filters');
         let filteredArr = [...productsArr];
 
-        if (filters.includes(FiltersType.availableNow)) {
-            filteredArr = filteredArr.filter((product: Product) => product.availability === FiltersType.availableNow);
+        if (exclusionFilters.includes(ExclusionFiltersType.availableNow)) {
+            filteredArr = filteredArr.filter(
+                (product: Product) => product.availability === ExclusionFiltersType.availableNow
+            );
         }
-        if (filters.includes(FiltersType.comingSoon)) {
-            filteredArr = filteredArr.filter((product: Product) => product.availability === FiltersType.comingSoon);
+        if (exclusionFilters.includes(ExclusionFiltersType.comingSoon)) {
+            filteredArr = filteredArr.filter(
+                (product: Product) => product.availability === ExclusionFiltersType.comingSoon
+            );
         }
-        if (filters.includes(FiltersType.favorite)) {
+        if (exclusionFilters.includes(ExclusionFiltersType.favorite)) {
             filteredArr = filteredArr.filter((product: Product) => product.isFavorite);
         }
-        if (filters.includes(FiltersType.highRated)) {
+        if (exclusionFilters.includes(ExclusionFiltersType.highRated)) {
             filteredArr = filteredArr.filter((product: Product) => Number(product.rating) > HIGH_RATING_VALUE);
         }
-        return filteredArr;
+
+        /////// complementary-filters
+        console.log(complementaryFilters);
+        if (!complementaryFilters.length) return filteredArr;
+        console.log(complementaryFilters);
+        let resultArr: Product[] = [];
+
+        complementaryFilters.forEach((age) => {
+            resultArr = resultArr.concat(
+                filteredArr.filter((product: Product) => {
+                    return product.ages === age;
+                })
+            );
+            console.log(resultArr);
+        });
+
+        console.log(resultArr);
+        return resultArr;
     }
 
-    setFiltersValue(value: string, isChecked: boolean) {
-        isChecked ? this.addFilter(value) : this.deleteFilter(value);
+    setFiltersValue(filterType: string, value: string, isChecked: boolean) {
+        isChecked ? this.addFilter(filterType, value) : this.deleteFilter(filterType, value);
     }
 
     getProductByID(productID: number) {

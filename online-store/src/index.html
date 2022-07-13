@@ -36,8 +36,9 @@
             <option value="piecesDescending" id="piecesDescending">pieces: hight to low</option>
           </select>
         </div>
-        <div class="filter">
-          <div class="checkboxes">
+        <form class="filter">
+          <div class="checkboxes" id="exclusion-filters">
+            <p>Show only</p>
             <label class="checkbox">
               <input class="checkbox__input" type="checkbox" value="Available now">
               <span class="checkbox__span">Available Now</span>
@@ -55,7 +56,38 @@
               <span class="checkbox__span">Favorite</span>
             </label>
           </div>
-        </div>
+          <div class="checkboxes" id="complementary-filters">
+            <label class="checkbox">
+              <input class="checkbox__input" type="checkbox" value="6+">
+              <span class="checkbox__span">6+</span>
+            </label>
+            <label class="checkbox">
+              <input class="checkbox__input" type="checkbox" value="7+">
+              <span class="checkbox__span">7+</span>
+            </label>
+            <label class="checkbox">
+              <input class="checkbox__input" type="checkbox" value="8+">
+              <span class="checkbox__span">8+</span>
+            </label>
+            <label class="checkbox">
+              <input class="checkbox__input" type="checkbox" value="9+">
+              <span class="checkbox__span">9+</span>
+            </label>
+            <label class="checkbox">
+              <input class="checkbox__input" type="checkbox" value="10+">
+              <span class="checkbox__span">10+</span>
+            </label>
+            <label class="checkbox">
+              <input class="checkbox__input" type="checkbox" value="16+">
+              <span class="checkbox__span">16+</span>
+            </label>
+            <label class="checkbox">
+              <input class="checkbox__input" type="checkbox" value="18+">
+              <span class="checkbox__span">18+</span>
+            </label>
+          </div>
+          <!-- <input type="reset" class="button-reset" value="clear filter"></input> -->
+        </form>
       </div>
     </section>
     <section class="goods">

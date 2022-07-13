@@ -88,7 +88,7 @@ export class View {
         }
 
         const checkboxes = document.querySelectorAll('input');
-        console.log(checkboxes);
+        // console.log(checkboxes);
         filters.forEach((filter) => {
             checkboxes.forEach((checkbox) => {
                 if (checkbox.value === filter) checkbox.checked = true;

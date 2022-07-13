@@ -1,13 +1,16 @@
 .checkboxes {
-    display: flex;
+    display: inline-flex;
     flex-wrap: wrap;
+    font-size: 2rem;
+    color: $color-dark-l;
+    border: 2px solid $color-dark-m;
+    align-items: center;
+    margin: 0.5rem;
 }
 
 .checkbox {
     padding: 0.5rem;
     margin: 0.5rem;
-    font-size: 2rem;
-    color: $color-dark-l;
 }
 
 .checkbox__input {
@@ -20,10 +23,24 @@
     padding: 0.5rem;
     background-color: $color-light-l;
     border: 0.2rem solid $color-dark-s;
+    transition: 0.3s all;
 }
 
 .checkbox__input:checked + .checkbox__span {
     border: 0.2rem solid $color-dark-3xl;
     background-color: $color-primary;
     color: $color-dark-3xl;
+}
+
+.button-reset {
+    padding: 0.5rem;
+    background-color: $color-light-l;
+    border: 0.2rem solid $color-dark-s;
+    font-size: 2rem;
+    color: $color-dark-l;
+    transition: 0.3s all;
+    &:active {
+        background-color: $color-primary;
+        border: 0.2rem solid $color-dark-3xl;
+    }
 }
