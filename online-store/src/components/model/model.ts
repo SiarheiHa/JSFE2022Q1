@@ -38,6 +38,11 @@ export class Model {
         });
     }
 
+    getMaxPropertyValue(key: keyof Product) {
+        const max = [...this.products].sort((a, b) => Number(b[key]) - Number(a[key]))[0][key];
+        return Number(max);
+    }
+
     setSort(type: SortingType) {
         localStorage.setItem('sort', type);
     }
@@ -66,11 +71,11 @@ export class Model {
     }
 
     resetFilters() {
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            if (!key) return;
-            if (key.includes('filters')) localStorage.removeItem(key);
-        }
+        const keys = Object.keys(localStorage);
+        keys.forEach((key: string) => {
+            if (key.includes('favorites') || key.includes('cart')) return;
+            localStorage.removeItem(key);
+        });
     }
 
     set searchValue(value: string) {
@@ -134,7 +139,23 @@ export class Model {
     filterProducts(productsArr: Product[]) {
         const exclusionFilters = this.getFilters('exclusion-filters');
         const complementaryFilters = this.getFilters('complementary-filters');
+        const sliderFiltersKeys = ['price', 'pieces'] as (keyof Product)[];
+
         let filteredArr = [...productsArr];
+
+        // slider-filters
+
+        sliderFiltersKeys.forEach((key: keyof Product) => {
+            const values = this.getFilters(key)[0];
+            if (values === undefined) return;
+            const [minValue, maxValue] = values.split('-');
+            filteredArr = filteredArr.filter(
+                (product: Product) =>
+                    Number(product[key]) >= Number(minValue) && Number(product[key]) <= Number(maxValue)
+            );
+        });
+
+        // exclusion-filters
 
         if (exclusionFilters.includes(ExclusionFiltersType.availableNow)) {
             filteredArr = filteredArr.filter(
@@ -153,10 +174,8 @@ export class Model {
             filteredArr = filteredArr.filter((product: Product) => Number(product.rating) > HIGH_RATING_VALUE);
         }
 
-        /////// complementary-filters
-        console.log(complementaryFilters);
+        // complementary-filters
         if (!complementaryFilters.length) return filteredArr;
-        console.log(complementaryFilters);
         let resultArr: Product[] = [];
 
         complementaryFilters.forEach((age) => {

@@ -1,5 +1,6 @@
 import { Product, SortingType } from '../model/model';
 import { createNode } from '../utils/createNode';
+import * as noUiSlider from 'nouislider';
 
 export class View {
     productsContainer: HTMLElement;
@@ -78,6 +79,35 @@ export class View {
         });
     }
 
+    drawSlider(slider: HTMLElement, valueFrom: number, ValueTo: number, maxValue: number) {
+        noUiSlider.create(slider, {
+            start: [valueFrom, ValueTo],
+            connect: true,
+            step: 10,
+            range: {
+                min: 0,
+                max: maxValue,
+            },
+            tooltips: {
+                // tooltips are output only, so only a "to" is needed
+                to: function (numericValue) {
+                    return numericValue.toFixed();
+                },
+            },
+        });
+        return slider;
+    }
+
+    resetSliders() {
+        const sliders = document.querySelectorAll('.slider__line');
+        sliders.forEach((slider) => {
+            if (!(slider instanceof HTMLElement)) {
+                throw new Error('slider-error');
+            }
+            (slider as noUiSlider.target).noUiSlider?.set([0, 10000]);
+        });
+    }
+
     drawCartCounter(countOfProducts: number) {
         const counter = document.querySelector('.cart__counter');
         if (!counter) {
@@ -86,7 +116,7 @@ export class View {
         counter.innerHTML = String(countOfProducts);
     }
 
-    checkChekboxes(sort: SortingType, filters: string[]) {
+    checkCheckboxes(sort: SortingType, filters: string[]) {
         const option = document.getElementById(sort);
         if (option instanceof HTMLOptionElement) {
             option.selected = true;

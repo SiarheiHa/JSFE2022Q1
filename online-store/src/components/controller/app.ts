@@ -1,6 +1,7 @@
 import { data, ProductResponseObj } from '../db/db';
 import { Model, SortingType } from '../model/model';
 import { View } from '../view/view';
+import * as noUiSlider from 'nouislider';
 
 export class ShopApp {
     model: Model;
@@ -16,7 +17,8 @@ export class ShopApp {
         console.log('ShopApp - app start()');
         this.view.drawCartCounter(this.model.cartCounter);
         this.getProducts();
-        this.view.checkChekboxes(this.model.getSort(), [
+        this.createSliders();
+        this.view.checkCheckboxes(this.model.getSort(), [
             ...this.model.getFilters('exclusion-filters'),
             ...this.model.getFilters('complementary-filters'),
         ]);
@@ -55,6 +57,7 @@ export class ShopApp {
 
         filters.addEventListener('reset', () => {
             this.model.resetFilters();
+            this.view.resetSliders();
             this.getProducts();
         });
     }
@@ -70,6 +73,39 @@ export class ShopApp {
         searchInput.addEventListener('input', () => {
             console.log(searchInput.value);
             this.model.searchValue = searchInput.value;
+            this.getProducts();
+        });
+    }
+
+    createSliders() {
+        const sliders = document.querySelectorAll('.slider__line');
+        sliders.forEach((slider: Element) => {
+            if (!(slider instanceof HTMLElement)) {
+                throw new Error('slider not found');
+            }
+            const filterType = slider.dataset.filter_type as keyof ProductResponseObj;
+
+            if (filterType === undefined) {
+                throw new Error('Unknown filter value');
+            }
+
+            const maxSliderValue = this.model.getMaxPropertyValue(filterType);
+
+            const sliderFiltersValues = this.model.getFilters(filterType)[0] || `0-${maxSliderValue}`;
+            console.log(sliderFiltersValues);
+
+            const [minFilterValue, maxFilterValue] = sliderFiltersValues.split('-');
+
+            slider = this.view.drawSlider(slider, Number(minFilterValue), Number(maxFilterValue), maxSliderValue);
+            this.addSliderHandler(slider as noUiSlider.target);
+        });
+    }
+
+    addSliderHandler(slider: noUiSlider.target) {
+        slider.noUiSlider?.on('update', (values) => {
+            const [minPrice, maxPrice] = values;
+            localStorage.removeItem(slider.dataset.filter_type as string);
+            this.model.addFilter(slider.dataset.filter_type as string, `${minPrice}-${maxPrice}`);
             this.getProducts();
         });
     }
