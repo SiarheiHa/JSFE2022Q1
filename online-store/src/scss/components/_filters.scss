@@ -1,12 +1,16 @@
 .filters {
-    background-color: $color-light-l;
+    background-color: $color-primary;
 }
 .filters-wrapper {
     display: flex;
+    flex-direction: column-reverse;
     justify-content: space-between;
 }
 .filter {
-    // flex-basis: 30%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem 0;
     min-height: 3rem;
-    background-color: $color-primary;
 }

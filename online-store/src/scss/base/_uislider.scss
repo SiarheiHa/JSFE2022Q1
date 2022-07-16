@@ -1,7 +1,7 @@
 @import '../libs/nouislider.min';
 .slider {
     display: flex;
-    padding-top: 5rem;
+    padding: 4rem 3rem 1rem 0;
     align-items: center;
 }
 .slider__line {
@@ -9,89 +9,6 @@
 }
 .slider__title {
     padding: 0 2rem;
+    font-size: 2rem;
+    color: $color-dark-l;
 }
-
-// // Hide Arrows From Input Number
-
-// /* Chrome, Safari, Edge, Opera */
-// input::-webkit-outer-spin-button,
-// input::-webkit-inner-spin-button {
-//     -webkit-appearance: none;
-//     margin: 0;
-// }
-
-// /* Firefox */
-// input[type='number'] {
-//     -moz-appearance: textfield;
-// }
-
-// // .filters-price__inputs {
-// //     display: flex;
-// //     justify-content: space-between;
-// // }
-
-// .filters-price__label {
-//     border: 2px solid $color-dark-m;
-//     padding: 1rem 1rem;
-// }
-
-// .filters-price__text {
-//     font-size: 14px;
-//     color: #808080;
-// }
-
-// .filters-price__text:first-child {
-//     margin-right: 10px;
-// }
-
-// .filters-price__text:last-child {
-//     margin-left: 10px;
-// }
-
-// .filters-price__input {
-//     border: none;
-//     color: #4d4d4d;
-//     font-size: 14px;
-// }
-
-// .filters-price__title {
-//     margin-bottom: 20px;
-// }
-
-// .filters-price__slider {
-//     margin-bottom: 20px;
-// }
-
-// .noUi-connect {
-//     background-color: #5d71dd;
-// }
-
-// .noUi-target {
-//     background-color: #bfbfbf;
-//     border: none;
-//     border-radius: 100px;
-//     box-shadow: none;
-//     height: 3px;
-// }
-
-// .noUi-handle::after,
-// .noUi-handle::before {
-//     display: none;
-// }
-
-// .noUi-handle {
-//     box-shadow: none;
-//     border-radius: 100%;
-//     background-color: #fff;
-//     border: 3px solid #5d71dd;
-// }
-
-// .noUi-horizontal .noUi-handle {
-//     width: 22px;
-//     height: 22px;
-//     top: -10px;
-// }
-
-// .noUi-horizontal .noUi-handle-upper {
-//     right: 0;
-// }

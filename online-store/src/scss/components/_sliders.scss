@@ -1,0 +1,13 @@
+.sliders {
+    display: flex;
+    flex-direction: column;
+    width: 45rem;
+    border: 2px solid $color-dark-m;
+    border-radius: 25px;
+    min-width: 36rem;
+    justify-content: center;
+}
+
+.noUi-tooltip {
+    color: $color-dark-l;
+}
