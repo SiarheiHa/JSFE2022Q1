@@ -37,7 +37,7 @@ export class View {
                 tag: 'img',
                 classes: ['favorite-icon'],
                 atributesAdnValues: [
-                    ['src', '../src/assets/favorite-svgrepo-com.svg'],
+                    ['src', './images/favorite-svgrepo-com.svg'],
                     ['alt', 'favorite icon'],
                     ['width', '40'],
                 ],
