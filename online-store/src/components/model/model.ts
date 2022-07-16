@@ -91,6 +91,11 @@ export class Model {
         return (JSON.parse(localStorage.getItem('favorites') as string) as string[]) || [];
     }
 
+    clearFavoriteList() {
+        localStorage.removeItem('favorites');
+        this.products.forEach((product: Product) => (product.isFavorite = false));
+    }
+
     addFavorite(productID: number) {
         const favorites = this.getFavorites();
         favorites.push(String(productID));
@@ -107,7 +112,7 @@ export class Model {
     }
 
     getResponse() {
-        // console.log('Model - getResponse()');
+        console.log('Model - getResponse()');
         const sortedArr = this.sortProducts([...this.products]);
         const filteredArr = this.filterProducts(sortedArr);
         const arrBySearch = this.filterBySearch(filteredArr);
@@ -184,10 +189,7 @@ export class Model {
                     return product.ages === age;
                 })
             );
-            console.log(resultArr);
         });
-
-        console.log(resultArr);
         return resultArr;
     }
 
@@ -248,6 +250,11 @@ export class Model {
 
     isIdInCartList(productID: number) {
         return this.getCart().includes(String(productID));
+    }
+
+    clearCart() {
+        localStorage.removeItem('cart');
+        this.products.forEach((product: Product) => (product.isInCart = false));
     }
 
     get cartCounter() {

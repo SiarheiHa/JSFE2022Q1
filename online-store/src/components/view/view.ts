@@ -10,7 +10,6 @@ export class View {
     }
 
     toggleClassActive(target: HTMLElement) {
-        console.log('toggleClassActive');
         target.classList.toggle(`${target.classList[0]}_active`);
     }
 
@@ -123,7 +122,6 @@ export class View {
         }
 
         const checkboxes = document.querySelectorAll('input');
-        // console.log(checkboxes);
         filters.forEach((filter) => {
             checkboxes.forEach((checkbox) => {
                 if (checkbox.value === filter) checkbox.checked = true;

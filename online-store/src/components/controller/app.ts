@@ -15,13 +15,8 @@ export class ShopApp {
     }
     start() {
         console.log('ShopApp - app start()');
-        this.view.drawCartCounter(this.model.cartCounter);
         this.getProducts();
         this.createSliders();
-        this.view.checkCheckboxes(this.model.getSort(), [
-            ...this.model.getFilters('exclusion-filters'),
-            ...this.model.getFilters('complementary-filters'),
-        ]);
         this.addProductsHandler();
         this.addFiltersHandler();
         this.addSearchHandler();
@@ -29,16 +24,20 @@ export class ShopApp {
 
     getProducts() {
         const productsForView = this.model.getResponse();
+        this.view.checkCheckboxes(this.model.getSort(), [
+            ...this.model.getFilters('exclusion-filters'),
+            ...this.model.getFilters('complementary-filters'),
+        ]);
+        this.view.drawCartCounter(this.model.cartCounter);
         this.view.drawProducts(productsForView);
     }
 
     addFiltersHandler() {
         const filters = document.querySelector('.filters');
         if (!(filters instanceof HTMLElement)) {
-            throw new Error('Select not found');
+            throw new Error('Filter not found');
         }
         filters.addEventListener('change', (e: Event) => {
-            console.log(e);
             const target = e.target;
             if (!(target instanceof HTMLElement)) {
                 throw new Error('Target is not defined');
@@ -60,6 +59,21 @@ export class ShopApp {
             this.view.resetSliders();
             this.getProducts();
         });
+
+        filters.addEventListener('click', (e) => {
+            const target = e.target;
+            if (target instanceof HTMLInputElement && target.value === 'reset settings') {
+                this.model.resetFilters();
+                this.view.resetSliders();
+                //очистить избранное
+                this.model.clearFavoriteList();
+                //очистить корзину в лс
+                this.model.clearCart();
+                //reset sort
+                this.model.setSort(SortingType.default);
+                this.getProducts();
+            }
+        });
     }
 
     addSearchHandler() {
@@ -71,7 +85,6 @@ export class ShopApp {
         searchInput.focus();
 
         searchInput.addEventListener('input', () => {
-            console.log(searchInput.value);
             this.model.searchValue = searchInput.value;
             this.getProducts();
         });
@@ -92,7 +105,6 @@ export class ShopApp {
             const maxSliderValue = this.model.getMaxPropertyValue(filterType);
 
             const sliderFiltersValues = this.model.getFilters(filterType)[0] || `0-${maxSliderValue}`;
-            console.log(sliderFiltersValues);
 
             const [minFilterValue, maxFilterValue] = sliderFiltersValues.split('-');
 
@@ -119,10 +131,8 @@ export class ShopApp {
             const productID = Number(target.parentElement?.dataset.product_id);
 
             if (target.classList.contains('favorite-icon')) {
-                console.log('favorite-icon is clicked, productID', productID);
                 this.model.toggleFavoriteStatus(productID);
             } else if (target.classList.contains('button')) {
-                console.log('button is clicked productID', productID);
                 const resultOfAddingToCart = this.model.toggleCartStatus(productID);
                 if (resultOfAddingToCart.status !== 'ok') {
                     this.view.drawModalWindfow(resultOfAddingToCart.message);
