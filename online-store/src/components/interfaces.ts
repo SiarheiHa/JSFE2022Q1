@@ -31,3 +31,7 @@ export enum SortingType {
     piecesAscending = 'piecesAscending',
     piecesDescending = 'piecesDescending',
 }
+
+export interface ModalModel {
+    buildModal(message: string): void;
+}
