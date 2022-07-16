@@ -19,7 +19,11 @@ export class View {
     drawProducts(products: Product[]) {
         this.productsContainer.innerHTML = '';
         if (products.length === 0) {
-            const notFoundMessage = createNode({ tag: 'p', inner: 'Извините, совпадений не обнаружено' });
+            const notFoundMessage = createNode({
+                tag: 'p',
+                classes: ['not-found-message'],
+                inner: 'Извините, совпадений не обнаружено',
+            });
             this.productsContainer.append(notFoundMessage);
             return;
         }
