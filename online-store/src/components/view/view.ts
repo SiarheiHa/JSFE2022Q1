@@ -1,4 +1,4 @@
-import { Product, SortingType } from '../model/model';
+import { Product, SortingType } from '../interfaces';
 import { createNode } from '../utils/createNode';
 import { Modal } from './modal';
 import * as noUiSlider from 'nouislider';

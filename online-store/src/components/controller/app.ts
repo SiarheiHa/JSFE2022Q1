@@ -1,5 +1,6 @@
-import { data, ProductResponseObj } from '../db/db';
-import { Model, SortingType } from '../model/model';
+import { ProductResponseObj, SortingType } from '../interfaces';
+import { data } from '../db/db';
+import { Model } from '../model/model';
 import { View } from '../view/view';
 import * as noUiSlider from 'nouislider';
 

@@ -1,16 +1,4 @@
-export interface ProductResponseObj {
-    _id: string;
-    set: string;
-    item_id: number;
-    reviews: number | null;
-    rating: string;
-    availability: string;
-    price: number;
-    images: string[];
-    ages: string;
-    pieces: number;
-    __v: number;
-}
+import { ProductResponseObj } from '../interfaces';
 
 export const data: ProductResponseObj[] = [
     {

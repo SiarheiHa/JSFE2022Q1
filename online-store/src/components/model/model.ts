@@ -1,28 +1,8 @@
-import { ProductResponseObj } from '../db/db';
+import { ExclusionFiltersType, Product, ProductResponseObj, SortingType } from '../interfaces';
 
 const HIGH_RATING_VALUE = 4.3;
 const MAX_AMOUNT_OF_GOODS_IN_CART = 20;
 // const FILTER_TYPES = ['exclusion-filters', 'complementary-filters'];
-
-export interface Product extends ProductResponseObj {
-    isFavorite: boolean;
-    isInCart: boolean;
-}
-
-export enum SortingType {
-    default = 'default',
-    priceAscending = 'priceAscending',
-    priceDescending = 'priceDescending',
-    piecesAscending = 'piecesAscending',
-    piecesDescending = 'piecesDescending',
-}
-
-enum ExclusionFiltersType {
-    availableNow = 'Available now',
-    comingSoon = 'Coming Soon',
-    highRated = 'High Rated',
-    favorite = 'Favorite',
-}
 
 export class Model {
     products: Product[];
