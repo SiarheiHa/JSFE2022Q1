@@ -35,3 +35,8 @@ export enum SortingType {
 export interface ModalModel {
     buildModal(message: string): void;
 }
+
+export interface SliderModel {
+    drawSlider(slider: HTMLElement, valueFrom: number, ValueTo: number, maxValue: number): HTMLElement;
+    resetSliders(): void;
+}

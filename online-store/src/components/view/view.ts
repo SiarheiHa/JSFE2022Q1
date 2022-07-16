@@ -1,15 +1,17 @@
 import { Product, SortingType } from '../interfaces';
 import { createNode } from '../utils/createNode';
-import { Modal } from './modal';
-import * as noUiSlider from 'nouislider';
+import { Modal } from './modal/modal';
+import { Slider } from './slider/slider';
 
 export class View {
     productsContainer: HTMLElement;
     modal: Modal;
+    slider: Slider;
 
     constructor(container: HTMLElement) {
         this.productsContainer = container;
         this.modal = new Modal();
+        this.slider = new Slider();
     }
 
     toggleClassActive(target: HTMLElement) {
@@ -82,35 +84,6 @@ export class View {
                 button
             );
             this.productsContainer.append(productDiv);
-        });
-    }
-
-    drawSlider(slider: HTMLElement, valueFrom: number, ValueTo: number, maxValue: number) {
-        noUiSlider.create(slider, {
-            start: [valueFrom, ValueTo],
-            connect: true,
-            step: 10,
-            range: {
-                min: 0,
-                max: maxValue,
-            },
-            tooltips: {
-                // tooltips are output only, so only a "to" is needed
-                to: function (numericValue) {
-                    return numericValue.toFixed();
-                },
-            },
-        });
-        return slider;
-    }
-
-    resetSliders() {
-        const sliders = document.querySelectorAll('.slider__line');
-        sliders.forEach((slider) => {
-            if (!(slider instanceof HTMLElement)) {
-                throw new Error('slider-error');
-            }
-            (slider as noUiSlider.target).noUiSlider?.set([0, 10000]);
         });
     }
 

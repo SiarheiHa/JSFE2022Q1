@@ -3,7 +3,7 @@ export const createNode = <K extends keyof HTMLElementTagNameMap>(obj: {
     classes?: string[];
     atributesAdnValues?: [string, string][];
     inner?: string;
-}) => {
+}): HTMLElement => {
     const node = document.createElement(obj.tag);
 
     if (obj.classes) {

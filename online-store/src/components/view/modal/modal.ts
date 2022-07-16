@@ -1,5 +1,5 @@
-import { ModalModel } from '../interfaces';
-import { createNode } from '../utils/createNode';
+import { ModalModel } from '../../interfaces';
+import { createNode } from '../../utils/createNode';
 
 export class Modal implements ModalModel {
     private overlay: HTMLElement | null = null;

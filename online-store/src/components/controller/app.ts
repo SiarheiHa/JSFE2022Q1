@@ -57,7 +57,7 @@ export class ShopApp {
 
         filters.addEventListener('reset', () => {
             this.model.resetFilters();
-            this.view.resetSliders();
+            this.view.slider.resetSliders();
             this.getProducts();
         });
 
@@ -65,7 +65,7 @@ export class ShopApp {
             const target = e.target;
             if (target instanceof HTMLInputElement && target.value === 'reset settings') {
                 this.model.resetFilters();
-                this.view.resetSliders();
+                this.view.slider.resetSliders();
                 //очистить избранное
                 this.model.clearFavoriteList();
                 //очистить корзину в лс
@@ -109,7 +109,12 @@ export class ShopApp {
 
             const [minFilterValue, maxFilterValue] = sliderFiltersValues.split('-');
 
-            slider = this.view.drawSlider(slider, Number(minFilterValue), Number(maxFilterValue), maxSliderValue);
+            slider = this.view.slider.drawSlider(
+                slider,
+                Number(minFilterValue),
+                Number(maxFilterValue),
+                maxSliderValue
+            );
             this.addSliderHandler(slider as noUiSlider.target);
         });
     }
