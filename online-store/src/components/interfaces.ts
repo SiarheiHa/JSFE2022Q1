@@ -40,3 +40,12 @@ export interface SliderModel {
     drawSlider(slider: HTMLElement, valueFrom: number, ValueTo: number, maxValue: number): HTMLElement;
     resetSliders(): void;
 }
+
+export interface ViewModel {
+    modal: ModalModel;
+    slider: SliderModel;
+    drawProducts(products: Product[]): void;
+    drawCartCounter(countOfProducts: number): void;
+    checkCheckboxes(sort: SortingType, filters: string[]): void;
+    toggleClassActive(target: HTMLElement): void;
+}
