@@ -1,6 +1,7 @@
 .select {
-    border: 1px solid #999;
     font-size: 2rem;
-    background-color: $color-light-xl;
-    border-radius: 0.5rem;
+    border: 0.2rem solid $color-dark-s;
+    border-radius: 1.5rem;
+    padding: 0.5rem 1rem;
+    color: $color-dark-l;
 }

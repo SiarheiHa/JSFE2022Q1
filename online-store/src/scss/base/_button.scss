@@ -7,14 +7,14 @@
     transition: all 0.3s;
     cursor: pointer;
     letter-spacing: 0.06em;
-    min-width: 21rem;
+    min-width: 27rem;
     &::before {
         content: 'add to cart';
     }
     &_active {
-        background-color: transparent;
+        background-color: $color-primary;
         &::before {
-            content: 'item in cart';
+            content: 'remove from cart';
         }
     }
 }
