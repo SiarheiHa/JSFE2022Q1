@@ -135,7 +135,7 @@ export class ShopApp {
             } else if (target.classList.contains('button')) {
                 const resultOfAddingToCart = this.model.toggleCartStatus(productID);
                 if (resultOfAddingToCart.status !== 'ok') {
-                    this.view.drawModalWindfow(resultOfAddingToCart.message);
+                    this.view.modal.buildModal(resultOfAddingToCart.message);
                     return;
                 }
                 this.view.drawCartCounter(this.model.cartCounter);

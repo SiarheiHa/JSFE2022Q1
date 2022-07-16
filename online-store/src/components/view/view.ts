@@ -1,12 +1,15 @@
 import { Product, SortingType } from '../model/model';
 import { createNode } from '../utils/createNode';
+import { Modal } from './modal';
 import * as noUiSlider from 'nouislider';
 
 export class View {
     productsContainer: HTMLElement;
+    modal: Modal;
 
     constructor(container: HTMLElement) {
         this.productsContainer = container;
+        this.modal = new Modal();
     }
 
     toggleClassActive(target: HTMLElement) {
@@ -127,9 +130,5 @@ export class View {
                 if (checkbox.value === filter) checkbox.checked = true;
             });
         });
-    }
-
-    drawModalWindfow(message: string) {
-        alert(message);
     }
 }
