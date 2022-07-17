@@ -82,3 +82,9 @@ export interface SearchModel {
     searchValue: string;
     filterBySearch(productsArr: Product[]): Product[];
 }
+
+export interface FavoriteListModel {
+    clearFavoriteList(): void;
+    isIdInFavoriteList(productID: number): boolean;
+    toggleFavoriteStatus(productID: number): void;
+}

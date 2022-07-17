@@ -1,4 +1,5 @@
 import { Product, ProductResponseObj, ResultOfToggleCartStatus } from '../interfaces';
+import { FavoriteList } from './favorite/favorite';
 import { Filters } from './filters/filters';
 import { Search } from './filters/search';
 import { Sorting } from './sorting/sorting';
@@ -11,18 +12,21 @@ export class Model {
     public sorting: Sorting;
     public search: Search;
     private products: Product[];
+    public favoriteList: FavoriteList;
 
     constructor(data: ProductResponseObj[]) {
         this.products = data.map((item: ProductResponseObj): Product => {
             const product: Product = { ...item, ...{ isFavorite: false, isInCart: false } };
-            product.isFavorite = this.isIdInFavoriteList(product.item_id);
-            product.isInCart = this.isIdInCartList(product.item_id);
-
             return product;
         });
         this.sorting = new Sorting();
         this.filters = new Filters();
         this.search = new Search();
+        this.favoriteList = new FavoriteList(this.products);
+        this.products.forEach((product: Product) => {
+            product.isFavorite = this.favoriteList.isIdInFavoriteList(product.item_id);
+            product.isInCart = this.isIdInCartList(product.item_id);
+        });
     }
 
     public getResponse(): Product[] {
@@ -38,46 +42,10 @@ export class Model {
         return Number(max);
     }
 
-    //favorites
-
-    getFavorites() {
-        return (JSON.parse(localStorage.getItem('favorites') as string) as string[]) || [];
-    }
-
-    clearFavoriteList() {
-        localStorage.removeItem('favorites');
-        this.products.forEach((product: Product) => (product.isFavorite = false));
-    }
-
-    addFavorite(productID: number) {
-        const favorites = this.getFavorites();
-        favorites.push(String(productID));
-        localStorage.setItem('favorites', JSON.stringify(favorites));
-    }
-
-    deleteFavorite(productID: number) {
-        const favorites = this.getFavorites().filter((product) => product !== String(productID));
-        localStorage.setItem('favorites', JSON.stringify(favorites));
-    }
-
-    isIdInFavoriteList(productID: number) {
-        return this.getFavorites().includes(String(productID));
-    }
+    //cart
 
     getProductByID(productID: number) {
         return this.products.find((product) => product.item_id === productID);
-    }
-
-    toggleFavoriteStatus(productID: number) {
-        const product = this.getProductByID(productID);
-        if (product) {
-            if (product.isFavorite) {
-                this.deleteFavorite(productID);
-            } else {
-                this.addFavorite(productID);
-            }
-            product.isFavorite = !product.isFavorite;
-        }
     }
 
     toggleCartStatus(productID: number): ResultOfToggleCartStatus {

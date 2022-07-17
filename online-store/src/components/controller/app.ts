@@ -66,7 +66,7 @@ export class ShopApp implements ShopAppModel {
             if (target instanceof HTMLInputElement && target.value === 'reset settings') {
                 this.model.filters.resetFilters();
                 this.view.slider.resetSliders();
-                this.model.clearFavoriteList();
+                this.model.favoriteList.clearFavoriteList();
                 this.model.clearCart();
                 this.model.sorting.setSort(SortingType.default);
 
@@ -131,7 +131,7 @@ export class ShopApp implements ShopAppModel {
             const productID = Number(target.parentElement?.dataset.product_id);
 
             if (target.classList.contains('favorite-icon')) {
-                this.model.toggleFavoriteStatus(productID);
+                this.model.favoriteList.toggleFavoriteStatus(productID);
             } else if (target.classList.contains('button')) {
                 const resultOfToggleCartStatus: ResultOfToggleCartStatus = this.model.toggleCartStatus(productID);
                 if (resultOfToggleCartStatus.status === 'rejected') {
