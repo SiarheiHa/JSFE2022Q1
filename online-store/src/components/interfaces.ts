@@ -24,6 +24,11 @@ export enum ExclusionFiltersType {
     favorite = 'Favorite',
 }
 
+export enum FilterType {
+    exclusion = 'exclusion-filters',
+    complementary = 'complementary-filters',
+}
+
 export enum SortingType {
     default = 'default',
     priceAscending = 'priceAscending',
@@ -37,7 +42,7 @@ export interface ModalModel {
 }
 
 export interface SliderModel {
-    drawSlider(slider: HTMLElement, valueFrom: number, ValueTo: number, maxValue: number): HTMLElement;
+    drawSlider(slider: HTMLElement, valueFrom: number, ValueTo: number, maxValue: number): void;
     resetSliders(): void;
 }
 
@@ -48,4 +53,13 @@ export interface ViewModel {
     drawCartCounter(countOfProducts: number): void;
     checkCheckboxes(sort: SortingType, filters: string[]): void;
     toggleClassActive(target: HTMLElement): void;
+}
+
+export interface ResultOfToggleCartStatus {
+    status: 'ok' | 'rejected';
+    message: string;
+}
+
+export interface ShopAppModel {
+    start(): void;
 }

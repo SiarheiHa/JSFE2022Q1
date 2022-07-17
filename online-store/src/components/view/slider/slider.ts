@@ -2,7 +2,7 @@ import * as noUiSlider from 'nouislider';
 import { SliderModel } from '../../interfaces';
 
 export class Slider implements SliderModel {
-    public drawSlider(slider: HTMLElement, valueFrom: number, ValueTo: number, maxValue: number): HTMLElement {
+    public drawSlider(slider: HTMLElement, valueFrom: number, ValueTo: number, maxValue: number): void {
         noUiSlider.create(slider, {
             start: [valueFrom, ValueTo],
             connect: true,
@@ -18,7 +18,6 @@ export class Slider implements SliderModel {
                 },
             },
         });
-        return slider;
     }
 
     public resetSliders(): void {

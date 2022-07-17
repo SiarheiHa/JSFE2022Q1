@@ -1,4 +1,10 @@
-import { ExclusionFiltersType, Product, ProductResponseObj, SortingType } from '../interfaces';
+import {
+    ExclusionFiltersType,
+    Product,
+    ProductResponseObj,
+    ResultOfToggleCartStatus,
+    SortingType,
+} from '../interfaces';
 
 const HIGH_RATING_VALUE = 4.3;
 const MAX_AMOUNT_OF_GOODS_IN_CART = 20;
@@ -193,24 +199,24 @@ export class Model {
         }
     }
 
-    toggleCartStatus(productID: number) {
+    toggleCartStatus(productID: number): ResultOfToggleCartStatus {
         const product = this.getProductByID(productID);
         if (product) {
             if (!product.isInCart && this.cartCounter >= MAX_AMOUNT_OF_GOODS_IN_CART) {
-                return { status: `Can't add more items`, message: 'Извините, все слоты заполнены' };
+                return { status: `rejected`, message: 'Извините, все слоты заполнены' };
             }
 
             if (product.isInCart) {
                 product.isInCart = false;
                 this.deleteFromCart(productID);
             } else if (product.availability !== 'Available now') {
-                return { status: 'The product is out of stock', message: 'Sorry, the product is out of stock' };
+                return { status: 'rejected', message: 'Sorry, the product is out of stock' };
             } else {
                 product.isInCart = true;
                 this.addToCart(productID);
             }
         }
-        return { status: 'ok', message: 'Item added' };
+        return { status: 'ok', message: 'status toggled' };
     }
 
     getCart() {

@@ -26,7 +26,7 @@ export class View implements ViewModel {
             return;
         }
 
-        products.forEach((product) => this.productsContainer.append(this.createProductCard(product)));
+        products.forEach((product: Product) => this.productsContainer.append(this.createProductCard(product)));
     }
 
     private createProductCard(product: Product): HTMLElement {
