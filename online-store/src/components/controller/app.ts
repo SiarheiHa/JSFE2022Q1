@@ -27,7 +27,7 @@ export class ShopApp implements ShopAppModel {
             ...this.model.filters.getFilters(FilterType.exclusion),
             ...this.model.filters.getFilters(FilterType.complementary),
         ]);
-        this.view.drawCartCounter(this.model.cartCounter);
+        this.view.drawCartCounter(this.model.cart.cartCounter);
         this.view.drawProducts(productsForView);
     }
 
@@ -67,7 +67,7 @@ export class ShopApp implements ShopAppModel {
                 this.model.filters.resetFilters();
                 this.view.slider.resetSliders();
                 this.model.favoriteList.clearFavoriteList();
-                this.model.clearCart();
+                this.model.cart.clearCart();
                 this.model.sorting.setSort(SortingType.default);
 
                 this.getData();
@@ -133,12 +133,12 @@ export class ShopApp implements ShopAppModel {
             if (target.classList.contains('favorite-icon')) {
                 this.model.favoriteList.toggleFavoriteStatus(productID);
             } else if (target.classList.contains('button')) {
-                const resultOfToggleCartStatus: ResultOfToggleCartStatus = this.model.toggleCartStatus(productID);
+                const resultOfToggleCartStatus: ResultOfToggleCartStatus = this.model.cart.toggleCartStatus(productID);
                 if (resultOfToggleCartStatus.status === 'rejected') {
                     this.view.modal.buildModal(resultOfToggleCartStatus.message);
                     return;
                 }
-                this.view.drawCartCounter(this.model.cartCounter);
+                this.view.drawCartCounter(this.model.cart.cartCounter);
             }
 
             this.view.toggleClassActive(target);

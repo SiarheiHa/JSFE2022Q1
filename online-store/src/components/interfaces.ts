@@ -88,3 +88,10 @@ export interface FavoriteListModel {
     isIdInFavoriteList(productID: number): boolean;
     toggleFavoriteStatus(productID: number): void;
 }
+
+export interface CartModel {
+    cartCounter: number;
+    toggleCartStatus(productID: number): ResultOfToggleCartStatus;
+    isIdInCartList(productID: number): boolean;
+    clearCart(): void;
+}
