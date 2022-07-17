@@ -23,7 +23,7 @@ export class ShopApp implements ShopAppModel {
 
     private getData(): void {
         const productsForView: Product[] = this.model.getResponse();
-        this.view.checkCheckboxes(this.model.getSort(), [
+        this.view.checkCheckboxes(this.model.sorting.getSort(), [
             ...this.model.getFilters(FilterType.exclusion),
             ...this.model.getFilters(FilterType.complementary),
         ]);
@@ -43,7 +43,7 @@ export class ShopApp implements ShopAppModel {
             }
 
             if (target instanceof HTMLSelectElement) {
-                this.model.setSort(target.value as SortingType);
+                this.model.sorting.setSort(target.value as SortingType);
             }
 
             if (target instanceof HTMLInputElement) {
@@ -68,7 +68,7 @@ export class ShopApp implements ShopAppModel {
                 this.view.slider.resetSliders();
                 this.model.clearFavoriteList();
                 this.model.clearCart();
-                this.model.setSort(SortingType.default);
+                this.model.sorting.setSort(SortingType.default);
 
                 this.getData();
             }

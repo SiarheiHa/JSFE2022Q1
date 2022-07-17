@@ -1,27 +1,32 @@
-import {
-    ExclusionFiltersType,
-    Product,
-    ProductResponseObj,
-    ResultOfToggleCartStatus,
-    SortingType,
-} from '../interfaces';
+import { ExclusionFiltersType, Product, ProductResponseObj, ResultOfToggleCartStatus } from '../interfaces';
+import { Sorting } from './sorting/sorting';
 
 const HIGH_RATING_VALUE = 4.3;
 const MAX_AMOUNT_OF_GOODS_IN_CART = 20;
 // const FILTER_TYPES = ['exclusion-filters', 'complementary-filters'];
 
 export class Model {
-    products: Product[];
-    _searchValue = '';
+    public sorting: Sorting;
+    private products: Product[];
+    private _searchValue = '';
 
     constructor(data: ProductResponseObj[]) {
-        this.products = data.map((item) => {
-            const product = { ...item, ...{ isFavorite: false, isInCart: false } };
+        this.products = data.map((item: ProductResponseObj): Product => {
+            const product: Product = { ...item, ...{ isFavorite: false, isInCart: false } };
             product.isFavorite = this.isIdInFavoriteList(product.item_id);
             product.isInCart = this.isIdInCartList(product.item_id);
 
             return product;
         });
+        this.sorting = new Sorting();
+    }
+
+    public getResponse(): Product[] {
+        const sortedArr: Product[] = this.sorting.sortProducts(this.products);
+        const filteredArr: Product[] = this.filterProducts(sortedArr);
+        const arrBySearch: Product[] = this.filterBySearch(filteredArr);
+
+        return arrBySearch;
     }
 
     getMaxPropertyValue(key: keyof Product) {
@@ -29,13 +34,9 @@ export class Model {
         return Number(max);
     }
 
-    setSort(type: SortingType) {
-        localStorage.setItem('sort', type);
-    }
+    //sorting
 
-    getSort(): SortingType {
-        return (localStorage.getItem('sort') as SortingType) || SortingType.default;
-    }
+    //filters
 
     getFilters(filterType: string) {
         const filtersStr = localStorage.getItem(filterType);
@@ -95,36 +96,6 @@ export class Model {
 
     isIdInFavoriteList(productID: number) {
         return this.getFavorites().includes(String(productID));
-    }
-
-    getResponse() {
-        console.log('Model - getResponse()');
-        const sortedArr = this.sortProducts([...this.products]);
-        const filteredArr = this.filterProducts(sortedArr);
-        const arrBySearch = this.filterBySearch(filteredArr);
-
-        return arrBySearch;
-    }
-
-    sortProducts(productsArr: Product[]) {
-        const sortedProducts = [...productsArr];
-        switch (this.getSort()) {
-            case SortingType.piecesAscending:
-                sortedProducts.sort((a, b) => a.pieces - b.pieces);
-                break;
-            case SortingType.piecesDescending:
-                sortedProducts.sort((a, b) => b.pieces - a.pieces);
-                break;
-            case SortingType.priceAscending:
-                sortedProducts.sort((a, b) => a.price - b.price);
-                break;
-            case SortingType.priceDescending:
-                sortedProducts.sort((a, b) => b.price - a.price);
-                break;
-            default:
-                break;
-        }
-        return sortedProducts;
     }
 
     filterProducts(productsArr: Product[]) {
