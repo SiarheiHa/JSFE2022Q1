@@ -1,5 +1,9 @@
 .form {
-    flex-basis: 60%;
+    flex-grow: 1;
+    min-width: 25rem;
+    @include media-mobile {
+        order: 1;
+    }
 }
 
 .search {
