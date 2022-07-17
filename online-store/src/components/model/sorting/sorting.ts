@@ -1,28 +1,28 @@
-import { SortingType, Product } from '../../interfaces';
+import { SortingType, Product, SortingModel } from '../../interfaces';
 
-export class Sorting {
-    setSort(type: SortingType) {
+export class Sorting implements SortingModel {
+    public setSort(type: SortingType): void {
         localStorage.setItem('sort', type);
     }
 
-    getSort(): SortingType {
+    public getSort(): SortingType {
         return (localStorage.getItem('sort') as SortingType) || SortingType.default;
     }
 
-    sortProducts(productsArr: Product[]) {
-        const sortedProducts = [...productsArr];
+    public sortProducts(productsArr: Product[]) {
+        const sortedProducts: Product[] = [...productsArr];
         switch (this.getSort()) {
             case SortingType.piecesAscending:
-                sortedProducts.sort((a, b) => a.pieces - b.pieces);
+                sortedProducts.sort((a: Product, b: Product) => a.pieces - b.pieces);
                 break;
             case SortingType.piecesDescending:
-                sortedProducts.sort((a, b) => b.pieces - a.pieces);
+                sortedProducts.sort((a: Product, b: Product) => b.pieces - a.pieces);
                 break;
             case SortingType.priceAscending:
-                sortedProducts.sort((a, b) => a.price - b.price);
+                sortedProducts.sort((a: Product, b: Product) => a.price - b.price);
                 break;
             case SortingType.priceDescending:
-                sortedProducts.sort((a, b) => b.price - a.price);
+                sortedProducts.sort((a: Product, b: Product) => b.price - a.price);
                 break;
             default:
                 break;

@@ -24,8 +24,8 @@ export class ShopApp implements ShopAppModel {
     private getData(): void {
         const productsForView: Product[] = this.model.getResponse();
         this.view.checkCheckboxes(this.model.sorting.getSort(), [
-            ...this.model.getFilters(FilterType.exclusion),
-            ...this.model.getFilters(FilterType.complementary),
+            ...this.model.filters.getFilters(FilterType.exclusion),
+            ...this.model.filters.getFilters(FilterType.complementary),
         ]);
         this.view.drawCartCounter(this.model.cartCounter);
         this.view.drawProducts(productsForView);
@@ -48,14 +48,14 @@ export class ShopApp implements ShopAppModel {
 
             if (target instanceof HTMLInputElement) {
                 const filterType = target.parentElement?.parentElement?.dataset.filter_type;
-                if (filterType) this.model.setFiltersValue(filterType, target.value, target.checked);
+                if (filterType) this.model.filters.setFiltersValue(filterType, target.value, target.checked);
             }
 
             this.getData();
         });
 
         filters.addEventListener('reset', () => {
-            this.model.resetFilters();
+            this.model.filters.resetFilters();
             this.view.slider.resetSliders();
 
             this.getData();
@@ -64,7 +64,7 @@ export class ShopApp implements ShopAppModel {
         filters.addEventListener('click', (e: Event) => {
             const target = e.target;
             if (target instanceof HTMLInputElement && target.value === 'reset settings') {
-                this.model.resetFilters();
+                this.model.filters.resetFilters();
                 this.view.slider.resetSliders();
                 this.model.clearFavoriteList();
                 this.model.clearCart();
@@ -84,7 +84,7 @@ export class ShopApp implements ShopAppModel {
         searchInput.focus();
 
         searchInput.addEventListener('input', () => {
-            this.model.searchValue = searchInput.value;
+            this.model.search.searchValue = searchInput.value;
 
             this.getData();
         });
@@ -103,7 +103,7 @@ export class ShopApp implements ShopAppModel {
             }
 
             const maxSliderValue: number = this.model.getMaxPropertyValue(filterType);
-            const sliderFiltersValues: string = this.model.getFilters(filterType)[0] || `0-${maxSliderValue}`;
+            const sliderFiltersValues: string = this.model.filters.getFilters(filterType)[0] || `0-${maxSliderValue}`;
             const [minFilterValue, maxFilterValue]: string[] = sliderFiltersValues.split('-');
 
             this.view.slider.drawSlider(slider, Number(minFilterValue), Number(maxFilterValue), maxSliderValue);
@@ -116,7 +116,7 @@ export class ShopApp implements ShopAppModel {
             const [minPrice, maxPrice]: (string | number)[] = values;
             const filterType = slider.dataset.filter_type as keyof Product;
             localStorage.removeItem(filterType);
-            this.model.addFilter(filterType, `${minPrice}-${maxPrice}`);
+            this.model.filters.addFilter(filterType, `${minPrice}-${maxPrice}`);
 
             this.getData();
         });

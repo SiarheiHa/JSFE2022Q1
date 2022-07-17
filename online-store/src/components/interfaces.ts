@@ -63,3 +63,22 @@ export interface ResultOfToggleCartStatus {
 export interface ShopAppModel {
     start(): void;
 }
+
+export interface SortingModel {
+    setSort(type: SortingType): void;
+    getSort(): SortingType;
+    sortProducts(productsArr: Product[]): Product[];
+}
+
+export interface FiltersModel {
+    getFilters(filterType: string): string[];
+    addFilter(filterType: string, value: string): void;
+    setFiltersValue(filterType: string, value: string, isChecked: boolean): void;
+    resetFilters(): void;
+    filterProducts(productsArr: Product[]): Product[];
+}
+
+export interface SearchModel {
+    searchValue: string;
+    filterBySearch(productsArr: Product[]): Product[];
+}
