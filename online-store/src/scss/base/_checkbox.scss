@@ -35,6 +35,7 @@
     min-width: 6rem;
     display: block;
     transition: 0.3s all;
+    cursor: pointer;
 }
 
 .checkbox__input:checked + .checkbox__span {
