@@ -55,10 +55,10 @@ export interface ViewModel {
     toggleClassActive(target: HTMLElement): void;
 }
 
-export interface ResultOfToggleCartStatus {
+export type ResultOfToggleCartStatus = {
     status: 'ok' | 'rejected';
     message: string;
-}
+};
 
 export interface ShopAppModel {
     start(): void;
