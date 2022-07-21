@@ -30,11 +30,11 @@ export class Model {
     }
 
     public getResponse(): Product[] {
-        const sortedArr: Product[] = this.sorting.sortProducts(this.products);
-        const filteredArr: Product[] = this.filters.filterProducts(sortedArr);
+        const filteredArr: Product[] = this.filters.filterProducts(this.products);
         const arrBySearch: Product[] = this.search.filterBySearch(filteredArr);
+        const sortedArr: Product[] = this.sorting.sortProducts(arrBySearch);
 
-        return arrBySearch;
+        return sortedArr;
     }
 
     getMaxPropertyValue(key: keyof Product) {
