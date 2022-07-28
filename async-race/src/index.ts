@@ -1,6 +1,5 @@
-import Api from './components/api';
+import App from './components/controller/app';
 import './scss/style.scss';
 
-console.log('!start task!');
-const api = new Api('hello');
-api.great();
+const app = new App();
+app.start();
