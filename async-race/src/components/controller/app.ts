@@ -8,11 +8,16 @@ export default class App {
 
   constructor() {
     this.model = new Model();
-    this.view = new View();
+    this.view = new View(this.eventHandler);
   }
 
-  start() {
-    this.model.getGarageData();
-    this.view.drawApp();
+  async start() {
+    const garageData = await this.model.getGarageData();
+    this.view.drawApp(garageData);
+  }
+
+  eventHandler(e: Event) {
+    e.preventDefault();
+    console.log(e.target);
   }
 }

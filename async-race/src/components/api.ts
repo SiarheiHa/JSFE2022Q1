@@ -1,4 +1,4 @@
-import { CarsResponseObj, QueryParam } from '../interfaces';
+import { Car, CarsResponseObj, QueryParam } from '../interfaces';
 
 const BASE_LINK = 'http://127.0.0.1:3000';
 enum Endpoint {
@@ -10,7 +10,7 @@ enum Endpoint {
 const generateQueryString = (queryParam?: QueryParam) => {
   if (!queryParam) return '';
   const paramString = Object.keys(queryParam)
-    .map((key: string) => `${key}=${queryParam[key as keyof QueryParam]}`)
+    .map((key: string) => `_${key}=${queryParam[key as keyof QueryParam]}`)
     .join('&');
   return `?${paramString}`;
 };
@@ -29,9 +29,11 @@ export default class Api {
       throw new Error('server is not available');
     }
     const count = response.headers.get('X-Total-Count');
+    const cars: Car[] = await response.json();
     return {
-      cars: await response.json(),
-      count: count ? Number(count) : this.getCars.length + 1,
+      cars,
+      count: count ? Number(count) : cars.length,
+      page: queryParam?.page ? queryParam.page : 1,
     };
   }
 }

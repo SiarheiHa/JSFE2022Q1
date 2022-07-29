@@ -14,7 +14,7 @@ export default <K extends keyof HTMLElementTagNameMap>(obj: {
       .forEach((atributeAndValue) => node.setAttribute(atributeAndValue[0], atributeAndValue[1]));
   }
   if (obj.inner) {
-    node.innerText = obj.inner;
+    node.innerHTML = obj.inner;
   }
   return node;
 };

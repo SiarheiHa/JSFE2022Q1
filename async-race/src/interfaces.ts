@@ -1,6 +1,6 @@
 export interface QueryParam {
-  _page: number,
-  _limit: number,
+  page: number,
+  limit: number,
 }
 
 export interface Car {
@@ -12,4 +12,5 @@ export interface Car {
 export interface CarsResponseObj {
   cars: Car[];
   count: number;
+  page: number;
 }
