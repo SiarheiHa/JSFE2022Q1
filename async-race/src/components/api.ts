@@ -31,7 +31,7 @@ export default class Api {
     const count = response.headers.get('X-Total-Count');
     return {
       cars: await response.json(),
-      count: count ? Number(count) : this.getCars.length,
+      count: count ? Number(count) : this.getCars.length + 1,
     };
   }
 }

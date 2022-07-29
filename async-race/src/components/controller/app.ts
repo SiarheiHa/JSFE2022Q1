@@ -1,27 +1,18 @@
-import { Car } from '../../interfaces';
-import Api from '../api';
+import Model from '../model/model';
 import View from '../view/view';
 
 export default class App {
-  api: Api;
+  model: Model;
 
   view: View;
 
-  cars: Car[];
-
-  carsCount: number;
-
   constructor() {
-    this.api = new Api();
+    this.model = new Model();
     this.view = new View();
-    this.cars = [];
-    this.carsCount = 0;
   }
 
-  async start() {
-    const response = await this.api.getCars();
-    this.cars = response.cars;
-    this.carsCount = response.count;
+  start() {
+    this.model.getGarageData();
     this.view.drawApp();
   }
 }
