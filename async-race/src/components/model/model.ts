@@ -4,15 +4,15 @@ import Api from '../api';
 export default class Model {
   api: Api;
 
-  cars: Car[] = [];
+  // cars: Car[] = [];
 
-  carsCount: number = 0;
+  // carsCount: number = 0;
 
   constructor() {
     this.api = new Api();
   }
 
-  getGarageData() {
+  async getGarageData() {
     return this.api.getCars();
     // this.cars = response.cars;
     // this.carsCount = response.count;
@@ -20,11 +20,11 @@ export default class Model {
     // console.log(this.carsCount);
   }
 
-  createCar(car: Pick<Car, 'name' | 'color'>) {
-    this.api.createCar(car);
+  async createCar(car: Pick<Car, 'name' | 'color'>) {
+    return this.api.createCar(car);
   }
 
-  deleteCar(id: string) {
-    this.api.deleteCar(id);
+  async deleteCar(id: string) {
+    return this.api.deleteCar(id);
   }
 }

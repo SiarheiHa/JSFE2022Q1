@@ -17,7 +17,6 @@ const generateQueryString = (queryParam?: QueryParam) => {
 
 const makeUrl = (base: string, endpoint: Endpoint, queryParam?: QueryParam) => {
   const url = new URL(`${endpoint}${generateQueryString(queryParam)}`, base);
-  console.log(url);
   return url;
 };
 
@@ -38,8 +37,8 @@ export default class Api {
     };
   }
 
-  async createCar(car: Pick<Car, 'name' | 'color'>) {
-    const response = await fetch(makeUrl(BASE_LINK, Endpoint.garage), {
+  createCar(car: Pick<Car, 'name' | 'color'>) {
+    return fetch(makeUrl(BASE_LINK, Endpoint.garage), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -48,8 +47,8 @@ export default class Api {
     });
   }
 
-  async deleteCar(id: string) {
-    const response = await fetch(`${makeUrl(BASE_LINK, Endpoint.garage)}/${id}`, {
+  deleteCar(id: string) {
+    return fetch(`${makeUrl(BASE_LINK, Endpoint.garage)}/${id}`, {
       method: 'DELETE',
     });
   }

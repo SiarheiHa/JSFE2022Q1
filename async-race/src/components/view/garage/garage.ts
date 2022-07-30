@@ -68,22 +68,28 @@ const SVG = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 export default class GarageView {
   callback: (e: Event) => void;
 
+  carsSection: HTMLElement | null;
+
   constructor(callback: (e: Event) => void) {
     this.callback = callback;
+    this.carsSection = null;
+  }
+
+  updateGarage(data: CarsResponseObj) {
+    const newSection = this.createCarsSection(data);
+    this.carsSection?.replaceWith(newSection);
+    this.carsSection = newSection;
   }
 
   async drawGarage(data: CarsResponseObj) {
-    console.log('drawGarage');
     const main = createNode({ tag: 'main', classes: ['main'] });
     const wrapper = createNode({ tag: 'div', classes: ['main-wrapper', 'wrapper'] });
     const controlSection = this.createControlSection();
-    const carsSection = await this.createCarsSection(data);
+    this.carsSection = this.createCarsSection(data);
 
-    wrapper.append(controlSection, carsSection);
+    wrapper.append(controlSection, this.carsSection);
     main.append(wrapper);
     document.body.append(main);
-
-    console.log(data);
   }
 
   // Put control section in separateclass

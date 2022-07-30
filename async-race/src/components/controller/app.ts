@@ -16,20 +16,29 @@ export default class App {
     this.view.drawApp(garageData);
   }
 
-  eventHandler(e: Event) {
-    const { target } = e;
-    if (target instanceof HTMLElement && target.dataset.button) {
+  async eventHandler(e: Event) {
+    const target = <HTMLElement> e.target;
+    if (target.dataset.button) {
       const buttonRole = target.dataset.button;
       if (buttonRole === 'create' || buttonRole === 'update') {
-        console.log(buttonRole);
         const name = (target.previousSibling?.previousSibling as HTMLInputElement).value;
         const color = (target.previousSibling as HTMLInputElement).value;
-        if (buttonRole === 'create') this.model.createCar({ name, color });
+        if (buttonRole === 'create') {
+          const response = await this.model.createCar({ name, color });
+          if (response.ok) this.updateView();
+        }
       }
+
       if (buttonRole === 'remove') {
-        const carID = target.parentElement?.parentElement?.dataset.car;
-        if (carID) this.model.deleteCar(carID);
+        const carID = <string>target.parentElement?.parentElement?.dataset.car;
+        const response = await this.model.deleteCar(carID);
+        if (response.ok) this.updateView();
       }
     }
+  }
+
+  async updateView() {
+    const garageData = await this.model.getGarageData();
+    this.view.garage.updateGarage(garageData);
   }
 }
