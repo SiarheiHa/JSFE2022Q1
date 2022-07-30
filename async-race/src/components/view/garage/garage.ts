@@ -90,8 +90,8 @@ export default class GarageView {
 
   createControlSection() {
     const controlSection = createNode({ tag: 'section', classes: ['section', 'section__control'] });
-    const createCarBlock = this.createInputBlock('CREATE');
-    const updateCarBlock = this.createInputBlock('UPDATE');
+    const createCarBlock = this.createInputBlock('create');
+    const updateCarBlock = this.createInputBlock('update');
     const buttonsBlock = this.createButtonsBlock(['race', 'reset', 'generate cars']);
 
     controlSection.append(createCarBlock, updateCarBlock, buttonsBlock);
@@ -103,7 +103,7 @@ export default class GarageView {
     const textInput = createNode({ tag: 'input', classes: ['form__input-text'], atributesAdnValues: [['type', 'text']] });
     const colorInput = createNode({ tag: 'input', classes: ['form__input-color'], atributesAdnValues: [['type', 'color']] });
     const button = createNode({
-      tag: 'button', classes: ['button', 'form__button'], atributesAdnValues: [['type', 'button']], inner: buttonText,
+      tag: 'button', classes: ['button', 'form__button'], atributesAdnValues: [['type', 'button'], ['data-button', buttonText]], inner: buttonText.toUpperCase(),
     });
     this.buttonsHandler(button);
     form.append(textInput, colorInput, button);
