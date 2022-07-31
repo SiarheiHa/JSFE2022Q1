@@ -186,7 +186,7 @@ export default class GarageView {
 
   toggleSelectedCar(button: HTMLElement) {
     const selectedCar = this.cars.find((car) => button.dataset.car === String(car.id));
-    const inputsValues = { name: '', color: '' };
+    const inputsValues = { name: '', color: '#000000' };
 
     if (!(button.classList.contains('button_active'))) {
       inputsValues.color = String(selectedCar?.color);

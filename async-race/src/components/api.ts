@@ -52,4 +52,14 @@ export default class Api {
       method: 'DELETE',
     });
   }
+
+  updateCar(id: string, car: Pick<Car, 'name' | 'color'>) {
+    return fetch(`${makeUrl(BASE_LINK, Endpoint.garage)}/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(car),
+    });
+  }
 }

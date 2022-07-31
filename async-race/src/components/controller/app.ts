@@ -1,3 +1,4 @@
+import { GarageInputs } from '../../interfaces';
 import Model from '../model/model';
 import View from '../view/view';
 
@@ -21,10 +22,14 @@ export default class App {
     if (target.dataset.button) {
       const buttonRole = target.dataset.button;
       if (buttonRole === 'create' || buttonRole === 'update') {
-        const name = (target.previousSibling?.previousSibling as HTMLInputElement).value;
-        const color = (target.previousSibling as HTMLInputElement).value;
+        const name = (this.view.garage.inputs as GarageInputs)[buttonRole].textInput.value;
+        const color = (this.view.garage.inputs as GarageInputs)[buttonRole].colorInput.value;
         if (buttonRole === 'create') {
           const response = await this.model.createCar({ name, color });
+          if (response.ok) this.updateView();
+        } else if (this.view.garage.selectedCar?.id) {
+          const id = String(this.view.garage.selectedCar.id);
+          const response = await this.model.updateCar(id, { name, color });
           if (response.ok) this.updateView();
         }
       }

@@ -14,14 +14,14 @@ export default class Model {
 
   async getGarageData() {
     return this.api.getCars();
-    // this.cars = response.cars;
-    // this.carsCount = response.count;
-    // console.log(this.cars);
-    // console.log(this.carsCount);
   }
 
   async createCar(car: Pick<Car, 'name' | 'color'>) {
     return this.api.createCar(car);
+  }
+
+  updateCar(id: string, car: Pick<Car, 'name' | 'color'>) {
+    return this.api.updateCar(id, car);
   }
 
   async deleteCar(id: string) {
