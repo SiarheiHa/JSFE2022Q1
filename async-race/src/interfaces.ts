@@ -14,3 +14,13 @@ export interface CarsResponseObj {
   count: number;
   page: number;
 }
+
+export interface InputObject {
+  colorInput: HTMLInputElement;
+  textInput: HTMLInputElement;
+}
+
+export interface GarageInputs {
+  create: InputObject;
+  update: InputObject;
+}

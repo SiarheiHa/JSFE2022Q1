@@ -1,5 +1,6 @@
-import { Car, CarsResponseObj } from '../../../interfaces';
+import { Car, CarsResponseObj, GarageInputs } from '../../../interfaces';
 import createNode from '../../utils/createNode';
+import toggleClassActive from '../../utils/toggleClassActive';
 
 const SVG = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
@@ -70,9 +71,21 @@ export default class GarageView {
 
   carsSection: HTMLElement | null;
 
+  inputs: {} | GarageInputs;
+
+  cars: Car[];
+
+  selectedCar: Car | undefined;
+
+  pressedSelectButton: HTMLElement | null = null;
+
+  // inputs: null | GarageInputs;
+
   constructor(callback: (e: Event) => void) {
     this.callback = callback;
     this.carsSection = null;
+    this.inputs = {};
+    this.cars = [];
   }
 
   updateGarage(data: CarsResponseObj) {
@@ -81,7 +94,7 @@ export default class GarageView {
     this.carsSection = newSection;
   }
 
-  async drawGarage(data: CarsResponseObj) {
+  drawGarage(data: CarsResponseObj) {
     const main = createNode({ tag: 'main', classes: ['main'] });
     const wrapper = createNode({ tag: 'div', classes: ['main-wrapper', 'wrapper'] });
     const controlSection = this.createControlSection();
@@ -104,25 +117,28 @@ export default class GarageView {
     return controlSection;
   }
 
-  createInputBlock(buttonText: string) {
+  createInputBlock(inputBlockType: 'create' | 'update') {
     const form = createNode({ tag: 'form', classes: ['form'] });
     const textInput = createNode({ tag: 'input', classes: ['form__input-text'], atributesAdnValues: [['type', 'text']] });
     const colorInput = createNode({ tag: 'input', classes: ['form__input-color'], atributesAdnValues: [['type', 'color']] });
     const button = createNode({
-      tag: 'button', classes: ['button', 'form__button'], atributesAdnValues: [['type', 'button'], ['data-button', buttonText]], inner: buttonText.toUpperCase(),
+      tag: 'button', classes: ['button', 'form__button'], atributesAdnValues: [['type', 'button'], ['data-button', inputBlockType]], inner: inputBlockType.toUpperCase(),
     });
+    this.inputs = { ...this.inputs, ...{ [inputBlockType]: { textInput, colorInput } } };
     this.buttonsHandler(button);
     form.append(textInput, colorInput, button);
     return form;
   }
 
-  createButtonsBlock(buttonsNames: string[]) {
+  createButtonsBlock(buttonsNames: string[], carID?: number) {
     const wrapper = createNode({ tag: 'div', classes: ['control__buttons'] });
     const buttons = buttonsNames.map((name: string) => createNode({
       tag: 'button',
+      classes: ['button'],
       atributesAdnValues: [['data-button', `${name.split(' ')[0]}`]],
       inner: name.toUpperCase(),
     }));
+    if (typeof carID === 'number') buttons.forEach((button) => button.setAttribute('data-car', String(carID)));
     buttons.forEach((button) => this.buttonsHandler(button));
     wrapper.append(...buttons);
     return wrapper;
@@ -132,6 +148,7 @@ export default class GarageView {
 
   createCarsSection(data: CarsResponseObj) {
     const { cars, count, page } = data;
+    this.cars = cars;
     const wrapper = createNode({ tag: 'section', classes: ['section', 'section__cars'] });
     const title = createNode({ tag: 'h1', inner: `Garage(${count})` });
     const subtitle = createNode({ tag: 'h2', inner: `Page#${page}` });
@@ -145,9 +162,9 @@ export default class GarageView {
   createCar(car:Car) {
     const { name, color, id } = car;
     const wrapper = createNode({ tag: 'div', classes: ['car'], atributesAdnValues: [['data-car', `${id}`]] });
-    const selectAndRemoveButtons = this.createButtonsBlock(['select', 'remove']);
+    const selectAndRemoveButtons = this.createButtonsBlock(['select', 'remove'], id);
     const carTitle = createNode({ tag: 'span', classes: ['car__title'], inner: name });
-    const driveButtons = this.createButtonsBlock(['a', 'b']);
+    const driveButtons = this.createButtonsBlock(['a', 'b'], id);
     const carSVG = createNode({ tag: 'div', classes: ['car__image'], inner: SVG.replace('color', color) });
 
     wrapper.append(selectAndRemoveButtons, carTitle, driveButtons, carSVG);
@@ -156,6 +173,39 @@ export default class GarageView {
   }
 
   buttonsHandler(button: HTMLElement) {
-    button.addEventListener('click', this.callback);
+    button.addEventListener('click', (e: Event) => {
+      // eslint!!
+      // button.dataset.button === 'select' ? this.setInputValue(button) : this.callback(e);
+      if (button.dataset.button === 'select') {
+        this.toggleSelectedCar(button);
+      } else {
+        this.callback(e);
+      }
+    });
+  }
+
+  toggleSelectedCar(button: HTMLElement) {
+    const selectedCar = this.cars.find((car) => button.dataset.car === String(car.id));
+    const inputsValues = { name: '', color: '' };
+
+    if (!(button.classList.contains('button_active'))) {
+      inputsValues.color = String(selectedCar?.color);
+      inputsValues.name = String(selectedCar?.name);
+      this.selectedCar = selectedCar;
+      toggleClassActive(this.pressedSelectButton);
+      this.pressedSelectButton = button;
+      toggleClassActive(button);
+    } else {
+      toggleClassActive(button);
+      this.selectedCar = undefined;
+      this.pressedSelectButton = null;
+    }
+
+    this.setInputsValue(inputsValues);
+  }
+
+  setInputsValue(inputsValues: { name: string, color: string }) {
+    (this.inputs as GarageInputs).update.textInput.value = inputsValues.name;
+    (this.inputs as GarageInputs).update.colorInput.value = inputsValues.color;
   }
 }

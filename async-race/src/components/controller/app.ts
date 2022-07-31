@@ -30,7 +30,7 @@ export default class App {
       }
 
       if (buttonRole === 'remove') {
-        const carID = <string>target.parentElement?.parentElement?.dataset.car;
+        const carID = <string>target.dataset.car;
         const response = await this.model.deleteCar(carID);
         if (response.ok) this.updateView();
       }
