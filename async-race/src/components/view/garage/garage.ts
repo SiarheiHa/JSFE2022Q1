@@ -168,7 +168,6 @@ export class GarageView {
     const paginationButtons = this.createButtonsBlock(['prev', 'next']);
     if (page === 1) (paginationButtons.firstElementChild as HTMLButtonElement).disabled = true;
     if (islastPage) (paginationButtons.lastElementChild as HTMLButtonElement).disabled = true;
-    console.log(this.lastPage);
     wrapper.append(title, subtitle, ...carItems, paginationButtons);
     return wrapper;
   }

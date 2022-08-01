@@ -1,8 +1,9 @@
 import { GarageInputs, QueryParam } from '../../interfaces';
 import Model from '../model/model';
 import View from '../view/view';
-
 import { MAX_CARS_COUNT_PER_PAGE } from '../view/garage/garage';
+
+const COUNT_OF_RANDOM_CARS = 100;
 
 export default class App {
   model: Model;
@@ -52,7 +53,10 @@ export default class App {
 
     if (buttonRole === 'next') this.updateView({ page: this.view.garage.page + 1, limit: MAX_CARS_COUNT_PER_PAGE });
     if (buttonRole === 'prev') this.updateView({ page: this.view.garage.page - 1, limit: MAX_CARS_COUNT_PER_PAGE });
-    if (buttonRole === 'generate') console.log('generate100');
+    if (buttonRole === 'generate') {
+      const responses = await this.model.generateRandomCars(COUNT_OF_RANDOM_CARS);
+      if (responses.every((response) => response.ok)) this.updateView();
+    }
   }
 
   async updateView(queryParam?: QueryParam) {
