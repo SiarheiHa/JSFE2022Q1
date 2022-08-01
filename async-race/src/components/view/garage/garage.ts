@@ -2,6 +2,7 @@ import { Car, CarsResponseObj, GarageInputs } from '../../../interfaces';
 import createNode from '../../utils/createNode';
 import toggleClassActive from '../../utils/toggleClassActive';
 
+export const MAX_CARS_COUNT_PER_PAGE = 7;
 const SVG = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -66,7 +67,7 @@ const SVG = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 </svg>
 `;
 
-export default class GarageView {
+export class GarageView {
   callback: (e: Event) => void;
 
   carsSection: HTMLElement | null;
@@ -78,6 +79,12 @@ export default class GarageView {
   selectedCar: Car | undefined;
 
   pressedSelectButton: HTMLElement | null = null;
+
+  page: number = 1;
+
+  lastPage: number = 1;
+
+  count: number = 0;
 
   // inputs: null | GarageInputs;
 
@@ -148,14 +155,21 @@ export default class GarageView {
 
   createCarsSection(data: CarsResponseObj) {
     const { cars, count, page } = data;
-    this.cars = cars;
+    this.cars = cars.slice(0, MAX_CARS_COUNT_PER_PAGE);
+    this.count = count;
+    this.page = page;
+    this.lastPage = Math.ceil(count / MAX_CARS_COUNT_PER_PAGE);
+    const islastPage = Math.ceil(count / MAX_CARS_COUNT_PER_PAGE) <= page;
     const wrapper = createNode({ tag: 'section', classes: ['section', 'section__cars'] });
     const title = createNode({ tag: 'h1', inner: `Garage(${count})` });
-    const subtitle = createNode({ tag: 'h2', inner: `Page#${page}` });
-    const carItems = cars.map((car: Car) => this.createCar(car));
+    const subtitle = createNode({ tag: 'h2', inner: `Page#${this.page}` });
+    const carItems = this.cars.map((car: Car) => this.createCar(car));
     // pagination
-    const paginatioButtons = this.createButtonsBlock(['prev', 'next']);
-    wrapper.append(title, subtitle, ...carItems, paginatioButtons);
+    const paginationButtons = this.createButtonsBlock(['prev', 'next']);
+    if (page === 1) (paginationButtons.firstElementChild as HTMLButtonElement).disabled = true;
+    if (islastPage) (paginationButtons.lastElementChild as HTMLButtonElement).disabled = true;
+    console.log(this.lastPage);
+    wrapper.append(title, subtitle, ...carItems, paginationButtons);
     return wrapper;
   }
 

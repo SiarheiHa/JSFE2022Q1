@@ -1,5 +1,5 @@
 import Header from './header/header';
-import GarageView from './garage/garage';
+import { GarageView } from './garage/garage';
 import { CarsResponseObj } from '../../interfaces';
 
 export default class View {

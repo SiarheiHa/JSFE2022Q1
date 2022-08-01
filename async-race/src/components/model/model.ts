@@ -1,4 +1,4 @@
-import { Car } from '../../interfaces';
+import { Car, QueryParam } from '../../interfaces';
 import Api from '../api';
 
 export default class Model {
@@ -12,8 +12,8 @@ export default class Model {
     this.api = new Api();
   }
 
-  async getGarageData() {
-    return this.api.getCars();
+  async getGarageData(queryParam?: QueryParam) {
+    return this.api.getCars(queryParam);
   }
 
   async createCar(car: Pick<Car, 'name' | 'color'>) {
