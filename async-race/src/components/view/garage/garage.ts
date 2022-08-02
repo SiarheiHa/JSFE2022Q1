@@ -70,11 +70,11 @@ const SVG = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 export class GarageView {
   callback: (e: Event) => void;
 
-  carsSection: HTMLElement | null;
+  carsSection: HTMLElement | null = null;
 
-  inputs: {} | GarageInputs;
+  inputs: {} | GarageInputs = {};
 
-  cars: Car[];
+  cars: Car[] = [];
 
   selectedCar: Car | undefined;
 
@@ -90,9 +90,6 @@ export class GarageView {
 
   constructor(callback: (e: Event) => void) {
     this.callback = callback;
-    this.carsSection = null;
-    this.inputs = {};
-    this.cars = [];
   }
 
   updateGarage(data: CarsResponseObj) {
@@ -101,15 +98,16 @@ export class GarageView {
     this.carsSection = newSection;
   }
 
-  drawGarage(data: CarsResponseObj) {
-    const main = createNode({ tag: 'main', classes: ['main'] });
-    const wrapper = createNode({ tag: 'div', classes: ['main-wrapper', 'wrapper'] });
+  drawGarage(data: CarsResponseObj, container: HTMLElement) {
+    // const main = createNode({ tag: 'main', classes: ['main'] });
+    // const wrapper = createNode({ tag: 'div', classes: ['main-wrapper', 'wrapper'] });
     const controlSection = this.createControlSection();
     this.carsSection = this.createCarsSection(data);
+    container.append(controlSection, this.carsSection);
 
-    wrapper.append(controlSection, this.carsSection);
-    main.append(wrapper);
-    document.body.append(main);
+    // wrapper.append(controlSection, this.carsSection);
+    // main.append(wrapper);
+    // document.body.append(main);
   }
 
   // Put control section in separateclass
