@@ -1,8 +1,13 @@
+import { Page } from '../../../interfaces';
 import createNode from '../../utils/createNode';
 import SwitchField from '../switchField/switchfield';
 
 export default class Header {
-  switchField: SwitchField = new SwitchField('header-radio', ['garage', 'winners'], ['to garage', 'to winners']);
+  switchField: SwitchField;
+
+  constructor(callback: (page: Page) => void) {
+    this.switchField = new SwitchField(callback, 'header-radio', ['garage', 'winners'], ['to garage', 'to winners']);
+  }
 
   drawHeader() {
     const header = createNode({ tag: 'header', classes: ['header'] });

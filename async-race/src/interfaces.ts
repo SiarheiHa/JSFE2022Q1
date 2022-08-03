@@ -48,3 +48,8 @@ export interface GarageInputs {
   create: InputObject;
   update: InputObject;
 }
+
+export enum Page {
+  garage = 'garage',
+  winners = 'winners',
+}

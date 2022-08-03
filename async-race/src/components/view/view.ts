@@ -1,6 +1,6 @@
 import Header from './header/header';
 import { GarageView } from './garage/garage';
-import { CarsResponseObj, WinnersData } from '../../interfaces';
+import { CarsResponseObj, Page, WinnersData } from '../../interfaces';
 import createNode from '../utils/createNode';
 import Winners from './winners/winners';
 
@@ -11,8 +11,12 @@ export default class View {
 
   winners: Winners;
 
+  garageContainer: HTMLElement | undefined;
+
+  winnersContainer: HTMLElement | undefined;
+
   constructor(callback: (e: Event) => void) {
-    this.header = new Header();
+    this.header = new Header(this.togglePage.bind(this));
     this.garage = new GarageView(callback);
     this.winners = new Winners(callback);
   }
@@ -21,12 +25,23 @@ export default class View {
     this.header.drawHeader();
     const main = createNode({ tag: 'main', classes: ['main'] });
     const wrapper = createNode({ tag: 'div', classes: ['main-wrapper', 'wrapper'] });
-    const garageContainer = createNode({ tag: 'div', classes: ['garage-container'] });
-    const winnersContainer = createNode({ tag: 'div', classes: ['winners-container'] });
-    this.garage.drawGarage(garageData, garageContainer);
-    this.winners.drawWinners(winnersData, winnersContainer);
-    wrapper.append(winnersContainer, garageContainer);
+    this.garageContainer = createNode({ tag: 'div', classes: ['garage-container'] });
+    this.winnersContainer = createNode({ tag: 'div', classes: ['winners-container'] });
+    this.winnersContainer.style.display = 'none';
+    this.garage.drawGarage(garageData, this.garageContainer);
+    this.winners.drawWinners(winnersData, this.winnersContainer);
+    wrapper.append(this.winnersContainer, this.garageContainer);
     main.append(wrapper);
     document.body.append(main);
+  }
+
+  togglePage(pageName: Page) {
+    if (pageName === Page.garage) {
+      (this.winnersContainer as HTMLElement).style.display = 'none';
+      (this.garageContainer as HTMLElement).style.display = 'block';
+    } else {
+      (this.garageContainer as HTMLElement).style.display = 'none';
+      (this.winnersContainer as HTMLElement).style.display = 'block';
+    }
   }
 }

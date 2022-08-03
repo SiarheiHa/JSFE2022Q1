@@ -1,13 +1,17 @@
+import { Page } from '../../../interfaces';
 import createNode from '../../utils/createNode';
 
 export default class SwitchField {
+  callback: (page: Page) => void;
+
   textes: string[];
 
   name: string;
 
   values: string[];
 
-  constructor(name: string, values: string[], textes: string[]) {
+  constructor(callback: (page: Page) => void, name: string, values: string[], textes: string[]) {
+    this.callback = callback;
     this.name = name;
     this.values = values;
     this.textes = textes;
@@ -41,8 +45,7 @@ export default class SwitchField {
   inputHandler(input: HTMLInputElement) {
     input.addEventListener('change', (e) => {
       const target = <HTMLInputElement>e.target;
-      console.log(target);
-      console.log(target.checked);
+      this.callback(target.value as Page);
     });
   }
 }
