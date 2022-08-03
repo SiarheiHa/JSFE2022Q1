@@ -33,7 +33,16 @@ export default class SwitchField {
       ],
       inner: this.textes[index],
     }));
+    inputs.forEach((input) => this.inputHandler(input as HTMLInputElement));
     inputs.forEach((input, index) => div.append(input, labels[index]));
     return div;
+  }
+
+  inputHandler(input: HTMLInputElement) {
+    input.addEventListener('change', (e) => {
+      const target = <HTMLInputElement>e.target;
+      console.log(target);
+      console.log(target.checked);
+    });
   }
 }

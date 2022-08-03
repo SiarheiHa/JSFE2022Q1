@@ -1,6 +1,6 @@
 import Header from './header/header';
 import { GarageView } from './garage/garage';
-import { CarsResponseObj, WinnersResponseObj } from '../../interfaces';
+import { CarsResponseObj, WinnersData } from '../../interfaces';
 import createNode from '../utils/createNode';
 import Winners from './winners/winners';
 
@@ -17,7 +17,7 @@ export default class View {
     this.winners = new Winners(callback);
   }
 
-  drawApp(garageData: CarsResponseObj, winnersData: WinnersResponseObj) {
+  drawApp(garageData: CarsResponseObj, winnersData: WinnersData) {
     this.header.drawHeader();
     const main = createNode({ tag: 'main', classes: ['main'] });
     const wrapper = createNode({ tag: 'div', classes: ['main-wrapper', 'wrapper'] });

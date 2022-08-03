@@ -33,8 +33,8 @@ export interface WinnersResponseObj {
 }
 
 export interface WinnersData extends WinnersResponseObj {
-  count: Number;
-  page: Number;
+  count: number;
+  page: number;
   sort: 'id' | 'wins' | 'time';
   order: 'ASC' | 'DESC',
 }
