@@ -77,7 +77,6 @@ export default class Model {
     // winners.forEach((winner) => {
     //   winner.color = 'black';
     // });
-
     return {
       winners,
       count: count ? Number(count) : winners.length,
@@ -85,5 +84,9 @@ export default class Model {
       sort: queryParam?.sort ? queryParam.sort : 'id',
       order: queryParam?.order ? queryParam.order : 'ASC',
     };
+  }
+
+  startEngine(carID: number) {
+    return this.api.startEngine({ id: carID, status: 'started' });
   }
 }

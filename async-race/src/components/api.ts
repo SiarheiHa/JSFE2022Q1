@@ -1,5 +1,5 @@
 import {
-  Car, CarsResponseObj, QueryParam, Winner, WinnersQueryParam, WinnersResponseObj,
+  Car, CarsResponseObj, EngineQueryParam, QueryParam, WinnersQueryParam,
 } from '../interfaces';
 
 const BASE_LINK = 'http://127.0.0.1:3000';
@@ -9,15 +9,15 @@ enum Endpoint {
   winners = '/winners',
 }
 
-const generateQueryString = (queryParam?: QueryParam) => {
+const generateQueryString = (queryParam?: object) => {
   if (!queryParam) return '';
   const paramString = Object.keys(queryParam)
-    .map((key: string) => `_${key}=${queryParam[key as keyof QueryParam]}`)
+    .map((key: string) => `_${key}=${queryParam[key as keyof object]}`)
     .join('&');
   return `?${paramString}`;
 };
 
-const makeUrl = (base: string, endpoint: Endpoint, queryParam?: QueryParam) => {
+const makeUrl = (base: string, endpoint: Endpoint, queryParam?: QueryParam | EngineQueryParam) => {
   const url = new URL(`${endpoint}${generateQueryString(queryParam)}`, base);
   return url;
 };
@@ -100,5 +100,12 @@ export default class Api {
 
   getCar(id: string) {
     return fetch(`${makeUrl(BASE_LINK, Endpoint.garage)}/${id}`);
+  }
+
+  startEngine(queryParam: EngineQueryParam) {
+    return fetch(`${makeUrl(BASE_LINK, Endpoint.engine)}?id=${queryParam.id}&status=${queryParam.status}`, {
+      // http://127.0.0.1:3000/engine?_id=13&_status=started
+      method: 'PATCH',
+    });
   }
 }

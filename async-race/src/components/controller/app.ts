@@ -1,4 +1,4 @@
-import { GarageInputs, QueryParam } from '../../interfaces';
+import { EnginData, GarageInputs, QueryParam } from '../../interfaces';
 import Model from '../model/model';
 import View from '../view/view';
 import { MAX_CARS_COUNT_PER_PAGE } from '../view/garage/garage';
@@ -58,6 +58,16 @@ export default class App {
       const responses = await this.model.generateRandomCars(COUNT_OF_RANDOM_CARS);
       if (responses.every((response) => response.ok)) this.updateView();
     }
+
+    if (buttonRole === 'a') {
+      const carID = target.dataset.car as string;
+      const response = await this.model.startEngine(Number(carID));
+      if (response.ok) {
+        const engineData: EnginData = await response.json();
+        this.view.garage.startCarAnimation(carID, engineData);
+      }
+    }
+    console.log(e);
   }
 
   async updateView(queryParam?: QueryParam) {

@@ -14,11 +14,7 @@ export default class Winners {
   }
 
   drawWinners(data: WinnersData, container: HTMLElement) {
-    // this.carsSection = this.createCarsSection(data);
-    // container.append(controlSection, this.carsSection);
     this.container = container;
-    console.log(data);
-    console.log(container);
 
     const { count, page, winners } = data;
     this.page = page;

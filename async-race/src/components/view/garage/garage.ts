@@ -1,9 +1,12 @@
-import { Car, CarsResponseObj, GarageInputs } from '../../../interfaces';
+import {
+  Car, CarsResponseObj, EnginData, GarageInputs,
+} from '../../../interfaces';
 import createNode from '../../utils/createNode';
 import toggleClassActive from '../../utils/toggleClassActive';
 import SVG from '../carSVG';
 
 export const MAX_CARS_COUNT_PER_PAGE = 7;
+const startCarEvent = new Event('startCar');
 
 export class GarageView {
   callback: (e: Event) => void;
@@ -26,6 +29,8 @@ export class GarageView {
 
   count: number = 0;
 
+  carImages: HTMLElement[] = [];
+
   constructor(callback: (e: Event) => void) {
     this.callback = callback;
   }
@@ -37,19 +42,13 @@ export class GarageView {
   }
 
   drawGarage(data: CarsResponseObj, container: HTMLElement) {
-    // const main = createNode({ tag: 'main', classes: ['main'] });
-    // const wrapper = createNode({ tag: 'div', classes: ['main-wrapper', 'wrapper'] });
     const controlSection = this.createControlSection();
     this.carsSection = this.createCarsSection(data);
     container.append(controlSection, this.carsSection);
     this.container = container;
-
-    // wrapper.append(controlSection, this.carsSection);
-    // main.append(wrapper);
-    // document.body.append(main);
   }
 
-  // Put control section in separateclass
+  // Put control section in separateclass ?
 
   createControlSection() {
     const controlSection = createNode({ tag: 'section', classes: ['section', 'section__control'] });
@@ -115,10 +114,16 @@ export class GarageView {
     const selectAndRemoveButtons = this.createButtonsBlock(['select', 'remove'], id);
     const carTitle = createNode({ tag: 'span', classes: ['car__title'], inner: name });
     const driveButtons = this.createButtonsBlock(['a', 'b'], id);
-    const carSVG = createNode({ tag: 'div', classes: ['car__image'], inner: SVG.replace('color', color) });
+    const carImage = createNode({
+      tag: 'div', classes: ['car__image'], inner: SVG.replace('color', color), atributesAdnValues: [['data-car', `${id}`]],
+    });
+    carImage.addEventListener('startCar', (e) => {
+      console.log('поехали');
+      console.log(e);
+    });
+    this.carImages.push(carImage);
 
-    wrapper.append(selectAndRemoveButtons, carTitle, driveButtons, carSVG);
-
+    wrapper.append(selectAndRemoveButtons, carTitle, driveButtons, carImage);
     return wrapper;
   }
 
@@ -157,5 +162,21 @@ export class GarageView {
   setInputsValue(inputsValues: { name: string, color: string }) {
     (this.inputs as GarageInputs).update.textInput.value = inputsValues.name;
     (this.inputs as GarageInputs).update.colorInput.value = inputsValues.color;
+  }
+
+  startCarAnimation(carID: string, engineData: EnginData) {
+    const carImage = this.carImages.find(
+      (image: HTMLElement) => image.dataset.car === carID,
+    ) as HTMLElement;
+    const time = engineData.distance / engineData.velocity;
+    const carAnimation = carImage.animate(
+      [{ left: '0px' }, { left: 'calc(100% - 100px)' }],
+      { duration: time },
+    );
+    carImage.dispatchEvent(startCarEvent);
+    carAnimation.play();
+    carAnimation.addEventListener('finish', () => {
+      carImage.style.left = 'calc(100% - 100px)';
+    });
   }
 }

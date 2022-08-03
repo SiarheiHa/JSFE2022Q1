@@ -10,6 +10,11 @@ export interface WinnersQueryParam {
   order:'ASC' | 'DESC',
 }
 
+export interface EngineQueryParam {
+  id: number,
+  status: 'started' | 'stopped',
+}
+
 export interface Car {
   name: string,
   color: string,
@@ -52,4 +57,9 @@ export interface GarageInputs {
 export enum Page {
   garage = 'garage',
   winners = 'winners',
+}
+
+export interface EnginData {
+  velocity: number,
+  distance: number
 }
