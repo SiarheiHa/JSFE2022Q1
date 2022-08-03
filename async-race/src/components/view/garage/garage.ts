@@ -70,6 +70,8 @@ const SVG = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 export class GarageView {
   callback: (e: Event) => void;
 
+  container: HTMLElement | null = null;
+
   carsSection: HTMLElement | null = null;
 
   inputs: {} | GarageInputs = {};
@@ -104,6 +106,7 @@ export class GarageView {
     const controlSection = this.createControlSection();
     this.carsSection = this.createCarsSection(data);
     container.append(controlSection, this.carsSection);
+    this.container = container;
 
     // wrapper.append(controlSection, this.carsSection);
     // main.append(wrapper);

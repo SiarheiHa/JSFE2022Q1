@@ -17,7 +17,9 @@ export default class App {
 
   async start() {
     const garageData = await this.model.getGarageData();
-    this.view.drawApp(garageData);
+    const winnersData = await this.model.getWinnersData();
+    // this.view.drawApp(garageData, winnersData);
+    console.log(winnersData);
   }
 
   async eventHandler(e: Event) {

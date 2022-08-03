@@ -1,7 +1,17 @@
-export default class Winners {
-  container: HTMLElement;
+import { WinnersResponseObj } from '../../../interfaces';
 
-  constructor(container: HTMLElement) {
+export default class Winners {
+  callback: (e: Event) => void;
+
+  container: HTMLElement | null = null;
+
+  constructor(callback: (e: Event) => void) {
+    this.callback = callback;
+  }
+
+  drawWinners(data: WinnersResponseObj, container: HTMLElement) {
+    // this.carsSection = this.createCarsSection(data);
+    // container.append(controlSection, this.carsSection);
     this.container = container;
   }
 }

@@ -1,4 +1,6 @@
-import { Car, CarsResponseObj, QueryParam } from '../interfaces';
+import {
+  Car, CarsResponseObj, QueryParam, Winner, WinnersQueryParam, WinnersResponseObj,
+} from '../interfaces';
 
 const BASE_LINK = 'http://127.0.0.1:3000';
 enum Endpoint {
@@ -61,5 +63,42 @@ export default class Api {
       },
       body: JSON.stringify(car),
     });
+  }
+
+  // async getWinners(queryParam?: WinnersQueryParam): Promise<WinnersResponseObj> {
+  //   const response = await fetch(makeUrl(BASE_LINK, Endpoint.winners, queryParam));
+  //   if (!response.ok) {
+  //     throw new Error('server is not available');
+  //   }
+  //   // console.log(response);
+  //   const count = response.headers.get('X-Total-Count');
+  //   const winners: Winner[] = await response.json();
+  //   // console.log(winners);
+  //   return {
+  //     winners,
+  //     count: count ? Number(count) : winners.length,
+  //     page: queryParam?.page ? queryParam.page : 1,
+  //   };
+  // }
+
+  getWinners(queryParam?: WinnersQueryParam): Promise<Response> {
+    return fetch(makeUrl(BASE_LINK, Endpoint.winners, queryParam));
+  //   if (!response.ok) {
+  //     throw new Error('server is not available');
+  //   }
+  //   // console.log(response);
+  //   const count = response.headers.get('X-Total-Count');
+  //   const winners: Winner[] = await response.json();
+  //   // console.log(winners);
+  //   return {
+  //     winners,
+  //     count: count ? Number(count) : winners.length,
+  //     page: queryParam?.page ? queryParam.page : 1,
+  //   };
+  // }
+  }
+
+  getCar(id: string) {
+    return fetch(`${makeUrl(BASE_LINK, Endpoint.garage)}/${id}`);
   }
 }

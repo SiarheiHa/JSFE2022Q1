@@ -1,4 +1,6 @@
-import { Car, QueryParam } from '../../interfaces';
+import {
+  Car, QueryParam, Winner, WinnersData, WinnersQueryParam,
+} from '../../interfaces';
 import Api from '../api';
 import cars from '../constants/cars';
 import getRandomFromArray from '../utils/getRandomFromArray';
@@ -53,5 +55,35 @@ export default class Model {
     const randomCarManufacturer = getRandomFromArray(cars);
     const model = getRandomFromArray(randomCarManufacturer.models);
     return `${randomCarManufacturer.brand} ${model}`;
+  }
+
+  async getWinnersData(queryParam?: WinnersQueryParam): Promise<WinnersData> {
+    const response = await this.api.getWinners(queryParam);
+    if (!response.ok) {
+      throw new Error('server is not available');
+    }
+    const count = response.headers.get('X-Total-Count');
+    const winners: Winner[] = await response.json();
+    const carsArr: Car[] = await (await this.getGarageData()).cars;
+
+    for (let i = 0; i < winners.length; i += 1) {
+      const winner = winners[i];
+      const winnersCar = carsArr.find((car) => car.id === winner.id);
+      winner.name = String(winnersCar?.name);
+      winner.color = String(winnersCar?.color);
+    }
+
+    // как обойти линт ?
+    // winners.forEach((winner) => {
+    //   winner.color = 'black';
+    // });
+
+    return {
+      winners,
+      count: count ? Number(count) : winners.length,
+      page: queryParam?.page ? queryParam.page : 1,
+      sort: queryParam?.sort ? queryParam.sort : 'id',
+      order: queryParam?.order ? queryParam.order : 'ASC',
+    };
   }
 }
