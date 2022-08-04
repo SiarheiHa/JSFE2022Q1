@@ -97,4 +97,13 @@ export default class Model {
   drive(carID: string) {
     return this.api.drive({ id: carID, status: 'drive' });
   }
+
+  startRace(carsArray: Car[]) {
+    const carsID = carsArray.map((car) => String(car.id));
+    const responses = carsID.map((id) => ({
+      id,
+      engineData: this.startEngine(id),
+    }));
+    return responses;
+  }
 }

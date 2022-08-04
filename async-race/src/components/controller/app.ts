@@ -28,7 +28,7 @@ export default class App {
       ? this.view.garage.lastPage + 1 : this.view.garage.lastPage;
     const prevPage = this.view.garage.cars.length === 1
       ? this.view.garage.page - 1 : this.view.garage.page;
-    if (buttonRole === 'a' || buttonRole === 'b' || e.type === 'startCar') {
+    if (buttonRole === 'a' || buttonRole === 'b' || buttonRole === 'race' || e.type === 'startCar') {
       this.animationHandler(e);
       return;
     }
@@ -88,6 +88,30 @@ export default class App {
       if (response.ok) {
         this.view.garage.stopCarAnimation(carID, target as HTMLButtonElement);
       }
+    }
+    if (buttonRole === 'race') {
+      console.log('race');
+      const promises = this.model.startRace(this.view.garage.cars);
+      const responses = Promise.all(promises);
+      console.log(await responses);
+      (await responses).forEach(async (item) => {
+        const { id } = item;
+        const engineData = await (await item.engineData).json();
+        console.log(id, engineData);
+        this.view.garage.startCarAnimation(id, engineData);
+      });
+      // promises.forEach(async (promise) => {
+      //   console.log(promise);
+      //   const response = await promise;
+      //   console.log(response.id);
+      //   // if (response.ok) {
+      //   //   const engineData: EnginData = await response.json();
+      //   //   console.log(engineData);
+      //   // }
+      // });
+      // if (response.ok) {
+      //   this.view.garage.stopCarAnimation(carID, target as HTMLButtonElement);
+      // }
     }
     if (e.type === 'startCar') {
       console.log('poehali');
