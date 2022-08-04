@@ -28,7 +28,7 @@ export default class App {
       ? this.view.garage.lastPage + 1 : this.view.garage.lastPage;
     const prevPage = this.view.garage.cars.length === 1
       ? this.view.garage.page - 1 : this.view.garage.page;
-    if (buttonRole === 'a' || e.type === 'startCar') {
+    if (buttonRole === 'a' || buttonRole === 'b' || e.type === 'startCar') {
       this.animationHandler(e);
       return;
     }
@@ -80,6 +80,13 @@ export default class App {
       if (response.ok) {
         const engineData: EnginData = await response.json();
         this.view.garage.startCarAnimation(carID, engineData);
+      }
+    }
+    if (buttonRole === 'b') {
+      console.log('stop');
+      const response = await this.model.stopEngine(carID);
+      if (response.ok) {
+        this.view.garage.stopCarAnimation(carID, target as HTMLButtonElement);
       }
     }
     if (e.type === 'startCar') {

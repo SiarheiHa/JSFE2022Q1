@@ -90,6 +90,10 @@ export default class Model {
     return this.api.startEngine({ id: carID, status: 'started' });
   }
 
+  stopEngine(carID: string) {
+    return this.api.stopEngine({ id: carID, status: 'stopped' });
+  }
+
   drive(carID: string) {
     return this.api.drive({ id: carID, status: 'drive' });
   }

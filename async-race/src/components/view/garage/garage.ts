@@ -114,6 +114,7 @@ export class GarageView {
     const selectAndRemoveButtons = this.createButtonsBlock(['select', 'remove'], id);
     const carTitle = createNode({ tag: 'span', classes: ['car__title'], inner: name });
     const driveButtons = this.createButtonsBlock(['a', 'b'], id);
+    (driveButtons.lastElementChild as HTMLButtonElement).disabled = true;
     const carImage = createNode({
       tag: 'div', classes: ['car__image'], inner: SVG.replace('color', color), atributesAdnValues: [['data-car', `${id}`]],
     });
@@ -132,8 +133,23 @@ export class GarageView {
         this.toggleSelectedCar(button);
       } else {
         this.callback(e);
+        if (button.dataset.button === 'a' || button.dataset.button === 'b') {
+          this.toggleDriveButtons(button as HTMLButtonElement);
+        }
       }
     });
+  }
+
+  toggleDriveButtons(button: HTMLButtonElement) {
+    // eslint!!!
+    const pressedButton = button;
+    if (button.dataset.button === 'a') {
+      pressedButton.disabled = true;
+      (pressedButton.nextElementSibling as HTMLButtonElement).disabled = false;
+    } else {
+      pressedButton.disabled = true;
+      (pressedButton.previousElementSibling as HTMLButtonElement).disabled = false;
+    }
   }
 
   toggleSelectedCar(button: HTMLElement) {
@@ -174,11 +190,25 @@ export class GarageView {
     carAnimation.play();
     carAnimation.addEventListener('finish', () => {
       carImage.style.left = 'calc(100% - 100px)';
+      carAnimation.cancel();
     });
   }
 
   pauseCarAnimation(target: HTMLElement) {
     const animation = target.getAnimations()[0];
-    animation.pause();
+    if (animation) animation.pause();
+  }
+
+  stopCarAnimation(carID: string, stopButton: HTMLButtonElement) {
+    const carImage = this.carImages.find((image) => image.dataset.car === carID) as HTMLElement;
+    const animation = carImage.getAnimations()[0];
+    // eslint!!!
+    // animation ? animation.cancel() : carImage.style.left = '0px';
+    if (animation) {
+      animation.cancel();
+    } else {
+      carImage.style.left = '0px';
+    }
+    this.toggleDriveButtons(stopButton);
   }
 }

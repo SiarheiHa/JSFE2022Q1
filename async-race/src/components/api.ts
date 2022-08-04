@@ -104,7 +104,12 @@ export default class Api {
 
   startEngine(queryParam: EngineQueryParam) {
     return fetch(`${makeUrl(BASE_LINK, Endpoint.engine)}?id=${queryParam.id}&status=${queryParam.status}`, {
-      // http://127.0.0.1:3000/engine?_id=13&_status=started
+      method: 'PATCH',
+    });
+  }
+
+  stopEngine(queryParam: EngineQueryParam) {
+    return fetch(`${makeUrl(BASE_LINK, Endpoint.engine)}?id=${queryParam.id}&status=${queryParam.status}`, {
       method: 'PATCH',
     });
   }
