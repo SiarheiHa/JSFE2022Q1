@@ -71,7 +71,7 @@ export default class App {
   }
 
   async animationHandler(e: Event) {
-    console.log(e.type);
+    // console.log(e.type);
     const target = <HTMLElement> e.target;
     const buttonRole = target.dataset.button;
     const carID = target.dataset.car as string;
@@ -93,11 +93,11 @@ export default class App {
       console.log('race');
       const promises = this.model.startRace(this.view.garage.cars);
       const responses = Promise.all(promises);
-      console.log(await responses);
+      // console.log(await responses);
       (await responses).forEach(async (item) => {
         const { id } = item;
         const engineData = await (await item.engineData).json();
-        console.log(id, engineData);
+        // console.log(id, engineData);
         this.view.garage.startCarAnimation(id, engineData);
       });
       // promises.forEach(async (promise) => {

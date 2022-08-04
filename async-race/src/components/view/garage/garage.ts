@@ -39,6 +39,7 @@ export class GarageView {
     const newSection = this.createCarsSection(data);
     this.carsSection?.replaceWith(newSection);
     this.carsSection = newSection;
+    console.log(this.cars);
   }
 
   drawGarage(data: CarsResponseObj, container: HTMLElement) {
@@ -94,6 +95,7 @@ export class GarageView {
     this.cars = cars.slice(0, MAX_CARS_COUNT_PER_PAGE);
     this.count = count;
     this.page = page;
+    this.carImages = [];
     this.lastPage = Math.ceil(count / MAX_CARS_COUNT_PER_PAGE);
     const islastPage = Math.ceil(count / MAX_CARS_COUNT_PER_PAGE) <= page;
     const wrapper = createNode({ tag: 'section', classes: ['section', 'section__cars'] });
@@ -178,9 +180,11 @@ export class GarageView {
   }
 
   startCarAnimation(carID: string, engineData: EnginData) {
+    console.log(carID);
     const carImage = this.carImages.find(
       (image: HTMLElement) => image.dataset.car === carID,
     ) as HTMLElement;
+    console.log(carImage);
     const time = engineData.distance / engineData.velocity;
     const carAnimation = carImage.animate(
       [{ left: '0px' }, { left: 'calc(100% - 100px)' }],
