@@ -11,8 +11,8 @@ export interface WinnersQueryParam {
 }
 
 export interface EngineQueryParam {
-  id: number,
-  status: 'started' | 'stopped',
+  id: string,
+  status: 'started' | 'stopped' | 'drive',
 }
 
 export interface Car {

@@ -117,10 +117,7 @@ export class GarageView {
     const carImage = createNode({
       tag: 'div', classes: ['car__image'], inner: SVG.replace('color', color), atributesAdnValues: [['data-car', `${id}`]],
     });
-    carImage.addEventListener('startCar', (e) => {
-      console.log('поехали');
-      console.log(e);
-    });
+    carImage.addEventListener('startCar', this.callback);
     this.carImages.push(carImage);
 
     wrapper.append(selectAndRemoveButtons, carTitle, driveButtons, carImage);
@@ -171,12 +168,17 @@ export class GarageView {
     const time = engineData.distance / engineData.velocity;
     const carAnimation = carImage.animate(
       [{ left: '0px' }, { left: 'calc(100% - 100px)' }],
-      { duration: time },
+      { id: carID, duration: time },
     );
     carImage.dispatchEvent(startCarEvent);
     carAnimation.play();
     carAnimation.addEventListener('finish', () => {
       carImage.style.left = 'calc(100% - 100px)';
     });
+  }
+
+  pauseCarAnimation(target: HTMLElement) {
+    const animation = target.getAnimations()[0];
+    animation.pause();
   }
 }

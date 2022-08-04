@@ -108,4 +108,10 @@ export default class Api {
       method: 'PATCH',
     });
   }
+
+  drive(queryParam: EngineQueryParam) {
+    return fetch(`${makeUrl(BASE_LINK, Endpoint.engine)}?id=${queryParam.id}&status=${queryParam.status}`, {
+      method: 'PATCH',
+    });
+  }
 }

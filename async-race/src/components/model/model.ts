@@ -86,7 +86,11 @@ export default class Model {
     };
   }
 
-  startEngine(carID: number) {
+  startEngine(carID: string) {
     return this.api.startEngine({ id: carID, status: 'started' });
+  }
+
+  drive(carID: string) {
+    return this.api.drive({ id: carID, status: 'drive' });
   }
 }
