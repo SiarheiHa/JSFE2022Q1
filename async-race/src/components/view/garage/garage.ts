@@ -41,7 +41,6 @@ export class GarageView {
     const newSection = this.createCarsSection(data);
     this.carsSection?.replaceWith(newSection);
     this.carsSection = newSection;
-    console.log(this.cars);
   }
 
   drawGarage(data: CarsResponseObj, container: HTMLElement) {
@@ -206,6 +205,17 @@ export class GarageView {
   }
 
   stopCarAnimation(carID: string, stopButton: HTMLButtonElement) {
+    if (stopButton.dataset.button === 'reset') {
+      document.getAnimations().forEach((animation) => {
+        animation.cancel();
+      });
+      this.carImages.forEach((image) => {
+        // eslint!!!
+        const carImage = image;
+        carImage.style.left = '0px';
+      });
+      return;
+    }
     const carImage = this.carImages.find((image) => image.dataset.car === carID) as HTMLElement;
     const animation = carImage.getAnimations()[0];
     // eslint!!!
