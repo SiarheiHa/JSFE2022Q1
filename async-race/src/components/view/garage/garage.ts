@@ -36,6 +36,8 @@ export class GarageView {
 
   modal: Modal;
 
+  isResetPressed: Boolean = false;
+
   constructor(callback: (e: Event) => void) {
     this.callback = callback;
 
@@ -239,8 +241,14 @@ export class GarageView {
       this.startCarAnimation(racer.id, racer.engineData);
     });
     setTimeout(() => {
+      if (this.isResetPressed) {
+        this.isResetPressed = false;
+        return;
+      }
       const winner = this.getWinner();
-      if (winner) this.modal.buildModal(`${winner.name} wont first (${winner.time}s)`);
+      if (winner) {
+        this.modal.buildModal(`${winner.name} wont first (${winner.time}s)`);
+      }
     }, 3000);
     // console.log(racers);
   }

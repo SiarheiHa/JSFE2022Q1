@@ -12,7 +12,7 @@ export default class App {
 
   constructor() {
     this.model = new Model();
-    this.view = new View(this.eventHandler.bind(this));
+    this.view = new View(this.garageEventHandler.bind(this));
   }
 
   async start() {
@@ -21,7 +21,7 @@ export default class App {
     this.view.drawApp(garageData, winnersData);
   }
 
-  async eventHandler(e: Event) {
+  async garageEventHandler(e: Event) {
     const target = <HTMLElement> e.target;
     const buttonRole = target.dataset.button;
     const nextPage = this.view.garage.count % MAX_CARS_COUNT_PER_PAGE === 0
@@ -88,13 +88,12 @@ export default class App {
       }
     }
     if (buttonRole === 'reset') {
+      this.view.garage.isResetPressed = true;
       const carsID = this.view.garage.cars.map((car) => String(car.id));
       carsID.forEach(async (id) => {
-        const response = await this.model.stopEngine(id);
-        if (response.ok) {
-          this.view.garage.stopCarAnimation(carID, target as HTMLButtonElement);
-        }
+        this.model.stopEngine(id);
       });
+      this.view.garage.stopCarAnimation(carID, target as HTMLButtonElement);
     }
     if (buttonRole === 'race') {
       const promiseArr = await this.model.startRace(this.view.garage.cars);
