@@ -62,7 +62,6 @@ export default class App {
       const responses = await this.model.generateRandomCars(COUNT_OF_RANDOM_CARS);
       if (responses.every((response) => response.ok)) this.updateView();
     }
-    console.log(e);
   }
 
   async updateView(queryParam?: QueryParam) {
@@ -83,41 +82,43 @@ export default class App {
       }
     }
     if (buttonRole === 'b') {
-      console.log('stop');
       const response = await this.model.stopEngine(carID);
       if (response.ok) {
         this.view.garage.stopCarAnimation(carID, target as HTMLButtonElement);
       }
     }
     if (buttonRole === 'race') {
-      console.log('race');
-      const promises = this.model.startRace(this.view.garage.cars);
-      const responses = Promise.all(promises);
-      // console.log(await responses);
-      (await responses).forEach(async (item) => {
-        const { id } = item;
-        const engineData = await (await item.engineData).json();
-        // console.log(id, engineData);
-        this.view.garage.startCarAnimation(id, engineData);
-      });
-      // promises.forEach(async (promise) => {
-      //   console.log(promise);
-      //   const response = await promise;
-      //   console.log(response.id);
-      //   // if (response.ok) {
-      //   //   const engineData: EnginData = await response.json();
-      //   //   console.log(engineData);
-      //   // }
+      const promiseArr = await this.model.startRace(this.view.garage.cars);
+      const racers = await Promise.all(promiseArr);
+      this.view.garage.startRaceAnimation(racers);
+      // this.racers = racers;
+      // racers.forEach((racer) => {
+      //   this.view.garage.startCarAnimation(racer.id, racer.engineData);
       // });
-      // if (response.ok) {
-      //   this.view.garage.stopCarAnimation(carID, target as HTMLButtonElement);
+      // console.log(this.racers);
+      // for (let i = 0; i < racers.length; i += 1) {
+      //   const racer = racers[i];
+      //   console.log(racer.id);
+      //   console.log(racer.engineData);
       // }
+
+      // it works
+      // responses.forEach(async (item) => {
+      //   const { id } = item;
+      //   const engineData = await (await item.engineData).json();
+      //   console.log(id, engineData);
+      //   this.view.garage.startCarAnimation(id, engineData);
+      // });
     }
     if (e.type === 'startCar') {
-      console.log('poehali');
+      // console.log('poehali');
       const response = await this.model.drive(carID);
       console.log(response.status);
       if (response.status === 500) this.view.garage.pauseCarAnimation(target);
+      // race
+      if (response.status === 500 && this.view.garage.racers) {
+        this.view.garage.racers = this.view.garage.racers.filter((racer) => racer.id !== carID);
+      }
     }
   }
 }

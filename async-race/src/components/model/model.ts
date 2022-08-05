@@ -98,11 +98,11 @@ export default class Model {
     return this.api.drive({ id: carID, status: 'drive' });
   }
 
-  startRace(carsArray: Car[]) {
+  async startRace(carsArray: Car[]) {
     const carsID = carsArray.map((car) => String(car.id));
-    const responses = carsID.map((id) => ({
+    const responses = carsID.map(async (id) => ({
       id,
-      engineData: this.startEngine(id),
+      engineData: await (await this.startEngine(id)).json(),
     }));
     return responses;
   }

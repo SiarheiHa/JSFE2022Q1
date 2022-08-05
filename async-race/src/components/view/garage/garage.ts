@@ -31,6 +31,8 @@ export class GarageView {
 
   carImages: HTMLElement[] = [];
 
+  racers: { id: string; engineData: EnginData; }[] | undefined;
+
   constructor(callback: (e: Event) => void) {
     this.callback = callback;
   }
@@ -180,11 +182,11 @@ export class GarageView {
   }
 
   startCarAnimation(carID: string, engineData: EnginData) {
-    console.log(carID);
+    // console.log(carID);
     const carImage = this.carImages.find(
       (image: HTMLElement) => image.dataset.car === carID,
     ) as HTMLElement;
-    console.log(carImage);
+    // console.log(carImage);
     const time = engineData.distance / engineData.velocity;
     const carAnimation = carImage.animate(
       [{ left: '0px' }, { left: 'calc(100% - 100px)' }],
@@ -214,5 +216,16 @@ export class GarageView {
       carImage.style.left = '0px';
     }
     this.toggleDriveButtons(stopButton);
+  }
+
+  startRaceAnimation(racers: { id: string; engineData: EnginData; }[]) {
+    this.racers = racers;
+    racers.forEach((racer) => {
+      this.startCarAnimation(racer.id, racer.engineData);
+    });
+    setTimeout(() => {
+      console.log(this.racers);
+    }, 3000);
+    // console.log(racers);
   }
 }
