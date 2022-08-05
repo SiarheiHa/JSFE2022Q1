@@ -122,6 +122,12 @@ export default class Api {
     });
   }
 
+  deleteWinner(id: string) {
+    return fetch(`${makeUrl(BASE_LINK, Endpoint.winners)}/${id}`, {
+      method: 'DELETE',
+    });
+  }
+
   getCar(id: string) {
     return fetch(`${makeUrl(BASE_LINK, Endpoint.garage)}/${id}`);
   }

@@ -106,6 +106,10 @@ export default class Model {
     }
   }
 
+  deleteWinner(id: string) {
+    return this.api.deleteWinner(id);
+  }
+
   startEngine(carID: string) {
     return this.api.startEngine({ id: carID, status: 'started' });
   }

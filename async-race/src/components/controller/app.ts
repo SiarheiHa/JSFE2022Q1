@@ -53,7 +53,8 @@ export default class App {
     if (buttonRole === 'remove') {
       const carID = <string>target.dataset.car;
       const response = await this.model.deleteCar(carID);
-      if (response.ok) {
+      const response2 = await this.model.deleteWinner(carID);
+      if (response.ok && response2.ok) {
         this.updateView({ page: prevPage, limit: MAX_CARS_COUNT_PER_PAGE });
       }
     }
