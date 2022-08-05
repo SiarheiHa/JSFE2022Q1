@@ -1,5 +1,5 @@
 import {
-  Car, CarsResponseObj, EngineQueryParam, QueryParam, WinnersQueryParam,
+  Car, CarsResponseObj, EngineQueryParam, QueryParam, Winner, WinnersQueryParam,
 } from '../interfaces';
 
 const BASE_LINK = 'http://127.0.0.1:3000';
@@ -96,6 +96,30 @@ export default class Api {
   //     page: queryParam?.page ? queryParam.page : 1,
   //   };
   // }
+  }
+
+  getWinner(id: string): Promise<Response> {
+    return fetch(`${makeUrl(BASE_LINK, Endpoint.winners)}/${id}`);
+  }
+
+  createWinner(winner: Pick<Winner, 'id' | 'wins' | 'time'>) {
+    return fetch(makeUrl(BASE_LINK, Endpoint.winners), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(winner),
+    });
+  }
+
+  updateWinner(id: string, winner: Pick<Winner, 'wins' | 'time'>) {
+    return fetch(`${makeUrl(BASE_LINK, Endpoint.winners)}/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(winner),
+    });
   }
 
   getCar(id: string) {

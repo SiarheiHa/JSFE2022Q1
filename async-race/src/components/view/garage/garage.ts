@@ -1,5 +1,5 @@
 import {
-  Car, CarsResponseObj, EnginData, GarageInputs,
+  Car, CarsResponseObj, EnginData, GarageInputs, NewWinner,
 } from '../../../interfaces';
 import createNode from '../../utils/createNode';
 import toggleClassActive from '../../utils/toggleClassActive';
@@ -11,6 +11,8 @@ const startCarEvent = new Event('startCar');
 
 export class GarageView {
   callback: (e: Event) => void;
+
+  updateWinnersCallback: (winner: NewWinner) => void;
 
   container: HTMLElement | null = null;
 
@@ -38,8 +40,9 @@ export class GarageView {
 
   isResetPressed: Boolean = false;
 
-  constructor(callback: (e: Event) => void) {
+  constructor(callback: (e: Event) => void, updateWinnersCallback: (winner: NewWinner) => void) {
     this.callback = callback;
+    this.updateWinnersCallback = updateWinnersCallback;
 
     this.modal = new Modal();
   }
@@ -248,6 +251,7 @@ export class GarageView {
       const winner = this.getWinner();
       if (winner) {
         this.modal.buildModal(`${winner.name} wont first (${winner.time}s)`);
+        this.updateWinnersCallback(winner);
       }
     }, 3000);
     // console.log(racers);
@@ -263,13 +267,15 @@ export class GarageView {
       });
       const winnerCar = this.cars.find((car) => String(car.id) === raceWinner.id);
       console.log(raceWinner.engineData.velocity);
-      return {
-        ...winnerCar,
-        ...{
-          time: (raceWinner.engineData.distance / raceWinner.engineData.velocity / 1000)
-            .toFixed(2),
-        },
-      };
+      if (winnerCar) {
+        return {
+          ...winnerCar,
+          ...{
+            time: (raceWinner.engineData.distance / raceWinner.engineData.velocity / 1000)
+              .toFixed(2),
+          },
+        };
+      }
     }
     return null;
   }

@@ -1,5 +1,5 @@
 import {
-  Car, QueryParam, Winner, WinnersData, WinnersQueryParam,
+  Car, NewWinner, QueryParam, Winner, WinnersData, WinnersQueryParam,
 } from '../../interfaces';
 import Api from '../api';
 import cars from '../constants/cars';
@@ -84,6 +84,26 @@ export default class Model {
       sort: queryParam?.sort ? queryParam.sort : 'id',
       order: queryParam?.order ? queryParam.order : 'ASC',
     };
+  }
+
+  async updateWinners(winner: NewWinner) {
+    const response = await this.api.getWinner(String(winner.id));
+    // const response = await this.api.getWinner(String('10'));
+    console.log(response);
+    if (response.status === 404) {
+      this.api.createWinner({
+        id: winner.id,
+        wins: 1,
+        time: Number(winner.time),
+      });
+    } else if (response.status === 200) {
+      const data: Pick<Winner, 'id' | 'wins' | 'time'> = await response.json();
+      console.log(data);
+      this.api.updateWinner(String(winner.id), {
+        wins: data.wins + 1,
+        time: Number(winner.time) < data.time ? Number(winner.time) : data.time,
+      });
+    }
   }
 
   startEngine(carID: string) {

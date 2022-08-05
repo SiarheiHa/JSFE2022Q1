@@ -44,6 +44,13 @@ export interface WinnersData extends WinnersResponseObj {
   order: 'ASC' | 'DESC',
 }
 
+export interface NewWinner extends Car {
+  time: string;
+  // name?: string | undefined;
+  // color?: string | undefined;
+  // id?: number | undefined;
+}
+
 export interface InputObject {
   colorInput: HTMLInputElement;
   textInput: HTMLInputElement;

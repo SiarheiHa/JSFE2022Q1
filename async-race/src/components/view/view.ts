@@ -1,6 +1,8 @@
 import Header from './header/header';
 import { GarageView } from './garage/garage';
-import { CarsResponseObj, Page, WinnersData } from '../../interfaces';
+import {
+  CarsResponseObj, NewWinner, Page, WinnersData,
+} from '../../interfaces';
 import createNode from '../utils/createNode';
 import Winners from './winners/winners';
 
@@ -15,9 +17,9 @@ export default class View {
 
   winnersContainer: HTMLElement | undefined;
 
-  constructor(callback: (e: Event) => void) {
+  constructor(callback: (e: Event) => void, updateWinnersCallback: (winner: NewWinner) => void) {
     this.header = new Header(this.togglePage.bind(this));
-    this.garage = new GarageView(callback);
+    this.garage = new GarageView(callback, updateWinnersCallback);
     this.winners = new Winners(callback);
   }
 
@@ -27,7 +29,7 @@ export default class View {
     const wrapper = createNode({ tag: 'div', classes: ['main-wrapper', 'wrapper'] });
     this.garageContainer = createNode({ tag: 'div', classes: ['garage-container'] });
     this.winnersContainer = createNode({ tag: 'div', classes: ['winners-container'] });
-    this.winnersContainer.style.display = 'none';
+    // this.winnersContainer.style.display = 'none';
     this.garage.drawGarage(garageData, this.garageContainer);
     this.winners.drawWinners(winnersData, this.winnersContainer);
     wrapper.append(this.winnersContainer, this.garageContainer);

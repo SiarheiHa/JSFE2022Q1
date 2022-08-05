@@ -1,4 +1,6 @@
-import { EnginData, GarageInputs, QueryParam } from '../../interfaces';
+import {
+  EnginData, GarageInputs, NewWinner, QueryParam,
+} from '../../interfaces';
 import Model from '../model/model';
 import View from '../view/view';
 import { MAX_CARS_COUNT_PER_PAGE } from '../view/garage/garage';
@@ -12,7 +14,7 @@ export default class App {
 
   constructor() {
     this.model = new Model();
-    this.view = new View(this.garageEventHandler.bind(this));
+    this.view = new View(this.garageEventHandler.bind(this), this.updateWinners.bind(this));
   }
 
   async start() {
@@ -69,6 +71,10 @@ export default class App {
     this.view.garage.updateGarage(garageData);
   }
 
+  updateWinners(winner: NewWinner) {
+    this.model.updateWinners(winner);
+  }
+
   async animationHandler(e: Event) {
     // console.log(e.type);
     const target = <HTMLElement> e.target;
@@ -96,6 +102,7 @@ export default class App {
       this.view.garage.stopCarAnimation(carID, target as HTMLButtonElement);
     }
     if (buttonRole === 'race') {
+      this.view.garage.isResetPressed = false;
       const promiseArr = await this.model.startRace(this.view.garage.cars);
       const racers = await Promise.all(promiseArr);
       this.view.garage.startRaceAnimation(racers);

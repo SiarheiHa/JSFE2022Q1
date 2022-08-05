@@ -2,7 +2,10 @@
 	width: 100%;
 	margin-bottom: 20px;
 	border: 1px solid #dddddd;
-	border-collapse: collapse; 
+	border-collapse: collapse;
+		thead {
+			color: black;
+		} 
 }
 .table th {
 	font-weight: bold;
