@@ -4,6 +4,7 @@ import {
 import createNode from '../../utils/createNode';
 import toggleClassActive from '../../utils/toggleClassActive';
 import SVG from '../carSVG';
+import Modal from '../modal/modal';
 
 export const MAX_CARS_COUNT_PER_PAGE = 7;
 const startCarEvent = new Event('startCar');
@@ -33,8 +34,12 @@ export class GarageView {
 
   racers: { id: string; engineData: EnginData; }[] | undefined;
 
+  modal: Modal;
+
   constructor(callback: (e: Event) => void) {
     this.callback = callback;
+
+    this.modal = new Modal();
   }
 
   updateGarage(data: CarsResponseObj) {
@@ -234,8 +239,30 @@ export class GarageView {
       this.startCarAnimation(racer.id, racer.engineData);
     });
     setTimeout(() => {
-      console.log(this.racers);
+      const winner = this.getWinner();
+      if (winner) this.modal.buildModal(`${winner.name} wont first (${winner.time}s)`);
     }, 3000);
     // console.log(racers);
+  }
+
+  getWinner() {
+    if (this.racers) {
+      const raceWinner = this.racers?.reduce((winner, racer) => {
+        const winnerTime = winner.engineData.distance / winner.engineData.velocity;
+        const racerTime = racer.engineData.distance / racer.engineData.velocity;
+        if (winnerTime < racerTime) return winner;
+        return racer;
+      });
+      const winnerCar = this.cars.find((car) => String(car.id) === raceWinner.id);
+      console.log(raceWinner.engineData.velocity);
+      return {
+        ...winnerCar,
+        ...{
+          time: (raceWinner.engineData.distance / raceWinner.engineData.velocity / 1000)
+            .toFixed(2),
+        },
+      };
+    }
+    return null;
   }
 }

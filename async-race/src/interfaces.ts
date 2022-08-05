@@ -63,3 +63,7 @@ export interface EnginData {
   velocity: number,
   distance: number
 }
+
+export interface ModalModel {
+  buildModal(message: string): void;
+}
