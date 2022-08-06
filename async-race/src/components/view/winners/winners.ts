@@ -39,6 +39,15 @@ export default class Winners {
     container.append(title, subtitle, table, paginationButtons);
   }
 
+  updateWinners(winnersData: WinnersData) {
+    if (this.container) {
+      console.log(winnersData);
+      console.log('view update winners');
+      this.container.innerHTML = '';
+      this.drawWinners(winnersData, this.container);
+    }
+  }
+
   createButtonsBlock(buttonsNames: string[]) {
     const wrapper = createNode({ tag: 'div', classes: ['control__buttons'] });
     const buttons = buttonsNames.map((name: string) => createNode({

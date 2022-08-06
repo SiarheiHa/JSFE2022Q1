@@ -91,7 +91,7 @@ export default class Model {
     // const response = await this.api.getWinner(String('10'));
     console.log(response);
     if (response.status === 404) {
-      this.api.createWinner({
+      await this.api.createWinner({
         id: winner.id,
         wins: 1,
         time: Number(winner.time),
@@ -99,7 +99,7 @@ export default class Model {
     } else if (response.status === 200) {
       const data: Pick<Winner, 'id' | 'wins' | 'time'> = await response.json();
       console.log(data);
-      this.api.updateWinner(String(winner.id), {
+      await this.api.updateWinner(String(winner.id), {
         wins: data.wins + 1,
         time: Number(winner.time) < data.time ? Number(winner.time) : data.time,
       });
