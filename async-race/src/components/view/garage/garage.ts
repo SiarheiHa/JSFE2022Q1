@@ -40,6 +40,10 @@ export class GarageView {
 
   isResetPressed: Boolean = false;
 
+  buttonsA: HTMLButtonElement[] = [];
+
+  buttonsB: HTMLButtonElement[] = [];
+
   constructor(callback: (e: Event) => void, updateWinnersCallback: (winner: NewWinner) => void) {
     this.callback = callback;
     this.updateWinnersCallback = updateWinnersCallback;
@@ -88,12 +92,17 @@ export class GarageView {
 
   createButtonsBlock(buttonsNames: string[], carID?: number) {
     const wrapper = createNode({ tag: 'div', classes: ['control__buttons'] });
-    const buttons = buttonsNames.map((name: string) => createNode({
-      tag: 'button',
-      classes: ['button'],
-      atributesAdnValues: [['data-button', `${name.split(' ')[0]}`]],
-      inner: name.toUpperCase(),
-    }));
+    const buttons = buttonsNames.map((name: string) => {
+      const button = createNode({
+        tag: 'button',
+        classes: ['button'],
+        atributesAdnValues: [['data-button', `${name.split(' ')[0]}`]],
+        inner: name.toUpperCase(),
+      });
+      if (button.dataset.button === 'a') this.buttonsA.push(button as HTMLButtonElement);
+      if (button.dataset.button === 'b') this.buttonsB.push(button as HTMLButtonElement);
+      return button;
+    });
     if (typeof carID === 'number') buttons.forEach((button) => button.setAttribute('data-car', String(carID)));
     buttons.forEach((button) => this.buttonsHandler(button));
     wrapper.append(...buttons);
@@ -149,6 +158,8 @@ export class GarageView {
         this.callback(e);
         if (button.dataset.button === 'a' || button.dataset.button === 'b') {
           this.toggleDriveButtons(button as HTMLButtonElement);
+        } else if (button.dataset.button === 'race') {
+          this.buttonsA.forEach((buttonA) => this.toggleDriveButtons(buttonA));
         }
       }
     });
@@ -225,6 +236,7 @@ export class GarageView {
         const carImage = image;
         carImage.style.left = '0px';
       });
+      this.buttonsB.forEach((button) => this.toggleDriveButtons(button));
       return;
     }
     const carImage = this.carImages.find((image) => image.dataset.car === carID) as HTMLElement;
