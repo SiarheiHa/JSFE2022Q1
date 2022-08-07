@@ -29,7 +29,7 @@ export default class View {
     const wrapper = createNode({ tag: 'div', classes: ['main-wrapper', 'wrapper'] });
     this.garageContainer = createNode({ tag: 'div', classes: ['garage-container'] });
     this.winnersContainer = createNode({ tag: 'div', classes: ['winners-container'] });
-    // this.winnersContainer.style.display = 'none';
+    this.winnersContainer.style.display = 'none';
     this.garage.drawGarage(garageData, this.garageContainer);
     this.winners.drawWinners(winnersData, this.winnersContainer);
     wrapper.append(this.winnersContainer, this.garageContainer);

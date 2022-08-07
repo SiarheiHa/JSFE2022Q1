@@ -1,4 +1,6 @@
-import { Winner, WinnersData } from '../../../interfaces';
+import {
+  SortingOrder, SortingType, Winner, WinnersData,
+} from '../../../interfaces';
 import createNode from '../../utils/createNode';
 import carSVG from '../carSVG';
 
@@ -15,6 +17,10 @@ export default class Winners {
 
   count: number = 0;
 
+  sort: SortingType = SortingType.id;
+
+  order: SortingOrder = SortingOrder.asc;
+
   winners: Winner[] = [];
 
   constructor(callback: (e: Event) => void) {
@@ -24,12 +30,17 @@ export default class Winners {
   drawWinners(data: WinnersData, container: HTMLElement) {
     this.container = container;
 
-    const { count, page, winners } = data;
+    const {
+      count, page, sort, order, winners,
+    } = data;
     this.winners = winners.slice(0, MAX_WINNERS_COUNT_PER_PAGE);
     this.page = page;
     this.count = count;
+    this.sort = sort;
+    this.order = order;
     this.lastPage = Math.ceil(count / MAX_WINNERS_COUNT_PER_PAGE);
     const islastPage = Math.ceil(count / MAX_WINNERS_COUNT_PER_PAGE) <= page;
+    console.log(this.sort, this.order);
 
     const title = createNode({ tag: 'h2', inner: `Winners(${this.count})` });
     const subtitle = createNode({ tag: 'h2', inner: `Page#${this.page}` });
@@ -37,7 +48,7 @@ export default class Winners {
     const table = createNode({ tag: 'table', classes: ['table'] });
 
     const thead = createNode({ tag: 'thead', classes: ['thead'] });
-    const headRow = this.createTableRow('th', ['Number', 'Car', 'Name', 'Wins', 'Best time (seconds)']);
+    const headRow = this.createTableRow('th', ['number', 'car', 'name', 'wins', 'best time (seconds)']);
     thead.append(headRow);
 
     const tbody = createNode({ tag: 'tbody', classes: ['tbody'] });
@@ -77,12 +88,41 @@ export default class Winners {
 
   createTableRow(cellTag: 'th' | 'td', cellValues: string[]) {
     const row = createNode({ tag: 'tr' });
-    const cells = cellValues.map((value) => createNode({ tag: cellTag, inner: value }));
+    const cells = cellValues.map((value) => {
+      const cell = createNode({
+        tag: cellTag, atributesAdnValues: [['data-sort', `${value === 'best time (seconds)' ? 'time' : value}`]], inner: value,
+      });
+
+      if (value === 'best time (seconds)' || value === 'wins') {
+        cell.dataset.sort = value === 'best time (seconds)' ? 'time' : value;
+        if (this.sort === cell.dataset.sort && this.order === SortingOrder.asc) cell.innerText += '↑';
+        if (this.sort === cell.dataset.sort && this.order === SortingOrder.desc) cell.innerText += '↓';
+        this.tableCellHandler(cell);
+      }
+
+      return cell;
+    });
     row.append(...cells);
     return row;
   }
 
   buttonsHandler(button: HTMLElement) {
     button.addEventListener('click', this.callback);
+  }
+
+  tableCellHandler(cell: HTMLElement) {
+    cell.addEventListener('click', (e) => {
+      const target = <HTMLElement>e.target;
+      if (target.dataset.sort === SortingType.wins || target.dataset.sort === SortingType.time) {
+        if (this.sort === SortingType.id) {
+          this.order = SortingOrder.asc;
+          console.log(cell.innerText);
+        } else {
+          this.order = this.order === SortingOrder.asc ? SortingOrder.desc : SortingOrder.asc;
+        }
+        this.sort = target.dataset.sort;
+        this.callback(e);
+      }
+    });
   }
 }

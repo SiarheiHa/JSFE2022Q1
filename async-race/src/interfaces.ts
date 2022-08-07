@@ -6,8 +6,8 @@ export interface QueryParam {
 export interface WinnersQueryParam {
   page: number,
   limit: number,
-  sort?: 'id' | 'wins' | 'time',
-  order?:'ASC' | 'DESC',
+  sort?: SortingType,
+  order?:SortingOrder,
 }
 
 export interface EngineQueryParam {
@@ -37,11 +37,22 @@ export interface WinnersResponseObj {
   winners: Winner[];
 }
 
+export enum SortingType {
+  id = 'id',
+  wins = 'wins',
+  time = 'time',
+}
+
+export enum SortingOrder {
+  asc = 'ASC',
+  desc = 'DESC',
+}
+
 export interface WinnersData extends WinnersResponseObj {
   count: number;
   page: number;
-  sort: 'id' | 'wins' | 'time';
-  order: 'ASC' | 'DESC',
+  sort: SortingType;
+  order: SortingOrder,
 }
 
 export interface NewWinner extends Car {

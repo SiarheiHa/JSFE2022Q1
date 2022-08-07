@@ -75,15 +75,18 @@ export default class App {
 
   winnersEventHandler(e: Event) {
     const target = <HTMLElement> e.target;
-    console.log(target);
+    console.dir(target);
     const buttonRole = target.dataset.button;
-    console.log(buttonRole);
-    // const nextPage = this.view.winners.count % MAX_WINNERS_COUNT_PER_PAGE === 0
-    //   ? this.view.winners.lastPage + 1 : this.view.winners.lastPage;
-    // const prevPage = this.view.winners.winners.length === 1
-    //   ? this.view.winners.page - 1 : this.view.winners.page;
-    if (buttonRole === 'next') this.updateWinnersView({ page: this.view.winners.page + 1, limit: MAX_WINNERS_COUNT_PER_PAGE });
-    if (buttonRole === 'prev') this.updateWinnersView({ page: this.view.winners.page - 1, limit: MAX_WINNERS_COUNT_PER_PAGE });
+    const { sort, order } = this.view.winners;
+    let { page } = this.view.winners;
+    const limit = MAX_WINNERS_COUNT_PER_PAGE;
+
+    if (buttonRole === 'next') page += 1;
+    if (buttonRole === 'prev') page -= 1;
+
+    this.updateWinnersView({
+      page, limit, sort, order,
+    });
   }
 
   async updateView(queryParam?: QueryParam) {

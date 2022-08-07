@@ -1,5 +1,5 @@
 import {
-  Car, NewWinner, QueryParam, Winner, WinnersData, WinnersQueryParam,
+  Car, NewWinner, QueryParam, SortingOrder, SortingType, Winner, WinnersData, WinnersQueryParam,
 } from '../../interfaces';
 import Api from '../api';
 import cars from '../constants/cars';
@@ -81,8 +81,8 @@ export default class Model {
       winners,
       count: count ? Number(count) : winners.length,
       page: queryParam?.page ? queryParam.page : 1,
-      sort: queryParam?.sort ? queryParam.sort : 'id',
-      order: queryParam?.order ? queryParam.order : 'ASC',
+      sort: queryParam?.sort ? queryParam.sort : SortingType.id,
+      order: queryParam?.order ? queryParam.order : SortingOrder.asc,
     };
   }
 
