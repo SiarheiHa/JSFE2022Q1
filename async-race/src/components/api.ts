@@ -82,7 +82,6 @@ export default class Api {
   // }
 
   getWinners(queryParam?: WinnersQueryParam): Promise<Response> {
-    console.log(makeUrl(BASE_LINK, Endpoint.winners, queryParam));
     return fetch(makeUrl(BASE_LINK, Endpoint.winners, queryParam));
   //   if (!response.ok) {
   //     throw new Error('server is not available');

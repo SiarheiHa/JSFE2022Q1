@@ -1,8 +1,25 @@
 .car {
   border-bottom: dotted;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3c?xml version='1.0' encoding='UTF-8'?%3e%3c!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3e%3csvg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0' y='0' width='491' height='601' viewBox='0, 0, 491, 601'%3e%3cg id='Layer_1'%3e%3cg%3e%3cpath d='M1.5,1.5 L16.5,1.5 L16.5,600.5 L1.5,600.5 L1.5,1.5 z' fill='%23FFFFFF'/%3e%3cpath d='M1.5,1.5 L16.5,1.5 L16.5,600.5 L1.5,600.5 L1.5,1.5 z' fill-opacity='0' stroke='%235A5858' stroke-width='1'/%3e%3c/g%3e%3cpath d='M10.5,14.5 L10.5,592.5' fill-opacity='0' stroke='%235A5858' stroke-width='3' stroke-linecap='round' opacity='0.27'/%3e%3cg%3e%3cpath d='M18.5,14.5 L490.5,14.5 L490.5,307.5 L18.5,307.5 L18.5,14.5 z' fill='%23FF0000'/%3e%3cpath d='M18.5,14.5 L490.5,14.5 L490.5,307.5 L18.5,307.5 L18.5,14.5 z' fill-opacity='0' stroke='%23151515' stroke-width='1'/%3e%3c/g%3e%3c/g%3e%3c/svg%3e ");
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 5rem;
+  padding-top: 1rem;
+  &:nth-child(odd) {
+    background-color: lighten($color: #000000, $amount: 20%);
+  }
+  > .control__buttons {
+    &:first-child {
+      display: inline-block;
+    }
+  }
+  .car__title {
+    padding: 0 1rem;
+  }
 }
 .car__image {
   position: relative;
   left: 0;
   width: 10rem;
+  display: inline-block;
 }

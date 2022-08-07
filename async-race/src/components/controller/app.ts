@@ -75,7 +75,6 @@ export default class App {
 
   winnersEventHandler(e: Event) {
     const target = <HTMLElement> e.target;
-    console.dir(target);
     const buttonRole = target.dataset.button;
     const { sort, order } = this.view.winners;
     let { page } = this.view.winners;
@@ -156,7 +155,6 @@ export default class App {
     if (e.type === 'startCar') {
       // console.log('poehali');
       const response = await this.model.drive(carID);
-      console.log(response.status);
       if (response.status === 500) this.view.garage.pauseCarAnimation(target);
       // race
       if (response.status === 500 && this.view.garage.racers) {

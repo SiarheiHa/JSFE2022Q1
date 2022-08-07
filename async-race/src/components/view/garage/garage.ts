@@ -76,6 +76,7 @@ export class GarageView {
     const form = createNode({ tag: 'form', classes: ['form'] });
     const textInput = createNode({ tag: 'input', classes: ['form__input-text'], atributesAdnValues: [['type', 'text']] });
     const colorInput = createNode({ tag: 'input', classes: ['form__input-color'], atributesAdnValues: [['type', 'color']] });
+    (colorInput as HTMLInputElement).value = '#FFFFFF';
     const button = createNode({
       tag: 'button', classes: ['button', 'form__button'], atributesAdnValues: [['type', 'button'], ['data-button', inputBlockType]], inner: inputBlockType.toUpperCase(),
     });
@@ -266,7 +267,6 @@ export class GarageView {
         return racer;
       });
       const winnerCar = this.cars.find((car) => String(car.id) === raceWinner.id);
-      console.log(raceWinner.engineData.velocity);
       if (winnerCar) {
         return {
           ...winnerCar,
