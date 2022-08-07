@@ -1,13 +1,21 @@
-import { WinnersData } from '../../../interfaces';
+import { Winner, WinnersData } from '../../../interfaces';
 import createNode from '../../utils/createNode';
 import carSVG from '../carSVG';
+
+export const MAX_WINNERS_COUNT_PER_PAGE = 7;
 
 export default class Winners {
   callback: (e: Event) => void;
 
   page: number = 1;
 
+  lastPage: number = 1;
+
   container: HTMLElement | null = null;
+
+  count: number = 0;
+
+  winners: Winner[] = [];
 
   constructor(callback: (e: Event) => void) {
     this.callback = callback;
@@ -17,9 +25,13 @@ export default class Winners {
     this.container = container;
 
     const { count, page, winners } = data;
+    this.winners = winners.slice(0, MAX_WINNERS_COUNT_PER_PAGE);
     this.page = page;
+    this.count = count;
+    this.lastPage = Math.ceil(count / MAX_WINNERS_COUNT_PER_PAGE);
+    const islastPage = Math.ceil(count / MAX_WINNERS_COUNT_PER_PAGE) <= page;
 
-    const title = createNode({ tag: 'h2', inner: `Winners(${count})` });
+    const title = createNode({ tag: 'h2', inner: `Winners(${this.count})` });
     const subtitle = createNode({ tag: 'h2', inner: `Page#${this.page}` });
 
     const table = createNode({ tag: 'table', classes: ['table'] });
@@ -29,12 +41,14 @@ export default class Winners {
     thead.append(headRow);
 
     const tbody = createNode({ tag: 'tbody', classes: ['tbody'] });
-    const bodyRows = winners.map((winner, index) => this.createTableRow('td', [String(index + 1), carSVG.replace('color', winner.color), winner.name, String(winner.wins), String(winner.time)]));
+    const bodyRows = this.winners.map((winner, index) => this.createTableRow('td', [String(MAX_WINNERS_COUNT_PER_PAGE * this.page - MAX_WINNERS_COUNT_PER_PAGE + index + 1), carSVG.replace('color', winner.color), winner.name, String(winner.wins), String(winner.time)]));
     tbody.append(...bodyRows);
 
     table.append(thead, tbody);
 
     const paginationButtons = this.createButtonsBlock(['prev', 'next']);
+    if (page === 1) (paginationButtons.firstElementChild as HTMLButtonElement).disabled = true;
+    if (islastPage) (paginationButtons.lastElementChild as HTMLButtonElement).disabled = true;
 
     container.append(title, subtitle, table, paginationButtons);
   }
@@ -56,7 +70,7 @@ export default class Winners {
       atributesAdnValues: [['data-button', `${name.split(' ')[0]}`]],
       inner: name.toUpperCase(),
     }));
-    // buttons.forEach((button) => this.buttonsHandler(button));
+    buttons.forEach((button) => this.buttonsHandler(button));
     wrapper.append(...buttons);
     return wrapper;
   }
@@ -66,5 +80,9 @@ export default class Winners {
     const cells = cellValues.map((value) => createNode({ tag: cellTag, inner: value }));
     row.append(...cells);
     return row;
+  }
+
+  buttonsHandler(button: HTMLElement) {
+    button.addEventListener('click', this.callback);
   }
 }

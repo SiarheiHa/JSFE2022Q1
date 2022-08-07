@@ -6,8 +6,8 @@ export interface QueryParam {
 export interface WinnersQueryParam {
   page: number,
   limit: number,
-  sort: 'id' | 'wins' | 'time',
-  order:'ASC' | 'DESC',
+  sort?: 'id' | 'wins' | 'time',
+  order?:'ASC' | 'DESC',
 }
 
 export interface EngineQueryParam {

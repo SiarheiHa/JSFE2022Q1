@@ -1,9 +1,10 @@
 import {
-  EnginData, GarageInputs, NewWinner, QueryParam,
+  EnginData, GarageInputs, NewWinner, QueryParam, WinnersQueryParam,
 } from '../../interfaces';
 import Model from '../model/model';
 import View from '../view/view';
 import { MAX_CARS_COUNT_PER_PAGE } from '../view/garage/garage';
+import { MAX_WINNERS_COUNT_PER_PAGE } from '../view/winners/winners';
 
 const COUNT_OF_RANDOM_CARS = 100;
 
@@ -14,7 +15,7 @@ export default class App {
 
   constructor() {
     this.model = new Model();
-    this.view = new View(this.garageEventHandler.bind(this), this.updateWinners.bind(this));
+    this.view = new View(this.eventHandler.bind(this), this.updateWinners.bind(this));
   }
 
   async start() {
@@ -23,8 +24,12 @@ export default class App {
     this.view.drawApp(garageData, winnersData);
   }
 
-  async garageEventHandler(e: Event) {
+  async eventHandler(e: Event) {
     const target = <HTMLElement> e.target;
+    if (target.closest('.winners-container')) {
+      this.winnersEventHandler(e);
+      return;
+    }
     const buttonRole = target.dataset.button;
     const nextPage = this.view.garage.count % MAX_CARS_COUNT_PER_PAGE === 0
       ? this.view.garage.lastPage + 1 : this.view.garage.lastPage;
@@ -68,6 +73,19 @@ export default class App {
     }
   }
 
+  winnersEventHandler(e: Event) {
+    const target = <HTMLElement> e.target;
+    console.log(target);
+    const buttonRole = target.dataset.button;
+    console.log(buttonRole);
+    // const nextPage = this.view.winners.count % MAX_WINNERS_COUNT_PER_PAGE === 0
+    //   ? this.view.winners.lastPage + 1 : this.view.winners.lastPage;
+    // const prevPage = this.view.winners.winners.length === 1
+    //   ? this.view.winners.page - 1 : this.view.winners.page;
+    if (buttonRole === 'next') this.updateWinnersView({ page: this.view.winners.page + 1, limit: MAX_WINNERS_COUNT_PER_PAGE });
+    if (buttonRole === 'prev') this.updateWinnersView({ page: this.view.winners.page - 1, limit: MAX_WINNERS_COUNT_PER_PAGE });
+  }
+
   async updateView(queryParam?: QueryParam) {
     const garageData = await this.model.getGarageData(queryParam);
     this.view.garage.updateGarage(garageData);
@@ -75,16 +93,15 @@ export default class App {
 
   async updateWinners(winner: NewWinner) {
     await this.model.updateWinners(winner);
-    this.updateWinnersView();
+    this.updateWinnersView({ page: this.view.winners.page, limit: MAX_WINNERS_COUNT_PER_PAGE });
   }
 
-  async updateWinnersView() {
-    const winnersData = await this.model.getWinnersData();
+  async updateWinnersView(queryParam?: WinnersQueryParam) {
+    const winnersData = await this.model.getWinnersData(queryParam);
     this.view.winners.updateWinners(winnersData);
   }
 
   async animationHandler(e: Event) {
-    // console.log(e.type);
     const target = <HTMLElement> e.target;
     const buttonRole = target.dataset.button;
     const carID = target.dataset.car as string;

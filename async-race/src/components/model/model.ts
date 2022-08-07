@@ -64,7 +64,7 @@ export default class Model {
     }
     const count = response.headers.get('X-Total-Count');
     const winners: Winner[] = await response.json();
-    const carsArr: Car[] = await (await this.getGarageData()).cars;
+    const carsArr: Car[] = (await this.getGarageData()).cars;
 
     for (let i = 0; i < winners.length; i += 1) {
       const winner = winners[i];
