@@ -52,6 +52,7 @@ export default class App {
         const response = await this.model.updateCar(id, { name, color });
         if (response.ok) {
           this.updateView({ page: this.view.garage.page, limit: MAX_CARS_COUNT_PER_PAGE });
+          this.updateWinnersView();
         }
       }
     }
@@ -95,10 +96,15 @@ export default class App {
 
   async updateWinners(winner: NewWinner) {
     await this.model.updateWinners(winner);
-    this.updateWinnersView({ page: this.view.winners.page, limit: MAX_WINNERS_COUNT_PER_PAGE });
+    this.updateWinnersView();
   }
 
-  async updateWinnersView(queryParam?: WinnersQueryParam) {
+  async updateWinnersView(queryParam: WinnersQueryParam = {
+    sort: this.view.winners.sort,
+    order: this.view.winners.order,
+    page: this.view.winners.page,
+    limit: MAX_WINNERS_COUNT_PER_PAGE,
+  }) {
     const winnersData = await this.model.getWinnersData(queryParam);
     this.view.winners.updateWinners(winnersData);
   }
