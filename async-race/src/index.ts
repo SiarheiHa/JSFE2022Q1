@@ -1,5 +1,5 @@
 import App from './components/controller/app';
 import './scss/style.scss';
 
-const app = new App();
+const app: App = new App();
 app.start();

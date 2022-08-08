@@ -1,6 +1,7 @@
 import {
   Car,
-  EnginData, GarageInputs, NewWinner, QueryParam, WinnersQueryParam,
+  CarsResponseObj,
+  EnginData, GarageInputs, NewWinner, QueryParam, WinnersData, WinnersQueryParam,
 } from '../../interfaces';
 import Model from '../model/model';
 import View from '../view/view';
@@ -19,63 +20,60 @@ export default class App {
     this.view = new View(this.eventHandler.bind(this), this.updateWinners.bind(this));
   }
 
-  async start() {
-    const garageData = await this.model.getGarageData();
-    const winnersData = await this.model.getWinnersData();
+  async start(): Promise<void> {
+    const garageData: CarsResponseObj = await this.model.getGarageData();
+    const winnersData: WinnersData = await this.model.getWinnersData();
     this.view.drawApp(garageData, winnersData);
   }
 
-  async eventHandler(e: Event) {
+  async eventHandler(e: Event): Promise<void> {
     const target = <HTMLElement> e.target;
-    if (target.closest('.winners-container')) {
-      this.winnersEventHandler(e);
-      return;
-    }
+    if (target.closest('.winners-container')) this.winnersEventHandler(e);
+    else this.garageEventHandler(e);
+  }
+
+  async garageEventHandler(e: Event) {
+    const target = <HTMLElement> e.target;
     const buttonRole = target.dataset.button;
-    const nextPage = this.view.garage.count % MAX_CARS_COUNT_PER_PAGE === 0
-      ? this.view.garage.lastPage + 1 : this.view.garage.lastPage;
-    const prevPage = this.view.garage.cars.length === 1
-      ? this.view.garage.page - 1 : this.view.garage.page;
     if (buttonRole === 'a' || buttonRole === 'b' || buttonRole === 'race' || buttonRole === 'reset' || e.type === 'startCar') {
       this.animationHandler(e);
       return;
     }
+    const nextPage: number = this.view.garage.count % MAX_CARS_COUNT_PER_PAGE === 0
+      ? this.view.garage.lastPage + 1 : this.view.garage.lastPage;
+    const prevPage: number = this.view.garage.cars.length === 1
+      ? this.view.garage.page - 1 : this.view.garage.page;
     if (buttonRole === 'create' || buttonRole === 'update') {
-      const name = (this.view.garage.inputs as GarageInputs)[buttonRole].textInput.value;
-      const color = (this.view.garage.inputs as GarageInputs)[buttonRole].colorInput.value;
+      const name: string = (this.view.garage.inputs as GarageInputs)[buttonRole].textInput.value;
+      const color: string = (this.view.garage.inputs as GarageInputs)[buttonRole].colorInput.value;
       if (buttonRole === 'create') {
-        const response = await this.model.createCar({ name, color });
-        if (response.ok) {
-          this.updateView({ page: nextPage, limit: MAX_CARS_COUNT_PER_PAGE });
-        }
+        const response: Response = await this.model.createCar({ name, color });
+        if (response.ok) this.updateView({ page: nextPage, limit: MAX_CARS_COUNT_PER_PAGE });
       } else if (this.view.garage.selectedCar?.id) {
-        const id = String(this.view.garage.selectedCar.id);
-        const response = await this.model.updateCar(id, { name, color });
+        const id: string = String(this.view.garage.selectedCar.id);
+        const response: Response = await this.model.updateCar(id, { name, color });
         if (response.ok) {
           this.updateView({ page: this.view.garage.page, limit: MAX_CARS_COUNT_PER_PAGE });
           this.updateWinnersView();
         }
       }
-    }
-    if (buttonRole === 'remove') {
+    } else if (buttonRole === 'remove') {
       const carID = <string>target.dataset.car;
-      const response = await this.model.deleteCar(carID);
+      const response: Response = await this.model.deleteCar(carID);
       await this.model.deleteWinner(carID);
       if (response.ok) {
         this.updateWinnersView();
         this.updateView({ page: prevPage, limit: MAX_CARS_COUNT_PER_PAGE });
       }
-    }
-
-    if (buttonRole === 'next') this.updateView({ page: this.view.garage.page + 1, limit: MAX_CARS_COUNT_PER_PAGE });
-    if (buttonRole === 'prev') this.updateView({ page: this.view.garage.page - 1, limit: MAX_CARS_COUNT_PER_PAGE });
-    if (buttonRole === 'generate') {
-      const responses = await this.model.generateRandomCars(COUNT_OF_RANDOM_CARS);
+    } else if (buttonRole === 'next') this.updateView({ page: this.view.garage.page + 1, limit: MAX_CARS_COUNT_PER_PAGE });
+    else if (buttonRole === 'prev') this.updateView({ page: this.view.garage.page - 1, limit: MAX_CARS_COUNT_PER_PAGE });
+    else if (buttonRole === 'generate') {
+      const responses: Response[] = await this.model.generateRandomCars(COUNT_OF_RANDOM_CARS);
       if (responses.every((response) => response.ok)) this.updateView();
     }
   }
 
-  winnersEventHandler(e: Event) {
+  winnersEventHandler(e: Event): void {
     const target = <HTMLElement> e.target;
     const buttonRole = target.dataset.button;
     const { sort, order } = this.view.winners;
@@ -110,7 +108,7 @@ export default class App {
     this.view.winners.updateWinners(winnersData);
   }
 
-  async animationHandler(e: Event) {
+  async animationHandler(e: Event): Promise<void> {
     const target = <HTMLElement> e.target;
     const buttonRole = target.dataset.button;
     const carID = target.dataset.car as string;
@@ -121,22 +119,17 @@ export default class App {
         this.view.garage.startCarAnimation(carID, engineData);
         this.getRacersData({ id: carID });
       }
-    }
-    if (buttonRole === 'b') {
-      const response = await this.model.stopEngine(carID);
+    } else if (buttonRole === 'b') {
+      const response: Response = await this.model.stopEngine(carID);
       if (response.ok) {
         this.view.garage.stopCarAnimation(carID, target as HTMLButtonElement);
       }
-    }
-    if (buttonRole === 'reset') {
+    } else if (buttonRole === 'reset') {
       this.view.garage.isResetPressed = true;
-      const carsID = this.view.garage.cars.map((car) => String(car.id));
-      carsID.forEach(async (id) => {
-        this.model.stopEngine(id);
-      });
+      const carsID: string[] = this.view.garage.cars.map((car) => String(car.id));
+      carsID.forEach(async (id) => this.model.stopEngine(id));
       this.view.garage.stopCarAnimation(carID, target as HTMLButtonElement);
-    }
-    if (buttonRole === 'race') {
+    } else if (buttonRole === 'race') {
       this.view.garage.isResetPressed = false;
       const promiseArr = await this.model.startRace(this.view.garage.cars);
       const racers = await Promise.all(promiseArr);
@@ -164,14 +157,8 @@ export default class App {
   }
 
   async getRacersData(racer: { id: string, engineData?: EnginData }) {
-    // console.log('poehali');
     const response = await this.model.drive(racer.id);
-    // console.log(response.status);
     if (response.status === 500) this.view.garage.pauseCarAnimation(racer.id);
     return response;
-    // race
-    // if (response.status === 500 && this.view.garage.racers) {
-    //   this.view.garage.racers = this.view.garage.racers.filter((racer) => racer.id !== carID);
-    // }
   }
 }
