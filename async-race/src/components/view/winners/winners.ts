@@ -4,7 +4,7 @@ import {
 import createNode from '../../utils/createNode';
 import carSVG from '../carSVG';
 
-export const MAX_WINNERS_COUNT_PER_PAGE = 7;
+export const MAX_WINNERS_COUNT_PER_PAGE = 10;
 
 export default class Winners {
   callback: (e: Event) => void;
@@ -40,7 +40,6 @@ export default class Winners {
     this.order = order;
     this.lastPage = Math.ceil(count / MAX_WINNERS_COUNT_PER_PAGE);
     const islastPage = Math.ceil(count / MAX_WINNERS_COUNT_PER_PAGE) <= page;
-    console.log(this.sort, this.order);
 
     const title = createNode({ tag: 'h2', inner: `Winners(${this.count})` });
     const subtitle = createNode({ tag: 'h2', inner: `Page#${this.page}` });
@@ -66,8 +65,6 @@ export default class Winners {
 
   updateWinners(winnersData: WinnersData) {
     if (this.container) {
-      console.log(winnersData);
-      console.log('view update winners');
       this.container.innerHTML = '';
       this.drawWinners(winnersData, this.container);
     }
@@ -116,7 +113,6 @@ export default class Winners {
       if (target.dataset.sort === SortingType.wins || target.dataset.sort === SortingType.time) {
         if (this.sort === SortingType.id) {
           this.order = SortingOrder.asc;
-          console.log(cell.innerText);
         } else {
           this.order = this.order === SortingOrder.asc ? SortingOrder.desc : SortingOrder.asc;
         }

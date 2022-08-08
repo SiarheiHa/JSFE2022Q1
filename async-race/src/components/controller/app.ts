@@ -1,4 +1,5 @@
 import {
+  Car,
   EnginData, GarageInputs, NewWinner, QueryParam, WinnersQueryParam,
 } from '../../interfaces';
 import Model from '../model/model';
@@ -118,6 +119,7 @@ export default class App {
       if (response.ok) {
         const engineData: EnginData = await response.json();
         this.view.garage.startCarAnimation(carID, engineData);
+        this.getRacersData({ id: carID });
       }
     }
     if (buttonRole === 'b') {
@@ -138,34 +140,38 @@ export default class App {
       this.view.garage.isResetPressed = false;
       const promiseArr = await this.model.startRace(this.view.garage.cars);
       const racers = await Promise.all(promiseArr);
+      racers.sort((a, b) => (a.engineData.distance / a.engineData.velocity)
+        - (b.engineData.distance / b.engineData.velocity));
       this.view.garage.startRaceAnimation(racers);
-      // this.racers = racers;
-      // racers.forEach((racer) => {
-      //   this.view.garage.startCarAnimation(racer.id, racer.engineData);
-      // });
-      // console.log(this.racers);
-      // for (let i = 0; i < racers.length; i += 1) {
-      //   const racer = racers[i];
-      //   console.log(racer.id);
-      //   console.log(racer.engineData);
-      // }
-
-      // it works
-      // responses.forEach(async (item) => {
-      //   const { id } = item;
-      //   const engineData = await (await item.engineData).json();
-      //   console.log(id, engineData);
-      //   this.view.garage.startCarAnimation(id, engineData);
-      // });
-    }
-    if (e.type === 'startCar') {
-      // console.log('poehali');
-      const response = await this.model.drive(carID);
-      if (response.status === 500) this.view.garage.pauseCarAnimation(target);
-      // race
-      if (response.status === 500 && this.view.garage.racers) {
-        this.view.garage.racers = this.view.garage.racers.filter((racer) => racer.id !== carID);
+      const promises = racers.map((racer) => this.getRacersData(racer));
+      for (let i = 0; i < promises.length; i += 1) {
+        // eslint-disable-next-line no-await-in-loop
+        const response = await promises[i];
+        if (response.status === 200) {
+          if (this.view.garage.isResetPressed) return;
+          const { id } = racers[i];
+          const time = (racers[i].engineData.distance / racers[i].engineData.velocity / 1000)
+            .toFixed(2);
+          const winnerCar = this.view.garage.cars.find((car) => String(car.id) === id) as Car;
+          const winner = { ...winnerCar, time };
+          this.updateWinners(winner);
+          this.view.garage.modal.buildModal(`${winner.name} wont first (${winner.time}s)`);
+          this.view.garage.isResetPressed = false;
+          break;
+        }
       }
     }
+  }
+
+  async getRacersData(racer: { id: string, engineData?: EnginData }) {
+    // console.log('poehali');
+    const response = await this.model.drive(racer.id);
+    // console.log(response.status);
+    if (response.status === 500) this.view.garage.pauseCarAnimation(racer.id);
+    return response;
+    // race
+    // if (response.status === 500 && this.view.garage.racers) {
+    //   this.view.garage.racers = this.view.garage.racers.filter((racer) => racer.id !== carID);
+    // }
   }
 }

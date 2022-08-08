@@ -1,5 +1,6 @@
 import {
-  Car, NewWinner, QueryParam, SortingOrder, SortingType, Winner, WinnersData, WinnersQueryParam,
+  Car, EnginData, NewWinner, QueryParam, SortingOrder,
+  SortingType, Winner, WinnersData, WinnersQueryParam,
 } from '../../interfaces';
 import Api from '../api';
 import cars from '../constants/cars';
@@ -88,8 +89,6 @@ export default class Model {
 
   async updateWinners(winner: NewWinner) {
     const response = await this.api.getWinner(String(winner.id));
-    // const response = await this.api.getWinner(String('10'));
-    console.log(response);
     if (response.status === 404) {
       await this.api.createWinner({
         id: winner.id,
@@ -98,7 +97,6 @@ export default class Model {
       });
     } else if (response.status === 200) {
       const data: Pick<Winner, 'id' | 'wins' | 'time'> = await response.json();
-      console.log(data);
       await this.api.updateWinner(String(winner.id), {
         wins: data.wins + 1,
         time: Number(winner.time) < data.time ? Number(winner.time) : data.time,
@@ -124,7 +122,11 @@ export default class Model {
 
   async startRace(carsArray: Car[]) {
     const carsID = carsArray.map((car) => String(car.id));
-    const responses = carsID.map(async (id) => ({
+    const responses:
+    Promise<{
+      id: string;
+      engineData: EnginData;
+    }>[] = carsID.map(async (id) => ({
       id,
       engineData: await (await this.startEngine(id)).json(),
     }));

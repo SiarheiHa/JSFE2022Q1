@@ -7,7 +7,7 @@ import SVG from '../carSVG';
 import Modal from '../modal/modal';
 
 export const MAX_CARS_COUNT_PER_PAGE = 7;
-const startCarEvent = new Event('startCar');
+// const startCarEvent = new Event('startCar');
 
 export class GarageView {
   callback: (e: Event) => void;
@@ -213,7 +213,8 @@ export class GarageView {
       [{ left: '0px' }, { left: 'calc(100% - 100px)' }],
       { id: carID, duration: time },
     );
-    carImage.dispatchEvent(startCarEvent);
+    // carImage.dispatchEvent(startCarEvent);
+
     carAnimation.play();
     carAnimation.addEventListener('finish', () => {
       carImage.style.left = 'calc(100% - 100px)';
@@ -221,8 +222,9 @@ export class GarageView {
     });
   }
 
-  pauseCarAnimation(target: HTMLElement) {
-    const animation = target.getAnimations()[0];
+  pauseCarAnimation(id: string) {
+    // const animations = document.getAnimations();
+    const animation = document.getAnimations().find((anim) => anim.id === id);
     if (animation) animation.pause();
   }
 
@@ -253,42 +255,43 @@ export class GarageView {
 
   startRaceAnimation(racers: { id: string; engineData: EnginData; }[]) {
     this.racers = racers;
-    racers.forEach((racer) => {
-      this.startCarAnimation(racer.id, racer.engineData);
-    });
-    setTimeout(() => {
-      if (this.isResetPressed) {
-        this.isResetPressed = false;
-        return;
-      }
-      const winner = this.getWinner();
-      if (winner) {
-        this.modal.buildModal(`${winner.name} wont first (${winner.time}s)`);
-        this.updateWinnersCallback(winner);
-      }
-    }, 3000);
+
+    racers.forEach((racer) => this.startCarAnimation(racer.id, racer.engineData));
+    // console.log(res);
+
+    // setTimeout(() => {
+    //   if (this.isResetPressed) {
+    //     this.isResetPressed = false;
+    //     return;
+    //   }
+    //   const winner = this.getWinner();
+    //   if (winner) {
+    //     this.modal.buildModal(`${winner.name} wont first (${winner.time}s)`);
+    //     this.updateWinnersCallback(winner);
+    //   }
+    // }, 3500);
     // console.log(racers);
   }
 
-  getWinner() {
-    if (this.racers) {
-      const raceWinner = this.racers?.reduce((winner, racer) => {
-        const winnerTime = winner.engineData.distance / winner.engineData.velocity;
-        const racerTime = racer.engineData.distance / racer.engineData.velocity;
-        if (winnerTime < racerTime) return winner;
-        return racer;
-      });
-      const winnerCar = this.cars.find((car) => String(car.id) === raceWinner.id);
-      if (winnerCar) {
-        return {
-          ...winnerCar,
-          ...{
-            time: (raceWinner.engineData.distance / raceWinner.engineData.velocity / 1000)
-              .toFixed(2),
-          },
-        };
-      }
-    }
-    return null;
-  }
+  // getWinner() {
+  //   if (this.racers?.length) {
+  //     const raceWinner = this.racers.reduce((winner, racer) => {
+  //       const winnerTime = winner.engineData.distance / winner.engineData.velocity;
+  //       const racerTime = racer.engineData.distance / racer.engineData.velocity;
+  //       if (winnerTime < racerTime) return winner;
+  //       return racer;
+  //     });
+  //     const winnerCar = this.cars.find((car) => String(car.id) === raceWinner.id);
+  //     if (winnerCar) {
+  //       return {
+  //         ...winnerCar,
+  //         ...{
+  //           time: (raceWinner.engineData.distance / raceWinner.engineData.velocity / 1000)
+  //             .toFixed(2),
+  //         },
+  //       };
+  //     }
+  //   }
+  //   return null;
+  // }
 }
