@@ -1,15 +1,10 @@
 import {
-  Car, CarsResponseObj, EngineQueryParam, QueryParam, Winner, WinnersQueryParam,
+  Car, CarsResponseObj, Endpoint, EngineQueryParam, QueryParam, Winner, WinnersQueryParam,
 } from '../interfaces';
 
 const BASE_LINK = 'http://127.0.0.1:3000';
-enum Endpoint {
-  garage = '/garage',
-  engine = '/engine',
-  winners = '/winners',
-}
 
-const generateQueryString = (queryParam?: object) => {
+const generateQueryString = (queryParam?: object): string => {
   if (!queryParam) return '';
   const paramString = Object.keys(queryParam)
     .map((key: string) => `_${key}=${queryParam[key as keyof object]}`)
@@ -17,20 +12,22 @@ const generateQueryString = (queryParam?: object) => {
   return `?${paramString}`;
 };
 
-const makeUrl = (base: string, endpoint: Endpoint, queryParam?: QueryParam | EngineQueryParam) => {
+const makeUrl = (
+  base: string,
+  endpoint: Endpoint,
+  queryParam?: QueryParam | EngineQueryParam,
+): URL => {
   const url = new URL(`${endpoint}${generateQueryString(queryParam)}`, base);
   return url;
 };
 
 export default class Api {
-  baseLink = BASE_LINK;
-
   async getCars(queryParam?: QueryParam): Promise<CarsResponseObj> {
-    const response = await fetch(makeUrl(BASE_LINK, Endpoint.garage, queryParam));
+    const response: Response = await fetch(makeUrl(BASE_LINK, Endpoint.garage, queryParam));
     if (!response.ok) {
       throw new Error('server is not available');
     }
-    const count = response.headers.get('X-Total-Count');
+    const count: string | null = response.headers.get('X-Total-Count');
     const cars: Car[] = await response.json();
     return {
       cars,
@@ -39,7 +36,7 @@ export default class Api {
     };
   }
 
-  createCar(car: Pick<Car, 'name' | 'color'>) {
+  createCar(car: Pick<Car, 'name' | 'color'>): Promise<Response> {
     return fetch(makeUrl(BASE_LINK, Endpoint.garage), {
       method: 'POST',
       headers: {
@@ -49,13 +46,13 @@ export default class Api {
     });
   }
 
-  deleteCar(id: string) {
+  deleteCar(id: string): Promise<Response> {
     return fetch(`${makeUrl(BASE_LINK, Endpoint.garage)}/${id}`, {
       method: 'DELETE',
     });
   }
 
-  updateCar(id: string, car: Pick<Car, 'name' | 'color'>) {
+  updateCar(id: string, car: Pick<Car, 'name' | 'color'>): Promise<Response> {
     return fetch(`${makeUrl(BASE_LINK, Endpoint.garage)}/${id}`, {
       method: 'PUT',
       headers: {
@@ -65,44 +62,15 @@ export default class Api {
     });
   }
 
-  // async getWinners(queryParam?: WinnersQueryParam): Promise<WinnersResponseObj> {
-  //   const response = await fetch(makeUrl(BASE_LINK, Endpoint.winners, queryParam));
-  //   if (!response.ok) {
-  //     throw new Error('server is not available');
-  //   }
-  //   // console.log(response);
-  //   const count = response.headers.get('X-Total-Count');
-  //   const winners: Winner[] = await response.json();
-  //   // console.log(winners);
-  //   return {
-  //     winners,
-  //     count: count ? Number(count) : winners.length,
-  //     page: queryParam?.page ? queryParam.page : 1,
-  //   };
-  // }
-
   getWinners(queryParam?: WinnersQueryParam): Promise<Response> {
     return fetch(makeUrl(BASE_LINK, Endpoint.winners, queryParam));
-  //   if (!response.ok) {
-  //     throw new Error('server is not available');
-  //   }
-  //   // console.log(response);
-  //   const count = response.headers.get('X-Total-Count');
-  //   const winners: Winner[] = await response.json();
-  //   // console.log(winners);
-  //   return {
-  //     winners,
-  //     count: count ? Number(count) : winners.length,
-  //     page: queryParam?.page ? queryParam.page : 1,
-  //   };
-  // }
   }
 
   getWinner(id: string): Promise<Response> {
     return fetch(`${makeUrl(BASE_LINK, Endpoint.winners)}/${id}`);
   }
 
-  createWinner(winner: Pick<Winner, 'id' | 'wins' | 'time'>) {
+  createWinner(winner: Pick<Winner, 'id' | 'wins' | 'time'>): Promise<Response> {
     return fetch(makeUrl(BASE_LINK, Endpoint.winners), {
       method: 'POST',
       headers: {
@@ -112,7 +80,7 @@ export default class Api {
     });
   }
 
-  updateWinner(id: string, winner: Pick<Winner, 'wins' | 'time'>) {
+  updateWinner(id: string, winner: Pick<Winner, 'wins' | 'time'>): Promise<Response> {
     return fetch(`${makeUrl(BASE_LINK, Endpoint.winners)}/${id}`, {
       method: 'PUT',
       headers: {
@@ -122,29 +90,29 @@ export default class Api {
     });
   }
 
-  deleteWinner(id: string) {
+  deleteWinner(id: string): Promise<Response> {
     return fetch(`${makeUrl(BASE_LINK, Endpoint.winners)}/${id}`, {
       method: 'DELETE',
     });
   }
 
-  getCar(id: string) {
+  getCar(id: string): Promise<Response> {
     return fetch(`${makeUrl(BASE_LINK, Endpoint.garage)}/${id}`);
   }
 
-  startEngine(queryParam: EngineQueryParam) {
+  startEngine(queryParam: EngineQueryParam): Promise<Response> {
     return fetch(`${makeUrl(BASE_LINK, Endpoint.engine)}?id=${queryParam.id}&status=${queryParam.status}`, {
       method: 'PATCH',
     });
   }
 
-  stopEngine(queryParam: EngineQueryParam) {
+  stopEngine(queryParam: EngineQueryParam): Promise<Response> {
     return fetch(`${makeUrl(BASE_LINK, Endpoint.engine)}?id=${queryParam.id}&status=${queryParam.status}`, {
       method: 'PATCH',
     });
   }
 
-  drive(queryParam: EngineQueryParam) {
+  drive(queryParam: EngineQueryParam): Promise<Response> {
     return fetch(`${makeUrl(BASE_LINK, Endpoint.engine)}?id=${queryParam.id}&status=${queryParam.status}`, {
       method: 'PATCH',
     });

@@ -85,3 +85,9 @@ export interface EnginData {
 export interface ModalModel {
   buildModal(message: string): void;
 }
+
+export enum Endpoint {
+  garage = '/garage',
+  engine = '/engine',
+  winners = '/winners',
+}
