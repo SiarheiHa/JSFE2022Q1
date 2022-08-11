@@ -7,27 +7,27 @@ import carSVG from '../carSVG';
 export const MAX_WINNERS_COUNT_PER_PAGE = 10;
 
 export default class Winners {
-  callback: (e: Event) => void;
+  private callback: (e: Event) => void;
 
-  page: number = 1;
+  public page: number = 1;
 
-  lastPage: number = 1;
+  public lastPage: number = 1;
 
-  container: HTMLElement | null = null;
+  private container: HTMLElement | null = null;
 
-  count: number = 0;
+  private count: number = 0;
 
-  sort: SortingType = SortingType.id;
+  public sort: SortingType = SortingType.id;
 
-  order: SortingOrder = SortingOrder.asc;
+  public order: SortingOrder = SortingOrder.asc;
 
-  winners: Winner[] = [];
+  private winners: Winner[] = [];
 
   constructor(callback: (e: Event) => void) {
     this.callback = callback;
   }
 
-  drawWinners(data: WinnersData, container: HTMLElement) {
+  public drawWinners(data: WinnersData, container: HTMLElement) {
     this.container = container;
 
     const {
@@ -63,14 +63,14 @@ export default class Winners {
     container.append(title, subtitle, table, paginationButtons);
   }
 
-  updateWinners(winnersData: WinnersData) {
+  public updateWinners(winnersData: WinnersData) {
     if (this.container) {
       this.container.innerHTML = '';
       this.drawWinners(winnersData, this.container);
     }
   }
 
-  createButtonsBlock(buttonsNames: string[]) {
+  private createButtonsBlock(buttonsNames: string[]) {
     const wrapper = createNode({ tag: 'div', classes: ['control__buttons'] });
     const buttons = buttonsNames.map((name: string) => createNode({
       tag: 'button',
@@ -83,7 +83,7 @@ export default class Winners {
     return wrapper;
   }
 
-  createTableRow(cellTag: 'th' | 'td', cellValues: string[]) {
+  private createTableRow(cellTag: 'th' | 'td', cellValues: string[]) {
     const row = createNode({ tag: 'tr' });
     const cells = cellValues.map((value) => {
       const cell = createNode({
@@ -103,11 +103,11 @@ export default class Winners {
     return row;
   }
 
-  buttonsHandler(button: HTMLElement) {
+  private buttonsHandler(button: HTMLElement) {
     button.addEventListener('click', this.callback);
   }
 
-  tableCellHandler(cell: HTMLElement) {
+  private tableCellHandler(cell: HTMLElement) {
     cell.addEventListener('click', (e) => {
       const target = <HTMLElement>e.target;
       if (target.dataset.sort === SortingType.wins || target.dataset.sort === SortingType.time) {

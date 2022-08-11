@@ -7,42 +7,39 @@ import SVG from '../carSVG';
 import Modal from '../modal/modal';
 
 export const MAX_CARS_COUNT_PER_PAGE = 7;
-// const startCarEvent = new Event('startCar');
 
 export class GarageView {
-  callback: (e: Event) => void;
+  private callback: (e: Event) => void;
 
-  updateWinnersCallback: (winner: NewWinner) => void;
+  private updateWinnersCallback: (winner: NewWinner) => void;
 
-  container: HTMLElement | null = null;
+  private container: HTMLElement | null = null;
 
-  carsSection: HTMLElement | null = null;
+  private carsSection: HTMLElement | null = null;
 
-  inputs: {} | GarageInputs = {};
+  public inputs: {} | GarageInputs = {};
 
-  cars: Car[] = [];
+  public cars: Car[] = [];
 
-  selectedCar: Car | undefined;
+  public selectedCar: Car | undefined;
 
-  pressedSelectButton: HTMLElement | null = null;
+  private pressedSelectButton: HTMLElement | null = null;
 
-  page: number = 1;
+  public page: number = 1;
 
-  lastPage: number = 1;
+  public lastPage: number = 1;
 
-  count: number = 0;
+  public count: number = 0;
 
-  carImages: HTMLElement[] = [];
+  private carImages: HTMLElement[] = [];
 
-  racers: { id: string; engineData: EnginData; }[] | undefined;
+  public modal: Modal;
 
-  modal: Modal;
+  public isResetPressed: Boolean = false;
 
-  isResetPressed: Boolean = false;
+  private buttonsA: HTMLButtonElement[] = [];
 
-  buttonsA: HTMLButtonElement[] = [];
-
-  buttonsB: HTMLButtonElement[] = [];
+  private buttonsB: HTMLButtonElement[] = [];
 
   constructor(callback: (e: Event) => void, updateWinnersCallback: (winner: NewWinner) => void) {
     this.callback = callback;
@@ -51,22 +48,20 @@ export class GarageView {
     this.modal = new Modal();
   }
 
-  updateGarage(data: CarsResponseObj) {
+  public updateGarage(data: CarsResponseObj) {
     const newSection = this.createCarsSection(data);
     this.carsSection?.replaceWith(newSection);
     this.carsSection = newSection;
   }
 
-  drawGarage(data: CarsResponseObj, container: HTMLElement) {
+  public drawGarage(data: CarsResponseObj, container: HTMLElement) {
     const controlSection = this.createControlSection();
     this.carsSection = this.createCarsSection(data);
     container.append(controlSection, this.carsSection);
     this.container = container;
   }
 
-  // Put control section in separateclass ?
-
-  createControlSection() {
+  private createControlSection() {
     const controlSection = createNode({ tag: 'section', classes: ['section', 'section__control'] });
     const createCarBlock = this.createInputBlock('create');
     const updateCarBlock = this.createInputBlock('update');
@@ -76,7 +71,7 @@ export class GarageView {
     return controlSection;
   }
 
-  createInputBlock(inputBlockType: 'create' | 'update') {
+  private createInputBlock(inputBlockType: 'create' | 'update') {
     const form = createNode({ tag: 'form', classes: ['form'] });
     const textInput = createNode({ tag: 'input', classes: ['form__input-text'], atributesAdnValues: [['type', 'text']] });
     const colorInput = createNode({ tag: 'input', classes: ['form__input-color'], atributesAdnValues: [['type', 'color']] });
@@ -90,7 +85,7 @@ export class GarageView {
     return form;
   }
 
-  createButtonsBlock(buttonsNames: string[], carID?: number) {
+  private createButtonsBlock(buttonsNames: string[], carID?: number) {
     const wrapper = createNode({ tag: 'div', classes: ['control__buttons'] });
     const buttons = buttonsNames.map((name: string) => {
       const button = createNode({
@@ -110,8 +105,7 @@ export class GarageView {
   }
 
   // cars section
-
-  createCarsSection(data: CarsResponseObj) {
+  private createCarsSection(data: CarsResponseObj) {
     const { cars, count, page } = data;
     this.cars = cars.slice(0, MAX_CARS_COUNT_PER_PAGE);
     this.count = count;
@@ -131,7 +125,7 @@ export class GarageView {
     return wrapper;
   }
 
-  createCar(car:Car) {
+  private createCar(car:Car) {
     const { name, color, id } = car;
     const wrapper = createNode({ tag: 'div', classes: ['car'], atributesAdnValues: [['data-car', `${id}`]] });
     const selectAndRemoveButtons = this.createButtonsBlock(['select', 'remove'], id);
@@ -148,7 +142,7 @@ export class GarageView {
     return wrapper;
   }
 
-  buttonsHandler(button: HTMLElement) {
+  private buttonsHandler(button: HTMLElement) {
     button.addEventListener('click', (e: Event) => {
       // eslint!!
       // button.dataset.button === 'select' ? this.setInputValue(button) : this.callback(e);
@@ -165,7 +159,7 @@ export class GarageView {
     });
   }
 
-  toggleDriveButtons(button: HTMLButtonElement) {
+  private toggleDriveButtons(button: HTMLButtonElement) {
     // eslint!!!
     const pressedButton = button;
     if (button.dataset.button === 'a') {
@@ -177,7 +171,7 @@ export class GarageView {
     }
   }
 
-  toggleSelectedCar(button: HTMLElement) {
+  private toggleSelectedCar(button: HTMLElement) {
     const selectedCar = this.cars.find((car) => button.dataset.car === String(car.id));
     const inputsValues = { name: '', color: '#000000' };
 
@@ -197,24 +191,20 @@ export class GarageView {
     this.setInputsValue(inputsValues);
   }
 
-  setInputsValue(inputsValues: { name: string, color: string }) {
+  private setInputsValue(inputsValues: { name: string, color: string }) {
     (this.inputs as GarageInputs).update.textInput.value = inputsValues.name;
     (this.inputs as GarageInputs).update.colorInput.value = inputsValues.color;
   }
 
-  startCarAnimation(carID: string, engineData: EnginData) {
-    // console.log(carID);
+  public startCarAnimation(carID: string, engineData: EnginData) {
     const carImage = this.carImages.find(
       (image: HTMLElement) => image.dataset.car === carID,
     ) as HTMLElement;
-    // console.log(carImage);
     const time = engineData.distance / engineData.velocity;
     const carAnimation = carImage.animate(
       [{ left: '0px' }, { left: 'calc(100% - 100px)' }],
       { id: carID, duration: time },
     );
-    // carImage.dispatchEvent(startCarEvent);
-
     carAnimation.play();
     carAnimation.addEventListener('finish', () => {
       carImage.style.left = 'calc(100% - 100px)';
@@ -222,13 +212,12 @@ export class GarageView {
     });
   }
 
-  pauseCarAnimation(id: string) {
-    // const animations = document.getAnimations();
+  public pauseCarAnimation(id: string) {
     const animation = document.getAnimations().find((anim) => anim.id === id);
     if (animation) animation.pause();
   }
 
-  stopCarAnimation(carID: string, stopButton: HTMLButtonElement) {
+  public stopCarAnimation(carID: string, stopButton: HTMLButtonElement) {
     if (stopButton.dataset.button === 'reset') {
       document.getAnimations().forEach((animation) => {
         animation.cancel();
@@ -253,45 +242,7 @@ export class GarageView {
     this.toggleDriveButtons(stopButton);
   }
 
-  startRaceAnimation(racers: { id: string; engineData: EnginData; }[]) {
-    this.racers = racers;
-
+  public startRaceAnimation(racers: { id: string; engineData: EnginData; }[]) {
     racers.forEach((racer) => this.startCarAnimation(racer.id, racer.engineData));
-    // console.log(res);
-
-    // setTimeout(() => {
-    //   if (this.isResetPressed) {
-    //     this.isResetPressed = false;
-    //     return;
-    //   }
-    //   const winner = this.getWinner();
-    //   if (winner) {
-    //     this.modal.buildModal(`${winner.name} wont first (${winner.time}s)`);
-    //     this.updateWinnersCallback(winner);
-    //   }
-    // }, 3500);
-    // console.log(racers);
   }
-
-  // getWinner() {
-  //   if (this.racers?.length) {
-  //     const raceWinner = this.racers.reduce((winner, racer) => {
-  //       const winnerTime = winner.engineData.distance / winner.engineData.velocity;
-  //       const racerTime = racer.engineData.distance / racer.engineData.velocity;
-  //       if (winnerTime < racerTime) return winner;
-  //       return racer;
-  //     });
-  //     const winnerCar = this.cars.find((car) => String(car.id) === raceWinner.id);
-  //     if (winnerCar) {
-  //       return {
-  //         ...winnerCar,
-  //         ...{
-  //           time: (raceWinner.engineData.distance / raceWinner.engineData.velocity / 1000)
-  //             .toFixed(2),
-  //         },
-  //       };
-  //     }
-  //   }
-  //   return null;
-  // }
 }

@@ -7,15 +7,15 @@ import createNode from '../utils/createNode';
 import Winners from './winners/winners';
 
 export default class View {
-  header: Header;
+  private header: Header;
 
-  garage: GarageView;
+  public garage: GarageView;
 
-  winners: Winners;
+  public winners: Winners;
 
-  garageContainer: HTMLElement | undefined;
+  private garageContainer: HTMLElement | undefined;
 
-  winnersContainer: HTMLElement | undefined;
+  private winnersContainer: HTMLElement | undefined;
 
   constructor(callback: (e: Event) => void, updateWinnersCallback: (winner: NewWinner) => void) {
     this.header = new Header(this.togglePage.bind(this));
@@ -23,7 +23,7 @@ export default class View {
     this.winners = new Winners(callback);
   }
 
-  drawApp(garageData: CarsResponseObj, winnersData: WinnersData) {
+  public drawApp(garageData: CarsResponseObj, winnersData: WinnersData) {
     this.header.drawHeader();
     const main = createNode({ tag: 'main', classes: ['main'] });
     const wrapper = createNode({ tag: 'div', classes: ['main-wrapper', 'wrapper'] });
@@ -37,7 +37,7 @@ export default class View {
     document.body.append(main);
   }
 
-  togglePage(pageName: Page) {
+  private togglePage(pageName: Page) {
     if (pageName === Page.garage) {
       (this.winnersContainer as HTMLElement).style.display = 'none';
       (this.garageContainer as HTMLElement).style.display = 'block';

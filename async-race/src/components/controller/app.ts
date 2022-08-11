@@ -11,28 +11,28 @@ import { MAX_WINNERS_COUNT_PER_PAGE } from '../view/winners/winners';
 const COUNT_OF_RANDOM_CARS = 100;
 
 export default class App {
-  model: Model;
+  private model: Model;
 
-  view: View;
+  private view: View;
 
   constructor() {
     this.model = new Model();
     this.view = new View(this.eventHandler.bind(this), this.updateWinners.bind(this));
   }
 
-  async start(): Promise<void> {
+  public async start(): Promise<void> {
     const garageData: CarsResponseObj = await this.model.getGarageData();
     const winnersData: WinnersData = await this.model.getWinnersData();
     this.view.drawApp(garageData, winnersData);
   }
 
-  async eventHandler(e: Event): Promise<void> {
+  private async eventHandler(e: Event): Promise<void> {
     const target = <HTMLElement> e.target;
     if (target.closest('.winners-container')) this.winnersEventHandler(e);
     else this.garageEventHandler(e);
   }
 
-  async garageEventHandler(e: Event) {
+  private async garageEventHandler(e: Event) {
     const target = <HTMLElement> e.target;
     const buttonRole = target.dataset.button;
     if (buttonRole === 'a' || buttonRole === 'b' || buttonRole === 'race' || buttonRole === 'reset' || e.type === 'startCar') {
@@ -73,7 +73,7 @@ export default class App {
     }
   }
 
-  winnersEventHandler(e: Event): void {
+  private winnersEventHandler(e: Event): void {
     const target = <HTMLElement> e.target;
     const buttonRole = target.dataset.button;
     const { sort, order } = this.view.winners;
@@ -88,17 +88,17 @@ export default class App {
     });
   }
 
-  async updateView(queryParam?: QueryParam) {
+  private async updateView(queryParam?: QueryParam) {
     const garageData = await this.model.getGarageData(queryParam);
     this.view.garage.updateGarage(garageData);
   }
 
-  async updateWinners(winner: NewWinner) {
+  private async updateWinners(winner: NewWinner) {
     await this.model.updateWinners(winner);
     this.updateWinnersView();
   }
 
-  async updateWinnersView(queryParam: WinnersQueryParam = {
+  private async updateWinnersView(queryParam: WinnersQueryParam = {
     sort: this.view.winners.sort,
     order: this.view.winners.order,
     page: this.view.winners.page,
@@ -108,7 +108,7 @@ export default class App {
     this.view.winners.updateWinners(winnersData);
   }
 
-  async animationHandler(e: Event): Promise<void> {
+  private async animationHandler(e: Event): Promise<void> {
     const target = <HTMLElement> e.target;
     const buttonRole = target.dataset.button;
     const carID = target.dataset.car as string;
@@ -156,7 +156,7 @@ export default class App {
     }
   }
 
-  async getRacersData(racer: { id: string, engineData?: EnginData }) {
+  private async getRacersData(racer: { id: string, engineData?: EnginData }) {
     const response = await this.model.drive(racer.id);
     if (response.status === 500) this.view.garage.pauseCarAnimation(racer.id);
     return response;

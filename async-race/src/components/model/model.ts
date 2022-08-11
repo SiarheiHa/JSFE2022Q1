@@ -10,31 +10,27 @@ import getRandomHEXColor from '../utils/getRandomHEXColor';
 export default class Model {
   api: Api;
 
-  // cars: Car[] = [];
-
-  // carsCount: number = 0;
-
   constructor() {
     this.api = new Api();
   }
 
-  async getGarageData(queryParam?: QueryParam) {
+  public async getGarageData(queryParam?: QueryParam) {
     return this.api.getCars(queryParam);
   }
 
-  async createCar(car: Pick<Car, 'name' | 'color'>) {
+  public async createCar(car: Pick<Car, 'name' | 'color'>) {
     return this.api.createCar(car);
   }
 
-  updateCar(id: string, car: Pick<Car, 'name' | 'color'>) {
+  public updateCar(id: string, car: Pick<Car, 'name' | 'color'>) {
     return this.api.updateCar(id, car);
   }
 
-  async deleteCar(id: string) {
+  public async deleteCar(id: string) {
     return this.api.deleteCar(id);
   }
 
-  async generateRandomCars(COUNT_OF_RANDOM_CARDS: number) {
+  public async generateRandomCars(COUNT_OF_RANDOM_CARDS: number) {
     let i = 0;
     const results = [];
     while (i < COUNT_OF_RANDOM_CARDS) {
@@ -45,20 +41,20 @@ export default class Model {
     return Promise.all(results);
   }
 
-  getRandomCar() {
+  private getRandomCar() {
     return {
       name: this.getRandomCarName(),
       color: getRandomHEXColor(),
     };
   }
 
-  getRandomCarName() {
+  private getRandomCarName() {
     const randomCarManufacturer = getRandomFromArray(cars);
     const model = getRandomFromArray(randomCarManufacturer.models);
     return `${randomCarManufacturer.brand} ${model}`;
   }
 
-  async getWinnersData(queryParam?: WinnersQueryParam): Promise<WinnersData> {
+  public async getWinnersData(queryParam?: WinnersQueryParam): Promise<WinnersData> {
     const response = await this.api.getWinners(queryParam);
     if (!response.ok) {
       throw new Error('server is not available');
@@ -73,11 +69,6 @@ export default class Model {
       winner.name = String(winnersCar?.name);
       winner.color = String(winnersCar?.color);
     }
-
-    // как обойти линт ?
-    // winners.forEach((winner) => {
-    //   winner.color = 'black';
-    // });
     return {
       winners,
       count: count ? Number(count) : winners.length,
@@ -87,7 +78,7 @@ export default class Model {
     };
   }
 
-  async updateWinners(winner: NewWinner) {
+  public async updateWinners(winner: NewWinner) {
     const response = await this.api.getWinner(String(winner.id));
     if (response.status === 404) {
       await this.api.createWinner({
@@ -104,23 +95,23 @@ export default class Model {
     }
   }
 
-  deleteWinner(id: string) {
+  public deleteWinner(id: string) {
     return this.api.deleteWinner(id);
   }
 
-  startEngine(carID: string) {
+  public startEngine(carID: string) {
     return this.api.startEngine({ id: carID, status: 'started' });
   }
 
-  stopEngine(carID: string) {
+  public stopEngine(carID: string) {
     return this.api.stopEngine({ id: carID, status: 'stopped' });
   }
 
-  drive(carID: string) {
+  public drive(carID: string) {
     return this.api.drive({ id: carID, status: 'drive' });
   }
 
-  async startRace(carsArray: Car[]) {
+  public async startRace(carsArray: Car[]) {
     const carsID = carsArray.map((car) => String(car.id));
     const responses:
     Promise<{
